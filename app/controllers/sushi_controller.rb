@@ -1,10 +1,13 @@
 class SushiController < ApplicationController
+
   def index
     @sushi = Sushi.all
   end
+
   def edit
     @sushi = Sushi.find(params[:id])
   end
+
   def update
     @sushi = Sushi.find(params[:id])
     if @sushi.update_attributes(sushi_params)
@@ -12,6 +15,12 @@ class SushiController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def destroy
+    @sushi = Sushi.find(params[:id])
+    @sushi.destroy
+    redirect_to('/sushi')
   end
   def sushi_params
     params.require(:sushi).permit(:name, :endpoint, :cust_id, :req_id, :report_start, :report_end, :password)
