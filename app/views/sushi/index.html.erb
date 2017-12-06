@@ -2,7 +2,13 @@
 <ul>
 <% @sushi.each do |s| %>
   <li>
-    <%= s %>
+    <%= s.name %>
+    <%= s.endpoint %>
+    <%= s.cust_id %>
+    <%= s.req_id %>
+    <%= s.report_start %>
+    <%= s.report_end %>
+    <%= s.password %>
   </li>
   <% end %>
 </ul>
