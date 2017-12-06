@@ -1,0 +1,34 @@
+<h1> Create New Sushi Connection </h1>
+<%= form_for @sushi, url: {action: "create"} do |f| %>
+  <label>
+    Name
+    <%= f.text_field :name %>
+  </label>
+  <label>
+    Endpoint
+    <%= f.text_field :endpoint %>
+  </label>
+  <label>
+    Customer ID
+    <%= f.text_field :cust_id %>
+  </label>
+  <label>
+    Requestor ID
+    <%= f.text_field :req_id %>
+  </label>
+  <label>
+    Report Start
+    <%= f.text_field :report_start %>
+  </label>
+  <label>
+    Report End
+    <%= f.text_field :report_end %>
+  </label>
+  <label>
+    Password
+    <%= f.text_field :password %>
+  </label>
+  <label>
+    <%= f.submit "Create" %>
+  </label
+<% end %>

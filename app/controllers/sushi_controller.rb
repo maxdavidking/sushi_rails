@@ -4,6 +4,16 @@ class SushiController < ApplicationController
     @sushi = Sushi.all
   end
 
+  def new
+    @sushi = Sushi.new
+  end
+
+  def create
+    sushi = Sushi.new(sushi_params)
+    sushi.save
+    redirect_to('/sushi')
+  end
+
   def edit
     @sushi = Sushi.find(params[:id])
   end
