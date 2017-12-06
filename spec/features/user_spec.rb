@@ -4,6 +4,7 @@ RSpec.describe "User features" do
   describe "List user information" do
     it "lists all user profiles" do
       User.create!(name: "Max King", organization: "IIT")
+      User.create!(name: "test", organization: "test")
 
       visit('/')
       click_link('User Profile')
