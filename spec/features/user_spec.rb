@@ -17,6 +17,7 @@ RSpec.describe "User features" do
       expect(page).to have_content('Max King')
     end
   end
+  
   describe "Add user information" do
     it "allows users to create a profile" do
       user = User.create!(name: "Brian", organization: "IIT")
