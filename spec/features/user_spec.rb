@@ -34,11 +34,17 @@ RSpec.describe "User features" do
 
   describe "Edit user information" do
     it "allows users to edit their profiles" do
+      user = User.create!(name: "Brian", organization: "IIT")
+
       create_users
       view_users
       first(:link, 'Edit Profile').click
-      #fill_in 'Name', with: "Adam"
-      expect(page).to have_content('Adam')
+      fill_in 'Name', with: "#{user.name}"
+      click_on('Edit')
+
+      visit('/user')
+      expect(page).to have_content "#{user.name}"
+
     end
   end
 end
