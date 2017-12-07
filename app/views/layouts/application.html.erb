@@ -3,7 +3,28 @@
   <head>
     <title>SushiRails</title>
     <%= csrf_meta_tags %>
-
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <%= link_to 'Counter Sushi', root_path, class: 'navbar-brand' %>
+        </div>
+        <div id="navbar">
+          <% if current_user %>
+          <ul class="nav navbar-nav pull-right">
+            <li><%= image_tag current_user.image_url, alt: current_user.name %></li>
+            <li><%= link_to 'Log Out', logout_path, method: :delete %></li>
+          </ul>
+          <% else %>
+          <ul class="nav navbar-nav">
+            <li><%= link_to 'Google', '/auth/google' %></li>
+          </ul>
+          <ul class="nav navbar-nav">
+            <li><%= link_to 'Twitter', '/auth/twitter' %></li>
+          </ul>
+          <% end %>
+        </div>
+      </div>
+    </nav>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
