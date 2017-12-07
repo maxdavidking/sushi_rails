@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "User features" do
   let(:create_users) do
-    User.create!(name: "Max King", organization: "IIT")
-    User.create!(name: "test", organization: "test")
+    User.create!(name: "David King", organization: "IIT", uid: "0001", provider: "google")
+    User.create!(name: "test123", organization: "test", uid: "0001111", provider: "google")
   end
   let(:view_users) do
     visit('/')
@@ -14,13 +14,13 @@ RSpec.describe "User features" do
     it "lists all user profiles" do
       create_users
       view_users
-      expect(page).to have_content('Max King')
+      expect(page).to have_content('David King')
     end
   end
-  
+
   describe "Add user information" do
     it "allows users to create a profile" do
-      user = User.create!(name: "Brian", organization: "IIT")
+      user = User.create!(name: "Brian", organization: "IIT", uid: "0001110", provider: "google")
 
       view_users
       click_link('Create Profile')
@@ -35,7 +35,7 @@ RSpec.describe "User features" do
 
   describe "Edit user information" do
     it "allows users to edit their profiles" do
-      user = User.create!(name: "Brian", organization: "IIT")
+      user = User.create!(name: "Brian", organization: "IIT", uid: "0001110", provider: "google")
 
       create_users
       view_users
