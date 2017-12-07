@@ -1,8 +1,7 @@
 <h1> User Profiles </h1>
 <%= link_to 'Create Profile', new_user_path %>
-
-
-<% @user.each do |u| %>
+<p><% @user.name %></p>
+<% @users.each do |u| %>
   <li>
     <%= u.id %>
     <%= u.name %>
