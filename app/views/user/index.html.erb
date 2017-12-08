@@ -3,7 +3,12 @@
 <%= link_to 'Edit Profile', edit_user_path(current_user.id) %>
 
 <ul>
-  <li>
+  <label>
+    Name:
     <%= current_user.name %>
-  </li>
+  </label>
+  <label>
+    Organization:
+    <%= current_user.organization %>
+  </label>
 </ul>
