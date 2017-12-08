@@ -13,6 +13,7 @@
           <ul class="nav navbar-nav pull-right">
             <li><%= image_tag current_user.image_url, alt: current_user.name %></li>
             <li><%= link_to 'Log Out', logout_path, method: :delete %></li>
+            <li><%= link_to 'Edit Profile', edit_user_path(current_user.id) %></li>
           </ul>
           <% else %>
           <ul class="nav navbar-nav">

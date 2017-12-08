@@ -1,50 +1,32 @@
 require 'rails_helper'
 
 RSpec.describe "User features" do
-  let(:create_users) do
-    User.create!(name: "David King", organization: "IIT", uid: "0001", provider: "google")
-    User.create!(name: "test123", organization: "test", uid: "0001111", provider: "google")
+  let(:create_user) do
+    User.create!(id: 100, name: "test123", organization: "test", uid: "0001111", provider: "google")
   end
-  let(:view_users) do
-    visit('/')
-    click_link('User Profile')
+  let(:view_user) do
+    visit('/user/100/edit')
   end
-
   describe "List user information" do
-    it "lists all user profiles" do
-      create_users
-      view_users
-      expect(page).to have_content('David King')
-    end
-  end
-
-  describe "Add user information" do
-    it "allows users to create a profile" do
-      user = User.create!(name: "Brian", organization: "IIT", uid: "0001110", provider: "google")
-
-      view_users
-      click_link('Create Profile')
-      fill_in 'Name', with: user.name
-      fill_in 'Organization', with: user.organization
-      click_on('Create')
-      visit('/user')
-
-      expect(page).to have_content "#{user.name}"
+    it "lists one user profile data" do
+      create_user
+      view_user
+      expect(page).to have_content('test123')
     end
   end
 
   describe "Edit user information" do
     it "allows users to edit their profiles" do
-      user = User.create!(name: "Brian", organization: "IIT", uid: "0001110", provider: "google")
+      current_user = User.create!(name: "Brian", organization: "IIT", uid: "0001110", provider: "google")
+      create_user
+      view_user
+      expect(page).to have_content('test123')
 
-      create_users
-      view_users
-      first(:link, 'Edit Profile').click
-      fill_in 'Name', with: "#{user.name}"
+      fill_in 'Name', with: "#{current_user.name}"
       click_on('Edit')
 
       visit('/user')
-      expect(page).to have_content "#{user.name}"
+      expect(page).to have_content "#{current_user.name}"
 
     end
   end
