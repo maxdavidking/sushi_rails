@@ -13,7 +13,7 @@ RSpec.describe "User features" do
     it "lists one user profile data" do
       create_user
       view_user
-      expect(page).to have_content('Name')
+      expect(page).to have_content('Organization')
     end
   end
 
