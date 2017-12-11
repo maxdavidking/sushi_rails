@@ -7,8 +7,7 @@ RSpec.describe "Sushi feature" do
     Sushi.create!(name: "acm", endpoint: "http://sushi4.scholarlyiq.com/SushiService.svc", cust_id: "X124552", req_id: "90633e00-fc53-4f70-9ae0-ac2c33d00014", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: @user.id)
   end
   let(:view_sushi_connections) do
-    visit('/')
-    click_link('Sushi Connections')
+    visit('/sushi')
   end
   describe "list all of the sushi connections for each user" do
     it "lists sushi connection information" do
