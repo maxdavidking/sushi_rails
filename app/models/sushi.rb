@@ -1,4 +1,5 @@
 class Sushi < ApplicationRecord
+  belongs_to :user
   validates :name, presence: true
   validates :endpoint, presence: true
   validates :cust_id, presence: true

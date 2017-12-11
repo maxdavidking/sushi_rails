@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :sushi
   validates :name, presence: true
   validates :uid, presence: true
   validates :provider, presence: true
