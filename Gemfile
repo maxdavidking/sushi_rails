@@ -46,6 +46,9 @@ group :development, :test do
   gem 'rspec-rails', '3.6.1'
   gem 'factory_bot_rails'
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'warden'
+  gem 'warden-rspec-rails'
+  gem 'selenium-webdriver'
 end
 
 group :development do
