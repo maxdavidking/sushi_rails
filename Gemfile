@@ -49,6 +49,7 @@ group :development, :test do
   gem 'warden'
   gem 'warden-rspec-rails'
   gem 'selenium-webdriver'
+  gem 'rack_session_access'
 end
 
 group :development do
