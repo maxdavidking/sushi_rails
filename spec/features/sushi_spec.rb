@@ -1,10 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "Sushi feature" do
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id])
+  end
   let(:create_user_sushi) do
     @user = User.create!(id: 100, name: "Brian", organization: "test", uid: "0001111", provider: "google")
+    @user2 = User.create!(id: 101, name: "Max", organization: "IIT", uid: "1111111", provider: "google")
     Sushi.create!(name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: @user.id)
-    Sushi.create!(name: "acm", endpoint: "http://sushi4.scholarlyiq.com/SushiService.svc", cust_id: "X124552", req_id: "90633e00-fc53-4f70-9ae0-ac2c33d00014", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: @user.id)
+    Sushi.create!(name: "acm", endpoint: "http://sushi4.scholarlyiq.com/SushiService.svc", cust_id: "X124552", req_id: "90633e00-fc53-4f70-9ae0-ac2c33d00014", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: @user2.id)
   end
   let(:view_sushi_connections) do
     visit('/sushi')
@@ -12,6 +16,7 @@ RSpec.describe "Sushi feature" do
   describe "list all of the sushi connections for each user" do
     it "lists sushi connection information" do
       create_user_sushi
+      current_user
       view_sushi_connections
 
       expect(page).to have_content('jstor')
@@ -60,6 +65,16 @@ RSpec.describe "Sushi feature" do
       first(:link, 'Delete').click
 
       expect(page).to_not have_content('jstor')
+    end
+  end
+  describe "List sushi connections for the current_user" do
+    it "only lists a subset of connections" do
+      create_user_sushi
+
+
+      view_sushi_connections
+      expect(page).to have_content('jstor')
+      expect(page).to_not have_content('acm')
     end
   end
 end

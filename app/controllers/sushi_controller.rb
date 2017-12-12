@@ -1,7 +1,7 @@
 class SushiController < ApplicationController
 
   def index
-    @sushi = Sushi.all
+    @sushi = Sushi.where(user_id: session[:user_id])
   end
 
   def new
@@ -33,6 +33,6 @@ class SushiController < ApplicationController
     redirect_to('/sushi')
   end
   def sushi_params
-    params.require(:sushi).permit(:name, :endpoint, :cust_id, :req_id, :report_start, :report_end, :password)
+    params.require(:sushi).permit(:name, :endpoint, :cust_id, :req_id, :report_start, :report_end, :password, :user_id)
   end
 end
