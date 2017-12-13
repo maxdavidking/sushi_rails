@@ -30,9 +30,17 @@ RSpec.describe 'Sushi Controller' do
       fill_in "Report Start", with: conn.report_start
       fill_in "Report End", with: conn.report_end
       fill_in "Password", with: conn.password
-      visit('/sushi')
+      click_button('Create')
 
       expect(page).to have_content('science direct')
+    end
+
+    it "automatically populates the user id field with the user's session ID" do
+      sign_in
+      visit('/sushi')
+      click_link("Create Sushi Connection")
+
+      page.has_selector?('input', :text => current_user.id)
     end
 
     it "edits sushi connection information" do
@@ -57,7 +65,7 @@ RSpec.describe 'Sushi Controller' do
       expect(page).to_not have_content('jstor')
     end
 
-    it "only lists a subset of connections" do
+    it "only lists the sushi connections for a logged in user" do
       sign_in
       User.create!(id: 100, name: "Max", organization: "IIT", uid: 1000000, provider: 'google')
       Sushi.create!(name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id)
