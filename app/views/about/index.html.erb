@@ -10,11 +10,11 @@
         <% if current_user %>
           <ul class="nav navbar-nav">
             <li><%= link_to 'Sushi Connections', sushi_index_path %></li>
-            <li> <h4 class="text-muted"> Welcome, <%= current_user.name  %> </h4></li>
           </ul>
         <ul class="nav navbar-nav pull-right">
           <li><%= image_tag current_user.image_url, alt: current_user.name %></li>
           <li><%= link_to 'Log Out', logout_path, method: :delete %></li>
+          <li> <p class="text-muted"><%= current_user.name  %> </p> </li>
           <li><%= link_to 'Edit Profile', edit_user_path(current_user.id) %></li>
         </ul>
         <% else %>
