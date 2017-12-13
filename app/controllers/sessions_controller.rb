@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     if current_user
       session.delete(:user_id)
     end
-    flash[:success] = "Authentication failed."
+    flash[:success] = "Logged out"
     redirect_to root_path
   end
 end

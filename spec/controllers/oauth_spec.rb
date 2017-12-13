@@ -17,7 +17,7 @@ RSpec.describe 'OAuth logins' do
       visit '/'
       expect(page).to have_content("Google")
       click_link "Google"
-      expect(page).to have_content('Authentication failed.')
+      expect(page).to have_content('Logged out')
     end
   end
 end
