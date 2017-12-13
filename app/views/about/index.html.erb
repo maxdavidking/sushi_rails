@@ -1,4 +1,34 @@
 <div class="jumbotron">
   <h1>Welcome!</h1>
   <p>Authenticate via one of the social networks to get started.</p>
+  <nav class="navbar navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <%= link_to 'Counter Sushi', root_path, class: 'navbar-brand' %>
+      </div>
+      <div id="navbar">
+        <% if current_user %>
+          <ul class="nav navbar-nav">
+            <li><%= link_to 'Sushi Connections', sushi_index_path %></li>
+            <li> <h4 class="text-muted"> Welcome, <%= current_user.name  %> </h4></li>
+          </ul>
+        <ul class="nav navbar-nav pull-right">
+          <li><%= image_tag current_user.image_url, alt: current_user.name %></li>
+          <li><%= link_to 'Log Out', logout_path, method: :delete %></li>
+          <li><%= link_to 'Edit Profile', edit_user_path(current_user.id) %></li>
+        </ul>
+        <% else %>
+        <ul class="nav navbar-nav">
+          <li><%= link_to 'Google', '/auth/google' %></li>
+        </ul>
+        <% end %>
+        <div class="container">
+          <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>">
+            <%= value %>
+          </div>
+          <% end %>
+      </div>
+    </div>
+    </nav>
 </div>

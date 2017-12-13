@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   root to: 'about#index'
   get '/auth/:provider/callback', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+  get '/auth/failure', to: 'sessions#destroy'
 end
