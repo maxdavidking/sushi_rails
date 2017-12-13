@@ -7,7 +7,7 @@ RSpec.describe 'Sushi Controller' do
     click_link "Google"
   end
 
-  describe "User login and sushi actions", :type => :feature do
+  describe "Sushi CRUD for logged in user", :type => :feature do
     include ApplicationHelper
     it "lists all sushi connection information for logged in user" do
       sign_in
