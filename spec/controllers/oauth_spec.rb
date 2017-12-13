@@ -19,6 +19,5 @@ RSpec.describe 'OAuth logins' do
       click_link "Google"
       expect(page).to have_content('Authentication failed.')
     end
-
   end
 end
