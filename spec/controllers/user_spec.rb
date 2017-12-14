@@ -11,8 +11,8 @@ RSpec.describe "User features" do
   describe "User login actions", :type => :feature do
     it "lists logged in user's profile data" do
       sign_in
-      click_link "Edit Profile"
-      expect(page).to have_content('Organization')
+      click_link "user"
+      expect(page).to have_content('mockuser')
     end
     it "allows users to edit their profiles" do
       sign_in
