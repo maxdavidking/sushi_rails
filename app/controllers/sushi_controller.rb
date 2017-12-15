@@ -27,6 +27,60 @@ class SushiController < ApplicationController
     end
   end
 
+  def test
+    #Set up client for connection
+    client = Savon.client(
+    wsdl: "http://www.niso.org/schemas/sushi/counter_sushi4_0.wsdl",
+    endpoint: "http://sushi4.scholarlyiq.com/SushiService.svc",
+    #Possible namespaces required by WSDL
+    namespaces:{
+      "xmlns:tns" => "SushiService",
+      "xmlns:sc" => "http://www.niso.org/schemas/sushi/counter",
+      "xmlns:xsd" => "http://www.w3.org/2001/XMLSchema",
+      "xmlns:soapenv" => "http://schemas.xmlsoap.org/soap/envelope/",
+      "xmlns:sus" => "http://www.niso.org/schemas/sushi",
+      "xmlns:soap" => "http://schemas.xmlsoap.org/wsdl/soap",
+      "xmlns:soap12" => "http://schemas.xmlsoap.org/wsdl/soap12/"
+      },
+      convert_request_keys_to: :none,
+      #Log default is false, unless specified by user
+      logger: Rails.logger,
+      log: true,
+      log_level: :debug,
+      #Pretty Print is dependent on logging being on
+      pretty_print_xml: true,
+      env_namespace: :soapenv
+    )
+      #Send out call for data, passing all parameters for login/data
+    @response = client.call(:get_report, message: {
+      "sus:Requestor" => {
+        "sus:ID" => "90633e00-fc53-4f70-9ae0-ac2c33d00014",
+        "sus:Name" => "Blank"
+        #"sus:Email" => "#{@options[:password]}"
+      },
+      "sus:CustomerReference" => {
+        "sus:ID" => "X124552"
+      },
+      "sus:ReportDefinition" => {
+        "sus:Filters" => {
+            "sus:UsageDateRange" => {
+            "sus:Begin" => "2016-01-01",
+            "sus:End" => "2016-12-31"
+            },
+          },
+        },
+        :attributes! => {
+          "sus:ReportDefinition" => {
+            "Release" => "4",
+            "Name" => "JR1"
+          },
+        },
+      } )
+      puts "Fetching report..."
+      #@file = File.open("raw_xml/#{@options[:customer]}-#{Time.now.strftime("%Y%m%d")}.xml", "w+")
+      #File.write(@file, xml.to_xml)
+  end
+
   def destroy
     @sushi = Sushi.find(params[:id])
     @sushi.destroy

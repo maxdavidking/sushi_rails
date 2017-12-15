@@ -10,6 +10,7 @@
     <%= s.report_start %>
     <%= s.report_end %>
     <%= s.password %>
+    <%= link_to 'Test Connection', test_sushi_index_path%>
     <%= link_to 'Edit Connection', edit_sushi_path(s.id) %>
     <%= link_to 'Delete', sushi_path(s.id), method: :delete, data: {confirm: "Are you sure?"} %>
   </li>
