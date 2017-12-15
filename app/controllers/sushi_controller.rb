@@ -28,10 +28,12 @@ class SushiController < ApplicationController
   end
 
   def test
+    @sushi = Sushi.find(params[:id])
     #Set up client for connection
+    begin
     client = Savon.client(
     wsdl: "http://www.niso.org/schemas/sushi/counter_sushi4_0.wsdl",
-    endpoint: "http://sushi4.scholarlyiq.com/SushiService.svc",
+    endpoint: @sushi.endpoint,
     #Possible namespaces required by WSDL
     namespaces:{
       "xmlns:tns" => "SushiService",
@@ -54,18 +56,18 @@ class SushiController < ApplicationController
       #Send out call for data, passing all parameters for login/data
     @response = client.call(:get_report, message: {
       "sus:Requestor" => {
-        "sus:ID" => "90633e00-fc53-4f70-9ae0-ac2c33d00014",
+        "sus:ID" => @sushi.req_id,
         "sus:Name" => "Blank"
         #"sus:Email" => "#{@options[:password]}"
       },
       "sus:CustomerReference" => {
-        "sus:ID" => "X124552"
+        "sus:ID" => @sushi.cust_id
       },
       "sus:ReportDefinition" => {
         "sus:Filters" => {
             "sus:UsageDateRange" => {
-            "sus:Begin" => "2016-01-01",
-            "sus:End" => "2016-12-31"
+            "sus:Begin" => @sushi.report_start,
+            "sus:End" => @sushi.report_end
             },
           },
         },
@@ -76,7 +78,9 @@ class SushiController < ApplicationController
           },
         },
       } )
-      puts "Fetching report..."
+    rescue
+      @response = ""
+    end
       #@file = File.open("raw_xml/#{@options[:customer]}-#{Time.now.strftime("%Y%m%d")}.xml", "w+")
       #File.write(@file, xml.to_xml)
   end

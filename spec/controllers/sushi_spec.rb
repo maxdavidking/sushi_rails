@@ -17,12 +17,20 @@ RSpec.describe 'Sushi Controller' do
       expect(page).to have_content('jstor')
     end
 
-    it "can test the sushi connection" do
+    it "can test the sushi connection successfully" do
       sign_in
-      Sushi.create!(name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id)  
+      Sushi.create!(name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id)
       visit('/sushi')
       click_on('Test Connection')
       expect(page).to have_content('Success')
+    end
+
+    it 'can test the sushi connection and provide failure message on fail' do
+      sign_in
+      Sushi.create!(name: "jstor", endpoint: "https://www.badurl.com", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id)
+      visit('/sushi')
+      click_on('Test Connection')
+      expect(page).to have_content('Failure')
     end
 
     it "creates a new sushi connection" do
