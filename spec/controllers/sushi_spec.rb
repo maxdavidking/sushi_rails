@@ -30,6 +30,7 @@ RSpec.describe 'Sushi Controller' do
       Sushi.create!(name: "jstor", endpoint: "https://www.badurl.com", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id)
       visit('/sushi')
       click_on('Test Connection')
+      expect(page).to have_content('badurl')
       expect(page).to have_content('Failure')
     end
 

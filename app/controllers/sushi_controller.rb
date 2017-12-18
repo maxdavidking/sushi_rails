@@ -30,7 +30,6 @@ class SushiController < ApplicationController
   def test
     @sushi = Sushi.find(params[:id])
     #Set up client for connection
-    begin
     client = Savon.client(
     wsdl: "http://www.niso.org/schemas/sushi/counter_sushi4_0.wsdl",
     endpoint: @sushi.endpoint,
@@ -80,7 +79,6 @@ class SushiController < ApplicationController
       } )
     rescue
       @response = ""
-    end
       #@file = File.open("raw_xml/#{@options[:customer]}-#{Time.now.strftime("%Y%m%d")}.xml", "w+")
       #File.write(@file, xml.to_xml)
   end

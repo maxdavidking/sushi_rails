@@ -1,6 +1,14 @@
 <h1> Test Sushi Connection </h1>
 <% if @response.blank? %>
   <p> Failure </p>
+  <p> Check your connection info: </p>
+    <%= @sushi.endpoint %>
+    <%= @sushi.req_id %>
+    <%= @sushi.cust_id %>
+    <%= @sushi.report_start %>
+    <%= @sushi.report_end %>
+    <%= @sushi.password %>
+    <%= @fault_code %>
   <% else %>
     <p> Success </p>
   <% end %>
