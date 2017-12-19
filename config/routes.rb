@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :sushi do
     collection do
       get ':id/test', to: 'sushi#test'
+      get ':id/call', to: 'sushi#call'
     end
   end
   resources :user

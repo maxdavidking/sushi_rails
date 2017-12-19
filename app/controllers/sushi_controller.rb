@@ -1,5 +1,4 @@
 class SushiController < ApplicationController
-
   def index
     @sushi = Sushi.where(user_id: session[:user_id])
   end
@@ -81,6 +80,17 @@ class SushiController < ApplicationController
       @response = ""
       #@file = File.open("raw_xml/#{@options[:customer]}-#{Time.now.strftime("%Y%m%d")}.xml", "w+")
       #File.write(@file, xml.to_xml)
+  end
+
+  def call
+    @sushi = Sushi.find(params[:id])
+    helpers.sushi_call
+    helpers.months_math(@sushi.report_start, @sushi.report_end)
+    helpers.count_months
+    respond_to do |format|
+      format.html
+      format.csv { send_data helpers.csv_open, filename: "users-#{Date.today}.csv" }
+    end
   end
 
   def destroy

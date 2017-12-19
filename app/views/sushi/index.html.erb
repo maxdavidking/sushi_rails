@@ -10,6 +10,7 @@
     <%= s.report_start %>
     <%= s.report_end %>
     <%= s.password %>
+    <%= link_to 'Get Counter Report', :controller => :sushi, :action => :call, :id => (s.id), :format => "csv"%>
     <%= link_to 'Test Connection', :controller => :sushi, :action => :test, :id => (s.id)%>
     <%= link_to 'Edit Connection', edit_sushi_path(s.id) %>
     <%= link_to 'Delete', sushi_path(s.id), method: :delete, data: {confirm: "Are you sure?"} %>
