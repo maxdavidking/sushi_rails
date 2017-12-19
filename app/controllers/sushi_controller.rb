@@ -84,12 +84,16 @@ class SushiController < ApplicationController
 
   def call
     @sushi = Sushi.find(params[:id])
-    helpers.sushi_call
-    helpers.months_math(@sushi.report_start, @sushi.report_end)
-    helpers.count_months
-    respond_to do |format|
-      format.html
-      format.csv { send_data helpers.csv_open, filename: "users-#{Date.today}.csv" }
+    begin
+      helpers.sushi_call
+      helpers.months_math(@sushi.report_start, @sushi.report_end)
+      helpers.count_months
+      respond_to do |format|
+        format.html
+        format.csv { send_data helpers.csv_open, filename: "users-#{Date.today}.csv" }
+      end
+    rescue
+      redirect_to action: "call", id: @sushi.id
     end
   end
 

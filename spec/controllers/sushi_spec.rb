@@ -23,6 +23,14 @@ RSpec.describe 'Sushi Controller' do
       click_on('Get Counter Report')
       expect(page).to have_content('Requestor ID')
     end
+    it "fails gracefully on unsuccessful sushi report request" do
+      sign_in
+      Sushi.create!(name: "jstor", endpoint: "https://www.badurl.com", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id)
+      visit('/sushi')
+      click_on('Get Counter Report')
+      expect(page).to have_content('Failure')
+      expect(page).to have_content('badurl')
+    end
 
     it "can test the sushi connection successfully" do
       sign_in
