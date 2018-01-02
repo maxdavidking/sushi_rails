@@ -39,7 +39,7 @@ class SushiController < ApplicationController
       helpers.count_months
       respond_to do |format|
         format.html
-        format.csv { send_data helpers.csv_open, filename: "users-#{Date.today}.csv" }
+        format.csv { send_data helpers.csv_open, filename: "#{@sushi.name}-#{Date.today}.csv" }
       end
     rescue
       redirect_to action: "index"
