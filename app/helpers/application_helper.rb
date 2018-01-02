@@ -50,8 +50,6 @@ module ApplicationHelper
       } )
     rescue
       @response = ""
-      #@file = File.open("raw_xml/#{@options[:customer]}-#{Time.now.strftime("%Y%m%d")}.xml", "w+")
-      #File.write(@file, xml.to_xml)
   end
   def months_math(date1, date2)
     date1parsed = Date.parse(date1)
