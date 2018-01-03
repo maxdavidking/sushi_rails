@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>SushiRails</title>
-    <%= csrf_meta_tags %>
-        <div id="navbar navbar-default navbar-fixed-top">
-          <div class="container">
-            <ul class="nav navbar-nav">
-              <li><%= link_to 'Home', root_path %> </li>
-              <% if current_user %>
-              <li><%= link_to 'Sushi Connections', sushi_index_path %></li>
-              <li> <h4 class="text-muted"> Welcome, <%= current_user.name  %> </h4></li>
-            </ul>
-            <ul class="nav navbar-nav pull-right">
-              <li><%= link_to image_tag(current_user.image_url, alt: current_user.name, title: 'User Profile'), user_index_path %></li>
-              <li><%= link_to 'Log Out', logout_path, method: :delete %></li>
-              <li><%= link_to 'Edit Profile', edit_user_path(current_user.id) %></li>
-            </ul>
-          </div>
-        </div>
-          <% else %>
-            <li><%= link_to 'Google', '/auth/google' %></li>
-          </ul>
-          <% end %>
-          <% flash.each do |key, value| %>
-          <div class="alert alert-<%= key %>">
-            <%= value %>
-          </div>
+<head>
+  <title>SushiRails</title>
+  <%= csrf_meta_tags %>
+    <div id="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <ul class="nav navbar-nav">
+          <li><%= link_to 'Home', root_path %> </li>
+          <% if current_user %>
+          <li><%= link_to 'Sushi Connections', sushi_index_path %></li>
+          <li> <h4 class="text-muted"> Welcome, <%= current_user.name  %> </h4></li>
+        </ul>
+        <ul class="nav navbar-nav pull-right">
+          <li><%= link_to image_tag(current_user.image_url, alt: current_user.name, title: 'User Profile'), user_index_path %></li>
+          <li><%= link_to 'Log Out', logout_path, method: :delete %></li>
+          <li><%= link_to 'Edit Profile', edit_user_path(current_user.id) %></li>
+        </ul>
+      </div>
+    </div>
+        <% else %>
+          <li><%= link_to 'Google', '/auth/google' %></li>
+        </ul>
+        <% end %>
+        <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>">
+          <%= value %>
         </div>
       </div>
-          <% end %>
-        </div>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
-
-  <body>
+    </div>
+        <% end %>
+  </div>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+<body>
+  <div class="container">
     <%= yield %>
-  </body>
+  </div>
+</body>
 </html>
