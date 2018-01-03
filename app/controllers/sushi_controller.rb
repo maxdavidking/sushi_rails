@@ -11,7 +11,6 @@ class SushiController < ApplicationController
     @sushi = Sushi.new(sushi_params)
     if @sushi.save
       render json: @sushi
-      redirect_to('/sushi')
     else
       render json: @sushi.errors, status: :unprocessable_entity
     end
