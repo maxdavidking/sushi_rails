@@ -1,4 +1,4 @@
-@Sushi = React.createClass
+@Sushis = React.createClass
   getInitialState: ->
     sushi: @props.data
   getDefaultProps: ->
