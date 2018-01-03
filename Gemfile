@@ -22,6 +22,7 @@ gem 'bootstrap-sass', '~> 3.3.7'
 gem 'jquery-rails'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
+gem 'react-rails', '~> 1.0'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
