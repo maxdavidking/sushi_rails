@@ -8,9 +8,13 @@ class SushiController < ApplicationController
   end
 
   def create
-    sushi = Sushi.new(sushi_params)
-    sushi.save
-    redirect_to('/sushi')
+    @sushi = Sushi.new(sushi_params)
+    if @sushi.save
+      render json: @sushi
+      redirect_to('/sushi')
+    else
+      render json: @sushi.errors, status: :unprocessable_entity
+    end
   end
 
   def edit
