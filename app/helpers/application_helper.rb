@@ -51,6 +51,7 @@ module ApplicationHelper
     rescue
       @response = ""
   end
+
   def months_math(date1, date2)
     date1parsed = Date.parse(date1)
     date2parsed = Date.parse(date2)
@@ -188,5 +189,4 @@ module ApplicationHelper
       end
     end
   end
-
 end
