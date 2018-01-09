@@ -53,7 +53,7 @@ class SushiController < ApplicationController
   def destroy
     @sushi = Sushi.find(params[:id])
     @sushi.destroy
-    redirect_to('/sushi')
+    head :no_content
   end
   def sushi_params
     params.require(:sushi).permit(:name, :endpoint, :cust_id, :req_id, :report_start, :report_end, :password, :user_id)
