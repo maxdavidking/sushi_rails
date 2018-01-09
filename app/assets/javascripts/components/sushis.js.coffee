@@ -10,6 +10,10 @@
     index = @state.sushis.indexOf sushi
     sushis = React.addons.update(@state.sushis, { $splice: [[index, 1]] })
     @replaceState sushis: sushis
+  updateSushi: (sushi, data) ->
+    index = @state.sushis.indexOf sushi
+    sushis = React.addons.update(@state.sushis, { $splice: [[index, 1, data]] })
+    @replaceState sushis: sushis
   render: ->
     React.DOM.div
       className: 'sushis'
@@ -32,4 +36,4 @@
             React.DOM.th null, 'Actions'
         React.DOM.tbody null,
           for sushi in @state.sushis
-            React.createElement Sushi, key: sushi.id, sushi: sushi, handleDeleteSushi: @deleteSushi
+            React.createElement Sushi, key: sushi.id, sushi: sushi, handleDeleteSushi: @deleteSushi, handleEditSushi: @updateSushi
