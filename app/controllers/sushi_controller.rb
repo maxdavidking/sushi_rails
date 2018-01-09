@@ -23,9 +23,9 @@ class SushiController < ApplicationController
   def update
     @sushi = Sushi.find(params[:id])
     if @sushi.update_attributes(sushi_params)
-      redirect_to('/sushi')
+      render json: @sushi
     else
-      render 'edit'
+      render json: @sushi.errors, status: :unprocessable_entity
     end
   end
 
