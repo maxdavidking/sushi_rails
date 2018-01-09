@@ -7,6 +7,11 @@
     sushis = @state.sushis.slice()
     sushis.push sushi
     @setState sushis: sushis
+  deleteSushi: (sushi) ->
+    sushis = @state.sushis.slice()
+    index = sushis.indexOf sushi
+    sushis.splice index, 1
+    @replaceState sushis: sushis
   render: ->
     React.DOM.div
       className: 'sushis'
@@ -26,6 +31,7 @@
             React.DOM.th null, 'Report Start'
             React.DOM.th null, 'Report End'
             React.DOM.th null, 'Password'
+            React.DOM.th null, 'Actions'
         React.DOM.tbody null,
           for sushi in @state.sushis
-            React.createElement Sushi, key: sushi.id, sushi: sushi
+            React.createElement Sushi, key: sushi.id, sushi: sushi, handleDeleteSushi: @deleteSushi
