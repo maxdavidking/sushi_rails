@@ -4,13 +4,11 @@
   getDefaultProps: ->
     sushis: []
   addSushi: (sushi) ->
-    sushis = @state.sushis.slice()
-    sushis.push sushi
+    sushis = React.addons.update(@state.sushis, { $push: [sushi] })
     @setState sushis: sushis
   deleteSushi: (sushi) ->
-    sushis = @state.sushis.slice()
-    index = sushis.indexOf sushi
-    sushis.splice index, 1
+    index = @state.sushis.indexOf sushi
+    sushis = React.addons.update(@state.sushis, { $splice: [[index, 1]] })
     @replaceState sushis: sushis
   render: ->
     React.DOM.div
