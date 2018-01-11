@@ -95,6 +95,14 @@
       React.DOM.td null, @props.sushi.password
       React.DOM.td null,
         React.DOM.a
+          className: 'btn btn-info'
+          href: "/sushi/#{ @props.sushi.id }/test"
+          'Test'
+        React.DOM.a
+          className: 'btn btn-primary'
+          href: "/sushi/#{ @props.sushi.id }/call.csv"
+          'Connect'
+        React.DOM.a
           className: 'btn btn-default'
           onClick: @handleToggle
           'Edit'
