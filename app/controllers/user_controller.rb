@@ -20,9 +20,9 @@ class UserController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      redirect_to('/user')
+      render json: @user
     else
-      render 'edit'
+      render json: @user.errors, status: :unprocessable_entity
     end
   end
 

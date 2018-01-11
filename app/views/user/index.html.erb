@@ -1,14 +1,1 @@
-<h1> User Profile </h1>
-<ul>
-  <label>
-    Name:
-    <%= current_user.name %>
-  </label>
-  <label>
-    Organization:
-    <%= current_user.organization %>
-  </label>
-  <label>
-    <%= link_to 'Edit Profile', edit_user_path(current_user.id) %>
-  </label>
-</ul>
+<%= react_component 'Users', {data: @users} %>
