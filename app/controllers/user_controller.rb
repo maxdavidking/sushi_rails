@@ -2,7 +2,7 @@ class UserController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users = User.all
+    @users = User.where(id: session[:user_id])
   end
 
   def edit
