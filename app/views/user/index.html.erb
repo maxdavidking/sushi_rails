@@ -9,6 +9,6 @@
     <%= current_user.organization %>
   </label>
   <label>
-    <%= link_to 'Edit Profile', edit_user_path(current_user.id) %>
+    <%= link_to 'Edit Profile', edit_user_path(current_user.id), class: 'btn btn-primary' %>
   </label>
 </ul>
