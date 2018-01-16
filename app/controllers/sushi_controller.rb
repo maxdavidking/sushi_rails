@@ -9,11 +9,8 @@ class SushiController < ApplicationController
 
   def create
     @sushi = Sushi.new(sushi_params)
-    if @sushi.save
-      render json: @sushi
-    else
-      render json: @sushi.errors, status: :unprocessable_entity
-    end
+    @sushi.save
+    redirect_to('/sushi')
   end
 
   def edit
@@ -22,11 +19,8 @@ class SushiController < ApplicationController
 
   def update
     @sushi = Sushi.find(params[:id])
-    if @sushi.update_attributes(sushi_params)
-      render json: @sushi
-    else
-      render json: @sushi.errors, status: :unprocessable_entity
-    end
+    @sushi.update_attributes(sushi_params)
+    redirect_to('/sushi')
   end
 
   def test
