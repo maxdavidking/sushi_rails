@@ -18,11 +18,11 @@
   </label>
   <label>
     Report Start
-    <%= f.text_field :report_start %>
+    <%= f.text_field :report_start, :value => "e.g. 2016-01-01" %>
   </label>
   <label>
     Report End
-    <%= f.text_field :report_end %>
+    <%= f.text_field :report_end, :value => "e.g. 2016-12-31" %>
   </label>
   <label>
     Password
@@ -33,3 +33,19 @@
     <%= f.submit "Create" %>
   </label
 <% end %>
+
+<ul>
+  <li>
+    Dates need to be formatted YYYY-MM-DD
+  </li>
+  <li>
+    Dates must end with the last day of the month (e.g. 30 for September, 31 for October)
+  </li>
+  <li>
+    For a list of Endpoints, see
+    <%= link_to "Home Page", about_index_path %>
+  </li>
+  <li>
+    The password field is optional, and depends on the provider
+  </li>
+</ul>
