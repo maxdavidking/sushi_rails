@@ -39,7 +39,7 @@ class SushiController < ApplicationController
         format.csv { send_data helpers.csv_open, filename: "#{@sushi.name}-#{Date.today}.csv" }
       end
     rescue
-      redirect_to action: "index"
+      redirect_to('/sushi')
       flash[:error] = "Failure, try testing your connection"
     end
   end
@@ -47,7 +47,10 @@ class SushiController < ApplicationController
   def destroy
     @sushi = Sushi.find(params[:id])
     @sushi.destroy
-    head :no_content
+    respond_to do |format|
+      format.html { redirect_to('/sushi')}
+      format.json { head :no_content }
+    end
   end
   def sushi_params
     params.require(:sushi).permit(:name, :endpoint, :cust_id, :req_id, :report_start, :report_end, :password, :user_id)
