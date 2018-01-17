@@ -1,14 +1,23 @@
 <h1> User Profile </h1>
-<ul>
-  <label>
-    Name:
-    <%= current_user.name %>
-  </label>
-  <label>
-    Organization:
-    <%= current_user.organization %>
-  </label>
-  <label>
-    <%= link_to 'Edit Profile', edit_user_path(current_user.id), class: 'btn btn-primary' %>
-  </label>
-</ul>
+<table class="table table-curved">
+  <thead>
+    <tr>
+      <th> Name </th>
+      <th> Organization </th>
+      <th> Action </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <%= current_user.name %>
+      </td>
+      <td>
+        <%= current_user.organization %>
+      </td>
+      <td>
+        <%= link_to 'Edit Profile', edit_user_path(current_user.id), class: 'btn btn-primary' %>
+      </td>
+  </tr>
+</tbody>
+</table>

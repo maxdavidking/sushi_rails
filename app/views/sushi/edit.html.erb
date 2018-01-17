@@ -1,30 +1,61 @@
 <h1> Edit Sushi Connection </h1>
-<%= form_for (@sushi) do |f| %>
-  <label>
-    Name
-    <%= f.text_field :name %>
-  </label>
-  <label>
-    Endpoint
-    <%= f.text_field :endpoint %>
-  </label>
-  <label>
-    Customer ID
-    <%= f.text_field :cust_id %>
-  </label>
-  <label>
-    Requestor ID
-    <%= f.text_field :req_id %>
-  </label>
-  <label>
-    Report Start
-    <%= f.text_field :report_start %>
-  </label>
-  <label>
-    Report End
-    <%= f.text_field :report_end %>
-  </label>
-  <label>
-    <%= f.submit "Edit", class: 'btn btn-primary' %>
-  </label
+<table class="table table-curved">
+  <thead>
+    <tr>
+      <th> Name </th>
+      <th> Endpoint </th>
+      <th> Customer ID </th>
+      <th> Requestor ID </th>
+      <th> Report Start </th>
+      <th> Report End </th>
+      <th> Password </th>
+      <th> Action </th>
+    </tr>
+  </thead>
+  <%= form_for (@sushi) do |f| %>
+  <tbody>
+    <tr>
+      <td>
+        <%= f.text_field :name %>
+      </td>
+      <td>
+        <%= f.text_field :endpoint %>
+      </td>
+      <td>
+        <%= f.text_field :cust_id %>
+      </td>
+      <td>
+        <%= f.text_field :req_id %>
+      </td>
+      <td>
+        <%= f.text_field :report_start %>
+      </td>
+      <td>
+        <%= f.text_field :report_end %>
+      </td>
+      <td>
+        <%= f.text_field :password %>
+      </td>
+      <td>
+        <%= f.submit "Edit", class: 'btn btn-primary' %>
+      </td>
 <% end %>
+</tr>
+</tbody>
+</table>
+
+<ul>
+  <li>
+    Dates need to be formatted YYYY-MM-DD
+  </li>
+  <li>
+    Dates must end with the last day of the month (e.g. 30 for September, 31 for October)
+  </li>
+  <li>
+    For a list of Endpoints, see
+    <%= link_to "Home Page", about_index_path %>
+  </li>
+  <li>
+    The password field is optional, and depends on the provider
+  </li>
+</ul>

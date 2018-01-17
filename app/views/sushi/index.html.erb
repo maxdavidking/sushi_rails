@@ -1,21 +1,39 @@
+<div class="row">
 <h1>Sushi Connections</h1>
+</div>
 <table class="table">
   <div class="row">
-    <%= link_to 'Create Sushi Connection', new_sushi_path %>
+    <%= link_to 'Create Sushi Connection', new_sushi_path, class: 'btn btn-primary'%>
   </div>
+  <table class="table table-curved">
+    <thead>
+      <tr>
+        <th> Name </th>
+        <th> Endpoint </th>
+        <th> Customer ID</th>
+        <th> Requestor ID </th>
+        <th> Report Start</th>
+        <th> Report End</th>
+        <th> Password </th>
+        <th> Actions </th>
+      </tr>
+    </thead>
   <% @sushi.each do |s| %>
-  <div class="row">
-    <%= s.name %>
-    <%= s.endpoint %>
-    <%= s.cust_id %>
-    <%= s.req_id %>
-    <%= s.report_start %>
-    <%= s.report_end %>
-    <%= s.password %>
-    <%= link_to 'Get Counter Report', {:controller => :sushi, :action => :call, :id => (s.id), :format => "csv"}, class: 'btn btn-primary'%>
-    <%= link_to 'Test Connection', {:controller => :sushi, :action => :test, :id => (s.id)}, class: 'btn btn-primary'%>
-    <%= link_to 'Edit Connection', edit_sushi_path(s.id), class: 'btn btn-primary' %>
-    <%= link_to 'Delete', sushi_path(s.id), method: :delete, class: 'btn btn-danger', data: {confirm: "Are you sure?"} %>
-  </div>
+    <tbody>
+    <tr>
+      <td> <%= s.name %> </td>
+      <td><%= s.endpoint %></td>
+      <td><%= s.cust_id %></td>
+      <td><%= s.req_id %></td>
+      <td><%= s.report_start %></td>
+      <td><%= s.report_end %></td>
+      <td><%= s.password %></td>
+      <td><%= link_to 'Get Counter Report', {:controller => :sushi, :action => :call, :id => (s.id), :format => "csv"}, class: 'btn btn-primary'%>
+        <%= link_to 'Test Connection', {:controller => :sushi, :action => :test, :id => (s.id)}, class: 'btn btn-primary'%>
+        <%= link_to 'Edit Connection', edit_sushi_path(s.id), class: 'btn btn-primary' %>
+        <%= link_to 'Delete', sushi_path(s.id), method: :delete, class: 'btn btn-danger', data: {confirm: "Are you sure?"} %>
+      </td>
+    </tr>
+  </tbody>
   <% end %>
 </table>

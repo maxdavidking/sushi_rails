@@ -1,38 +1,49 @@
 <h1> Create New Sushi Connection </h1>
-<%= form_for @sushi, url: {action: "create"} do |f| %>
-  <label>
-    Name
-    <%= f.text_field :name %>
-  </label>
-  <label>
-    Endpoint
-    <%= f.text_field :endpoint %>
-  </label>
-  <label>
-    Customer ID
-    <%= f.text_field :cust_id %>
-  </label>
-  <label>
-    Requestor ID
-    <%= f.text_field :req_id %>
-  </label>
-  <label>
-    Report Start
-    <%= f.text_field :report_start, :value => "e.g. 2016-01-01" %>
-  </label>
-  <label>
-    Report End
-    <%= f.text_field :report_end, :value => "e.g. 2016-12-31" %>
-  </label>
-  <label>
-    Password
-    <%= f.text_field :password %>
-  </label>
-    <%= f.hidden_field :user_id, :value => current_user.id %>
-  <label>
-    <%= f.submit "Create", class: 'btn btn-primary' %>
-  </label
+<table class="table table-curved">
+  <thead>
+    <tr>
+      <th> Name </th>
+      <th> Endpoint </th>
+      <th> Customer ID </th>
+      <th> Requestor ID </th>
+      <th> Report Start </th>
+      <th> Report End </th>
+      <th> Password </th>
+      <th> Action </th>
+    </tr>
+  </thead>
+  <%= form_for @sushi, url: {action: "create"} do |f| %>
+  <tbody>
+    <tr>
+      <td>
+        <%= f.text_field :name %>
+      </td>
+      <td>
+        <%= f.text_field :endpoint %>
+      </td>
+      <td>
+        <%= f.text_field :cust_id %>
+      </td>
+      <td>
+        <%= f.text_field :req_id %>
+      </td>
+      <td>
+        <%= f.text_field :report_start, :value => "e.g. 2016-01-01" %>
+      </td>
+      <td>
+        <%= f.text_field :report_end, :value => "e.g. 2016-12-31" %>
+      </td>
+      <td>
+        <%= f.text_field :password %>
+      </td>
+      <td>
+        <%= f.hidden_field :user_id, :value => current_user.id %>
+        <%= f.submit "Create", class: 'btn btn-primary' %>
+      </td>
 <% end %>
+</tr>
+</tbody>
+</table>
 
 <ul>
   <li>
