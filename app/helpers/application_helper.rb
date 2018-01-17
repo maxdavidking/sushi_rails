@@ -17,7 +17,7 @@ module ApplicationHelper
       },
       convert_request_keys_to: :none,
       #Log default is false, unless specified by user
-      logger: Rails.logger,
+      logger: Logger.new('log/savon.log', 10, 1024000),
       log: true,
       log_level: :debug,
       #Pretty Print is dependent on logging being on
@@ -160,8 +160,8 @@ module ApplicationHelper
         @pdf_iterator = pdf_integer.reduce(0, :+)
       end
       @total_iterator = @pdf_iterator + @html_iterator
-    #store data in array below to output to specified file type
-    @report_data << [@name, @publisher, @platform, @doi, @value, @print_issn, @online_issn, @total_iterator, @html_iterator, @pdf_iterator, @iterator]
+      #store data in array below to output to specified file type
+      @report_data << [@name, @publisher, @platform, @doi, @value, @print_issn, @online_issn, @total_iterator, @html_iterator, @pdf_iterator, @iterator]
     end
     month_stats = []
     @months_var.times do
