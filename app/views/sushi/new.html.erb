@@ -1,49 +1,38 @@
 <h1> Create New Sushi Connection </h1>
-<table class="table table-curved">
-  <thead>
-    <tr>
-      <th> Name </th>
-      <th> Endpoint </th>
-      <th> Customer ID </th>
-      <th> Requestor ID </th>
-      <th> Report Start </th>
-      <th> Report End </th>
-      <th> Password </th>
-      <th> Action </th>
-    </tr>
-  </thead>
   <%= form_for @sushi, url: {action: "create"} do |f| %>
-  <tbody>
-    <tr>
-      <td>
-        <%= f.text_field :name %>
-      </td>
-      <td>
-        <%= f.text_field :endpoint %>
-      </td>
-      <td>
-        <%= f.text_field :cust_id %>
-      </td>
-      <td>
-        <%= f.text_field :req_id %>
-      </td>
-      <td>
-        <%= f.text_field :report_start, :value => "e.g. 2016-01-01" %>
-      </td>
-      <td>
-        <%= f.text_field :report_end, :value => "e.g. 2016-12-31" %>
-      </td>
-      <td>
-        <%= f.text_field :password %>
-      </td>
-      <td>
-        <%= f.hidden_field :user_id, :value => current_user.id %>
-        <%= f.submit "Create", class: 'btn btn-primary' %>
-      </td>
+  <div class='form-group'>
+    <%= f.label :name, "Name" %>
+    <%= f.text_field :name, class: "form-control", autofocus: true, required: true %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :endpoint, "Endpoint" %>
+    <%= f.text_field :endpoint, class: "form-control", required: true %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :cust_id, "Customer ID" %>
+    <%= f.text_field :cust_id, class: "form-control", required: true %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :req_id, "Requestor ID"%>
+    <%= f.text_field :req_id, class: "form-control", required: true %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :report_start, "Report Start" %>
+    <%= f.text_field :report_start, class: "form-control", required: true, value: "e.g. 2016-01-01" %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :report_end, "Report End" %>
+    <%= f.text_field :report_end, class: "form-control", required: true, value: "e.g. 2016-12-31" %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :password, "Password" %>
+    <%= f.text_field :password, class: "form-control"%>
+  </div>
+  <div class='form-group'>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.submit "Create", class: 'btn btn-primary' %>
+  </div>
 <% end %>
-</tr>
-</tbody>
-</table>
 
 <ul>
   <li>

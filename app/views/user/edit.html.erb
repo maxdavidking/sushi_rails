@@ -1,25 +1,14 @@
 <h1> Edit User Profiles </h1>
-  <table class="table table-curved">
-    <thead>
-      <tr>
-        <th> Name </th>
-        <th> Organization </th>
-        <th> Action </th>
-      </tr>
-    </thead>
-    <%= form_for (@user) do |f| %>
-    <tbody>
-      <tr>
-        <td>
-          <%= f.text_field :name %>
-        </td>
-        <td>
-          <%= f.text_field :organization %>
-        </td>
-        <td>
-          <%= f.submit "Edit", class: 'btn btn-primary' %>
-        </td>
-      <% end %>
-    </tr>
-  </tbody>
-</table>
+<%= form_for (@user) do |f| %>
+<div class='form-group'>
+  <%= f.label :name, "Name" %>
+  <%= f.text_field :name, class: "form-control", autofocus: true, required: true %>
+</div>
+<div class='form-group'>
+  <%= f.label :organization, "Organization" %>
+  <%= f.text_field :organization, class: "form-control"%>
+</div>
+<div class='form-group'>
+  <%= f.submit "Edit", class: 'btn btn-primary' %>
+</div>
+<% end %>
