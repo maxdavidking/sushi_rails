@@ -10,7 +10,12 @@ class SushiController < ApplicationController
   def create
     @sushi = Sushi.new(sushi_params)
     @sushi.save
-    redirect_to('/sushi')
+    if @sushi.save
+      redirect_to('/sushi')
+    else
+      flash[:warning] = "Error: #{@sushi.errors.full_messages}"
+      redirect_to ('/sushi/new')
+    end
   end
 
   def edit
@@ -20,7 +25,12 @@ class SushiController < ApplicationController
   def update
     @sushi = Sushi.find(params[:id])
     @sushi.update_attributes(sushi_params)
-    redirect_to('/sushi')
+    if @sushi.save
+      redirect_to('/sushi')
+    else
+      flash[:warning] = "Error: #{@sushi.errors.full_messages}"
+      redirect_back(fallback_location: root_path)
+    end
   end
 
   def test
