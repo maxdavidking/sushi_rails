@@ -50,7 +50,7 @@ class SushiController < ApplicationController
       end
     rescue
       redirect_to('/sushi')
-      flash[:error] = "Failure, try testing your connection"
+      flash[:warning] = "Failure, try testing your connection"
     end
   end
 
