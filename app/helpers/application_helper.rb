@@ -1,5 +1,6 @@
 module ApplicationHelper
   def sushi_call
+    begin
     #Set up client for connection
     client = Savon.client(
     wsdl: "http://www.niso.org/schemas/sushi/counter_sushi4_0.wsdl",
@@ -27,8 +28,8 @@ module ApplicationHelper
     @response = client.call(:get_report, message: {
       "sus:Requestor" => {
         "sus:ID" => @sushi.req_id,
-        "sus:Name" => "Blank"
-        #"sus:Email" => "#{@options[:password]}"
+        "sus:Name" => "Blank",
+        "sus:Email" => @sushi.password
       },
       "sus:CustomerReference" => {
         "sus:ID" => @sushi.cust_id
@@ -50,6 +51,7 @@ module ApplicationHelper
       } )
     rescue
       @response = ""
+    end
   end
 
   def months_math(date1, date2)
