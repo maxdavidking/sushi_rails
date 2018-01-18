@@ -150,13 +150,11 @@ module ApplicationHelper
         @iterator = slice.join(",")
       end
       html_stats.each_slice(@months_var).each do |slice|
-        html_holder = slice
-        html_integer = html_holder.map(&:to_i)
+        html_integer = slice.map(&:to_i)
         @html_iterator = html_integer.reduce(0, :+)
       end
       pdf_stats.each_slice(@months_var).each do |slice|
-        pdf_holder = slice
-        pdf_integer = pdf_holder.map(&:to_i)
+        pdf_integer = slice.map(&:to_i)
         @pdf_iterator = pdf_integer.reduce(0, :+)
       end
       @total_iterator = @pdf_iterator + @html_iterator
