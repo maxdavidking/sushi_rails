@@ -13,7 +13,7 @@ class SushiController < ApplicationController
     if @sushi.save
       redirect_to('/sushi')
     else
-      flash[:warning] = "Error: #{@sushi.errors.full_messages}"
+      flash[:danger] = "Error: #{@sushi.errors.full_messages}"
       redirect_to ('/sushi/new')
     end
   end
@@ -28,7 +28,7 @@ class SushiController < ApplicationController
     if @sushi.save
       redirect_to('/sushi')
     else
-      flash[:warning] = "Error: #{@sushi.errors.full_messages}"
+      flash[:danger] = "Error: #{@sushi.errors.full_messages}"
       redirect_back(fallback_location: root_path)
     end
   end
@@ -50,7 +50,7 @@ class SushiController < ApplicationController
       end
     rescue
       redirect_to('/sushi')
-      flash[:warning] = "Failure, try testing your connection"
+      flash[:danger] = "Failure, try testing your connection"
     end
   end
 
