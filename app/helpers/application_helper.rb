@@ -180,7 +180,7 @@ module ApplicationHelper
       row << ["Date run:"]
       row << ["#{Time.now.strftime("%d/%m/%Y")}"]
       #Print all headers
-      row << ["Journal", "Publisher", "Platform", "Journal DOI", "Proprietary Identifier", "Print ISSN", "Online ISSN", "Reporting Period Total", "Reporting Period HTML", "Reporting Period PDF", @month_array]
+      row << ["Journal", "Publisher", "Platform", "Journal DOI", "Proprietary Identifier", "Print ISSN", "Online ISSN", "Reporting Period Total", "Reporting Period HTML", "Reporting Period PDF", @month_array.join(",")]
       #Print totals of all data
       row << ["Total for all Journals", "", @platform, "","","","", @total_all, @total_html, @total_pdf, @monthly_total]
       #Iterates through array, printing each item to a row
