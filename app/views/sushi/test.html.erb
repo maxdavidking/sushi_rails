@@ -1,14 +1,38 @@
 <h1> Test Sushi Connection </h1>
 <% if @response.blank? %>
-  <p> Failure </p>
-  <p> Check your connection info: </p>
-    <%= @sushi.endpoint %>
-    <%= @sushi.req_id %>
-    <%= @sushi.cust_id %>
-    <%= @sushi.report_start %>
-    <%= @sushi.report_end %>
-    <%= @sushi.password %>
+<table class="table">
+  <div class="row">
+    <div class="alert alert-danger">
+      <h2> Failure, check your connection info:</h2>
+    </div>
+  </div>
+  <table class="table table-curved">
+    <thead>
+      <tr>
+        <th> Name </th>
+        <th> Endpoint </th>
+        <th> Customer ID</th>
+        <th> Requestor ID </th>
+        <th> Report Start</th>
+        <th> Report End</th>
+        <th> Password </th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>  <%= @sushi.name %> </td>
+      <td>  <%= @sushi.endpoint %> </td>
+      <td>  <%= @sushi.cust_id %> </td>
+      <td>  <%= @sushi.req_id %></td>
+      <td>  <%= @sushi.report_start %></td>
+      <td>  <%= @sushi.report_end %></td>
+      <td>  <%= @sushi.password %></td>
+    </tr>
+  </tbody>
+</table>
   <% else %>
-    <p> Success </p>
+    <div class="alert alert-success">
+      <h2> Success </h2>
+    </div>
   <% end %>
   <p> <%= link_to "Back", sushi_index_path %> </p>
