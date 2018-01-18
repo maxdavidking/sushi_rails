@@ -1,4 +1,40 @@
+<% if current_user %>
+<table class="table">
+  <div class="row">
+    <h2>How to Create COUNTER Connections</h2>
+  </div>
+  <p> 1. Click on 'New COUNTER Connection' in the header</p>
+  <p> 2. Fill in data (example below) </p>
+  <p> 3. Click 'Test Connection' </p>
+  <p> 4. If connection is successful, click 'Get COUNTER Report' </p>
+  </div>
+  <table class="table table-curved">
+    <thead>
+      <tr>
+        <th> Name </th>
+        <th> Endpoint </th>
+        <th> Customer ID</th>
+        <th> Requestor ID </th>
+        <th> Report Start</th>
+        <th> Report End</th>
+        <th> Password </th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td> JSTOR </td>
+      <td> https://www.jstor.org/sushi </td>
+      <td> YOUR_CUSTOMER_ID </td>
+      <td> YOUR_REQUESTOR_ID </td>
+      <td> YYYY-MM-DD </td>
+      <td> YYYY-MM-DD</td>
+      <td> OPTIONAL (depending on vendor) </td>
+    </tr>
+  </tbody>
+</table>
+<% else %>
 <div class="jumbotron">
   <h1>Welcome!</h1>
-  <p>Authenticate via one of the social networks to get started.</p>
+  <p>Authenticate via Google to get started</p>
 </div>
+<% end %>
