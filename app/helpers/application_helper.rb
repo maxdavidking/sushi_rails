@@ -71,20 +71,20 @@ module ApplicationHelper
   end
 
   def csv_open
-    @noko_doc = @response.doc
-    @noko_doc.remove_namespaces!
+    noko_doc = @response.doc
+    noko_doc.remove_namespaces!
     @report_data = []
     @total_stats = []
     @html_data = []
     @pdf_data = []
-    @doc_requestor = @noko_doc.xpath('//Requestor/ID').text
-    @doc_customer_ref = @noko_doc.xpath('//CustomerReference/ID').text
-    @doc_release = @noko_doc.xpath('//ReportDefinition').attr('Release').text
-    @doc_version = @noko_doc.xpath('//ReportDefinition').attr('Name').text
+    doc_requestor = noko_doc.xpath('//Requestor/ID').text
+    doc_customer_ref = noko_doc.xpath('//CustomerReference/ID').text
+    doc_release = noko_doc.xpath('//ReportDefinition').attr('Release').text
+    doc_version = noko_doc.xpath('//ReportDefinition').attr('Name').text
     month_holder = []
     count_hash = Hash[@month_array.map{|x| [x.to_sym] }]
     #Store all months from XML data into an array to match later against Hash
-    @noko_doc.xpath('//ReportItems').each do |item|
+    noko_doc.xpath('//ReportItems').each do |item|
       item.xpath("./ItemPerformance/Period").each do |match|
         matches = match.xpath("./Begin").text
         month_holder << matches
@@ -124,13 +124,13 @@ module ApplicationHelper
         end
       end
 
-      @doi = item.xpath("./ItemIdentifier[Type = 'DOI']/Value").text
-      @value = item.xpath("./ItemIdentifier[Type = 'Proprietary']/Value").text
-      @print_issn = item.xpath("./ItemIdentifier[Type = 'Print_ISSN']/Value").text
-      @online_issn = item.xpath("./ItemIdentifier[Type = 'Online_ISSN']/Value").text
-      @platform = item.xpath("./ItemPlatform").text
-      @publisher = item.xpath("./ItemPublisher").text
-      @name = item.xpath("./ItemName").text
+      doi = item.xpath("./ItemIdentifier[Type = 'DOI']/Value").text
+      value = item.xpath("./ItemIdentifier[Type = 'Proprietary']/Value").text
+      print_issn = item.xpath("./ItemIdentifier[Type = 'Print_ISSN']/Value").text
+      online_issn = item.xpath("./ItemIdentifier[Type = 'Online_ISSN']/Value").text
+      platform = item.xpath("./ItemPlatform").text
+      publisher = item.xpath("./ItemPublisher").text
+      name = item.xpath("./ItemName").text
       #Empty html_stats array as not all reports return the same number of months
       html_stats = []
       item.xpath("./ItemPerformance/Instance[MetricType = 'ft_html']").each do |month|
@@ -159,7 +159,7 @@ module ApplicationHelper
       end
       @total_iterator = @pdf_iterator + @html_iterator
       #store data in array below to output to specified file type
-      @report_data << [@name, @publisher, @platform, @doi, @value, @print_issn, @online_issn, @total_iterator, @html_iterator, @pdf_iterator, @iterator]
+      @report_data << [name, publisher, platform, doi, value, print_issn, online_issn, @total_iterator, @html_iterator, @pdf_iterator, @iterator]
     end
     month_stats = []
     @months_var.times do
@@ -173,8 +173,8 @@ module ApplicationHelper
     @total_html = @html_data.map(&:to_i).reduce(0, :+)
     @total_all = @total_html + @total_pdf
     CSV.generate do |row|
-      row << ["#{@doc_version}", "Release: #{@doc_release}"]
-      row << ["Requestor ID: #{@doc_requestor}", " Customer ID: #{@doc_customer_ref}"]
+      row << ["#{doc_version}", "Release: #{doc_release}"]
+      row << ["Requestor ID: #{doc_requestor}", " Customer ID: #{doc_customer_ref}"]
       row << ["Period covered by Report:"]
       row << ["#{@sushi.report_start} to #{@sushi.report_end}"]
       row << ["Date run:"]
