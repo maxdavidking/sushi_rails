@@ -49,7 +49,7 @@ class SushiController < ApplicationController
         format.csv { send_data helpers.csv_open, filename: "#{@sushi.name}-#{Date.today}.csv" }
       end
     rescue
-      redirect_to('/sushi')
+      redirect_to("/sushi")
       flash[:danger] = "Failure, try testing your connection"
     end
   end
