@@ -49,7 +49,9 @@ module ApplicationHelper
           },
         },
       } )
-    rescue
+    rescue Savon::SOAPFault => error
+      Logger.log error.http.code
+      @error = error
       @response = ""
     end
   end
@@ -156,6 +158,12 @@ module ApplicationHelper
       pdf_stats.each_slice(@months_var).each do |slice|
         pdf_integer = slice.map(&:to_i)
         @pdf_iterator = pdf_integer.reduce(0, :+)
+      end
+      if @html_iterator == nil
+        @html_iterator = 0
+      end
+      if @pdf_iterator == nil
+        @pdf_iterator = 0
       end
       @total_iterator = @pdf_iterator + @html_iterator
       #store data in array below to output to specified file type
