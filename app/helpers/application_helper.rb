@@ -1,4 +1,5 @@
 module ApplicationHelper
+  attr_reader :error
   def sushi_call
     begin
     #Set up client for connection
@@ -49,8 +50,7 @@ module ApplicationHelper
           },
         },
       } )
-    rescue Savon::SOAPFault => error
-      Logger.log error.http.code
+    rescue StandardError => error
       @error = error
       @response = ""
     end

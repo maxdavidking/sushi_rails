@@ -36,6 +36,7 @@ class SushiController < ApplicationController
   def test
     @sushi = Sushi.find(params[:id])
     @response = helpers.sushi_call
+    @error = helpers.error
   end
 
   def call
