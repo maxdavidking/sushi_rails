@@ -72,17 +72,17 @@ module ApplicationHelper
     @count_var = @months_var - 1
   end
 
-  def csv_open
+  def xml_open
     noko_doc = @response.doc
     noko_doc.remove_namespaces!
     @report_data = []
     @total_stats = []
     @html_data = []
     @pdf_data = []
-    doc_requestor = noko_doc.xpath('//Requestor/ID').text
-    doc_customer_ref = noko_doc.xpath('//CustomerReference/ID').text
-    doc_release = noko_doc.xpath('//ReportDefinition').attr('Release').text
-    doc_version = noko_doc.xpath('//ReportDefinition').attr('Name').text
+    @doc_requestor = noko_doc.xpath('//Requestor/ID').text
+    @doc_customer_ref = noko_doc.xpath('//CustomerReference/ID').text
+    @doc_release = noko_doc.xpath('//ReportDefinition').attr('Release').text
+    @doc_version = noko_doc.xpath('//ReportDefinition').attr('Name').text
     month_holder = []
     count_hash = Hash[@month_array.map{|x| [x.to_sym] }]
     #Store all months from XML data into an array to match later against Hash
@@ -180,9 +180,11 @@ module ApplicationHelper
     @total_pdf = @pdf_data.map(&:to_i).reduce(0, :+)
     @total_html = @html_data.map(&:to_i).reduce(0, :+)
     @total_all = @total_html + @total_pdf
+  end
+  def csv_write
     CSV.generate do |row|
-      row << ["#{doc_version}", "Release: #{doc_release}"]
-      row << ["Requestor ID: #{doc_requestor}", " Customer ID: #{doc_customer_ref}"]
+      row << ["#{@doc_version}", "Release: #{@doc_release}"]
+      row << ["Requestor ID: #{@doc_requestor}", " Customer ID: #{@doc_customer_ref}"]
       row << ["Period covered by Report:"]
       row << ["#{@sushi.report_start} to #{@sushi.report_end}"]
       row << ["Date run:"]
