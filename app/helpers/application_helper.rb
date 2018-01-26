@@ -1,5 +1,6 @@
 module ApplicationHelper
   attr_reader :error
+
   def sushi_call
     begin
     #Set up client for connection
@@ -84,24 +85,24 @@ module ApplicationHelper
     @doc_version = @noko_doc.xpath('//ReportDefinition').attr('Name').text
   end
 
-  def get_usage_data
+  def get_item_data
     count_hash = Hash[@month_array.map{|x| [x.to_sym] }]
     @report_data = []
     @total_stats = []
     @html_data = []
     @pdf_data = []
     @month_holder = []
-    month_stats = []
 
     #Store all months from XML data into an array to match later against Hash
     @noko_doc.xpath('//ReportItems').each do |item|
+
       item.xpath("./ItemPerformance/Period").each do |match|
         matches = match.xpath("./Begin").text
         @month_holder << matches
       end
 
-    #Reset hash values so they don't carry over from previous item
-    count_hash.each {|k, v| count_hash[k] = "0"}
+      #Reset hash values so they don't carry over from previous item
+      count_hash.each {|k, v| count_hash[k] = "0"}
       item.xpath("./ItemPerformance/Instance[MetricType = 'ft_total']").each do |count|
         month = count.xpath("../Period/Begin").text
         counts = count.xpath("./Count").text
@@ -109,8 +110,8 @@ module ApplicationHelper
             counts = "0"
           else counts = counts
           end
-        count_hash[month.to_sym] = counts
-      end
+          count_hash[month.to_sym] = counts
+        end
 
       #Match months supplied by user to months in month_holder array
       #and grab usage stats for those months
@@ -158,6 +159,9 @@ module ApplicationHelper
         @pdf_data << count_pdf
       end
 
+      #Reset pdf_iterator and html_iterator
+      @pdf_iterator = 0
+      @html_iterator = 0
       #Make code below DRYer
       @total_stats.each_slice(@months_var).each do |slice|
         @iterator = slice.join(",")
@@ -170,24 +174,22 @@ module ApplicationHelper
         pdf_integer = slice.map(&:to_i)
         @pdf_iterator = pdf_integer.reduce(0, :+)
       end
-      if @html_iterator == nil
-        @html_iterator = 0
-      end
-      if @pdf_iterator == nil
-        @pdf_iterator = 0
-      end
-      @total_iterator = @pdf_iterator + @html_iterator
+      @item_total = @pdf_iterator + @html_iterator
 
       #store data in array below to output to specified file type
-      @report_data << [name, publisher, platform, doi, value, print_issn, online_issn, @total_iterator, @html_iterator, @pdf_iterator, @iterator]
+      @report_data << [name, publisher, platform, doi, value, print_issn, online_issn, @item_total, @html_iterator, @pdf_iterator, @iterator]
     end
-    
+  end
+
+  def get_total_data
+    month_stats = []
+
     @months_var.times do
-      i = @months_var
-      all_stats = @total_stats.select.with_index {|x, index| index % i == 0 }
+      all_stats = @total_stats.select.with_index {|x, index| index % @months_var == 0 }
       month_stats << all_stats.map(&:to_i).reduce(:+)
       @total_stats.shift
     end
+
     @monthly_total = month_stats.join(",")
     @total_pdf = @pdf_data.map(&:to_i).reduce(0, :+)
     @total_html = @html_data.map(&:to_i).reduce(0, :+)
@@ -202,9 +204,7 @@ module ApplicationHelper
       row << ["#{@sushi.report_start} to #{@sushi.report_end}"]
       row << ["Date run:"]
       row << ["#{Time.now.strftime("%d/%m/%Y")}"]
-      #Print all headers
       row << ["Journal", "Publisher", "Platform", "Journal DOI", "Proprietary Identifier", "Print ISSN", "Online ISSN", "Reporting Period Total", "Reporting Period HTML", "Reporting Period PDF", @month_array.join(",")]
-      #Print totals of all data
       row << ["Total for all Journals", "", @platform, "","","","", @total_all, @total_html, @total_pdf, @monthly_total]
       #Iterates through array, printing each item to a row
       @report_data.each do |data|
