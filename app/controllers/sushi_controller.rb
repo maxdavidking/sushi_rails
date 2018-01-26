@@ -45,9 +45,13 @@ class SushiController < ApplicationController
       helpers.sushi_call
       helpers.months_math(@sushi.report_start, @sushi.report_end)
       helpers.count_months
+      helpers.xml_open
+      helpers.get_secondary_data
+      helpers.get_item_data
+      helpers.get_total_data
       respond_to do |format|
         format.html
-        format.csv { send_data helpers.csv_open, filename: "#{@sushi.name}-#{Date.today}.csv" }
+        format.csv { send_data helpers.csv_write, filename: "#{@sushi.name}-#{Date.today}.csv" }
       end
     rescue
       redirect_to("/sushi")
