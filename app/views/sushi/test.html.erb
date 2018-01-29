@@ -33,7 +33,8 @@
 </table>
   <% else %>
     <div class="alert alert-success">
-      <h2> Success </h2>
+      <h2> <%= @sushi.name %> Connection: Success </h2>
     </div>
+  <%= link_to 'Get Counter Report', {:controller => :sushi, :action => :call, :id => (@sushi.id), :format => "csv"}, class: 'btn btn-primary'%>
   <% end %>
-  <p> <%= link_to "Back", sushi_index_path %> </p>
+  <%= link_to "Back", sushi_index_path, class: 'btn btn-danger' %>
