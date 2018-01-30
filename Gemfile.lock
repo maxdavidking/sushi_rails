@@ -51,6 +51,10 @@ GEM
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
     bindex (0.5.0)
+    bootstrap (4.0.0)
+      autoprefixer-rails (>= 6.0.3)
+      popper_js (>= 1.12.9, < 2)
+      sass (>= 3.5.2)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -150,6 +154,7 @@ GEM
       omniauth-oauth (~> 1.1)
       rack
     pg (0.21.0)
+    popper_js (1.12.9)
     public_suffix (3.0.1)
     puma (3.11.0)
     rack (2.0.3)
@@ -279,6 +284,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap (~> 4.0.0)
   bootstrap-sass (~> 3.3.7)
   byebug
   capybara (~> 2.13)
