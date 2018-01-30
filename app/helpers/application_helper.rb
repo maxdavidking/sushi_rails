@@ -92,6 +92,7 @@ module ApplicationHelper
     @html_data = []
     @pdf_data = []
     @month_holder = []
+    x = 0
 
     #Store all months from XML data into an array to match later against Hash
     @noko_doc.xpath('//ReportItems').each do |item|
@@ -164,7 +165,7 @@ module ApplicationHelper
       @html_iterator = 0
       #Make code below DRYer
       @total_stats.each_slice(@months_var).each do |slice|
-        @iterator = slice.join(",")
+        @iterator = slice.map(&:to_i)
       end
       html_stats.each_slice(@months_var).each do |slice|
         html_integer = slice.map(&:to_i)
@@ -175,9 +176,10 @@ module ApplicationHelper
         @pdf_iterator = pdf_integer.reduce(0, :+)
       end
       @item_total = @pdf_iterator + @html_iterator
-
       #store data in array below to output to specified file type
       @report_data << [name, publisher, platform, doi, value, print_issn, online_issn, @item_total, @html_iterator, @pdf_iterator, @iterator]
+      @report_data[x].flatten!
+      x += 1
     end
   end
 
@@ -190,7 +192,7 @@ module ApplicationHelper
       @total_stats.shift
     end
 
-    @monthly_total = month_stats.join(",")
+    @monthly_total = month_stats.map(&:to_i)
     @total_pdf = @pdf_data.map(&:to_i).reduce(0, :+)
     @total_html = @html_data.map(&:to_i).reduce(0, :+)
     @total_all = @total_html + @total_pdf
@@ -204,8 +206,8 @@ module ApplicationHelper
       row << ["#{@sushi.report_start} to #{@sushi.report_end}"]
       row << ["Date run:"]
       row << ["#{Time.now.strftime("%d/%m/%Y")}"]
-      row << ["Journal", "Publisher", "Platform", "Journal DOI", "Proprietary Identifier", "Print ISSN", "Online ISSN", "Reporting Period Total", "Reporting Period HTML", "Reporting Period PDF", @month_array.join(",")]
-      row << ["Total for all Journals", "", @platform, "","","","", @total_all, @total_html, @total_pdf, @monthly_total]
+      row << ["Journal", "Publisher", "Platform", "Journal DOI", "Proprietary Identifier", "Print ISSN", "Online ISSN", "Reporting Period Total", "Reporting Period HTML", "Reporting Period PDF", @month_array].flatten!
+      row << ["Total for all Journals", "", @platform, "","","","", @total_all, @total_html, @total_pdf, @monthly_total].flatten!
       #Iterates through array, printing each item to a row
       @report_data.each do |data|
         row << data
