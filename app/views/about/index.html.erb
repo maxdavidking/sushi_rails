@@ -1,37 +1,68 @@
 <% if current_user %>
-<table class="table">
-  <div class="row">
-    <h2>How to Create COUNTER Connections</h2>
-  </div>
+<div class="row">
+  <h2>How to Create COUNTER Connections</h2>
+</div>
+<div class="row">
   <p> 1. Click on 'New COUNTER Connection' in the header</p>
+</div>
+<div class="row">
   <p> 2. Fill in data (example below) </p>
+</div>
+<div class="row">
   <p> 3. Click 'Test Connection' </p>
+</div>
+<div class="row">
   <p> 4. If connection is successful, click 'Get COUNTER Report' </p>
+</div>
+<div class="row">
+  <div class="col-lg-1">
+    <h6>Name</h6>
   </div>
-  <table class="table table-curved">
-    <thead>
-      <tr>
-        <th> Name </th>
-        <th> Endpoint </th>
-        <th> Customer ID</th>
-        <th> Requestor ID </th>
-        <th> Report Start</th>
-        <th> Report End</th>
-        <th> Password </th>
-      </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td> JSTOR </td>
-      <td> https://www.jstor.org/sushi </td>
-      <td> YOUR_CUSTOMER_ID </td>
-      <td> YOUR_REQUESTOR_ID </td>
-      <td> YYYY-MM-DD </td>
-      <td> YYYY-MM-DD</td>
-      <td> OPTIONAL (depending on vendor) </td>
-    </tr>
-  </tbody>
-</table>
+  <div class="col-lg-2">
+    <h6>Endpoint</h6>
+  </div>
+  <div class="col-lg-2">
+    <h6>Customer ID</h6>
+  </div>
+  <div class="col-lg-2">
+    <h6>Requestor ID</h6>
+  </div>
+  <div class="col-lg-2">
+    <h6>Report Start</h6>
+  </div>
+  <div class="col-lg-2">
+    <h6>Report End</h6>
+  </div>
+  <div class="col-lg-1">
+    <h6>Password</h6>
+  </div>
+  <div class="col-lg-2">
+    <h6>Actions</h6>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-1">
+    <p>JSTOR</p>
+  </div>
+  <div class="col-lg-2">
+    <p>https://www.jstor.org/sushi</p>
+  </div>
+  <div class="col-lg-2">
+    <p>YOUR_CUST_ID (optional)</p>
+  </div>
+  <div class="col-lg-2">
+    <p>YOUR_REQ_ID</p>
+  </div>
+  <div class="col-lg-2">
+    <p>YYYY-MM-DD</p>
+  </div>
+  <div class="col-lg-2">
+    <p>YYYY-MM-DD</p>
+  </div>
+  <div class="col-lg-1">
+    <p>YOUR_PASSWORD (optional)</p>
+  </div>
+</div>
 <% else %>
 <div class="jumbotron">
   <h1>Welcome!</h1>
