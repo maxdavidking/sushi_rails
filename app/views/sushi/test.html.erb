@@ -1,40 +1,78 @@
-<h1> Test COUNTER Connection </h1>
+<div class="row">
+  <h1> Test COUNTER Connection </h1>
+</div>
 <% if @response.blank? %>
-<table class="table">
   <div class="row">
     <div class="alert alert-danger">
       <h2> Failure, check your connection info:</h2>
       <h2> <%= @error %> </h2>
     </div>
   </div>
-  <table class="table table-curved">
-    <thead>
-      <tr>
-        <th> Name </th>
-        <th> Endpoint </th>
-        <th> Customer ID</th>
-        <th> Requestor ID </th>
-        <th> Report Start</th>
-        <th> Report End</th>
-        <th> Password </th>
-      </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td>  <%= @sushi.name %> </td>
-      <td>  <%= @sushi.endpoint %> </td>
-      <td>  <%= @sushi.cust_id %> </td>
-      <td>  <%= @sushi.req_id %></td>
-      <td>  <%= @sushi.report_start %></td>
-      <td>  <%= @sushi.report_end %></td>
-      <td>  <%= @sushi.password %></td>
-    </tr>
-  </tbody>
-</table>
+  <div class="row">
+    <div class="col-lg-1">
+      <h6>Name</h6>
+    </div>
+    <div class="col-lg-2">
+      <h6>Endpoint</h6>
+    </div>
+    <div class="col-lg-2">
+      <h6>Customer ID</h6>
+    </div>
+    <div class="col-lg-2">
+      <h6>Requestor ID</h6>
+    </div>
+    <div class="col-lg-1">
+      <h6>Report Start</h6>
+    </div>
+    <div class="col-lg-1">
+      <h6>Report End</h6>
+    </div>
+    <div class="col-lg-1">
+      <h6>Password</h6>
+    </div>
+    <div class="col-lg-2">
+      <h6>Actions</h6>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-1">
+      <p><%= @sushi.name %></p>
+    </div>
+    <div class="col-lg-2">
+      <p><%= @sushi.endpoint %></p>
+    </div>
+    <div class="col-lg-2">
+      <p><%= @sushi.cust_id %></p>
+    </div>
+    <div class="col-lg-2">
+      <p><%= @sushi.req_id %></p>
+    </div>
+    <div class="col-lg-1">
+      <p><%= @sushi.report_start %></p>
+    </div>
+    <div class="col-lg-1">
+      <p><%= @sushi.report_end %></p>
+    </div>
+    <div class="col-lg-1">
+      <p><%= @sushi.password %></p>
+    </div>
+    <div class="col-lg-2">
+      <%= link_to 'Get Counter Report', {:controller => :sushi, :action => :call, :id => (@sushi.id), :format => "csv"}, class: 'btn btn-primary'%>
+      <%= link_to 'Test Connection', {:controller => :sushi, :action => :test, :id => (@sushi.id)}, class: 'btn btn-primary'%>
+      <%= link_to 'Edit Connection', edit_sushi_path(@sushi.id), class: 'btn btn-primary' %>
+      <%= link_to 'Delete', sushi_path(@sushi.id), method: :delete, class: 'btn btn-danger', data: {confirm: "Are you sure?"} %>
+    </div>
+  </div>
   <% else %>
+  <div class="row">
     <div class="alert alert-success">
       <h2> <%= @sushi.name %> Connection: Success </h2>
     </div>
-  <%= link_to 'Get Counter Report', {:controller => :sushi, :action => :call, :id => (@sushi.id), :format => "csv"}, class: 'btn btn-primary'%>
+  </div>
+  <div class="row">
+    <%= link_to 'Get Counter Report', {:controller => :sushi, :action => :call, :id => (@sushi.id), :format => "csv"}, class: 'btn btn-primary'%>
+  </div>
   <% end %>
+  <div class="row">
   <%= link_to "Back", sushi_index_path, class: 'btn btn-danger' %>
+</div>
