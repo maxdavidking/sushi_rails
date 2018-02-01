@@ -11,5 +11,18 @@
  * It is generally better to create a new file per style scope.
  */
  $enable-flex: true;
+ $link-color: white;
+ .col-lg-2 {
+   overflow-wrap: break-word;
+ }
+.alert {
+   width:100%;
+}
+.turbolinks-progress-bar {
+  height: 10px;
+  background-color: #2ecc71;
+}
+
+
  @import "bootstrap";
  @import "spinner.scss";
