@@ -91,6 +91,7 @@ module ApplicationHelper
     @total_stats = []
     @html_data = []
     @pdf_data = []
+    @usage_data = []
     @month_holder = []
     x = 0
 
@@ -160,6 +161,12 @@ module ApplicationHelper
         @pdf_data << count_pdf
       end
 
+      #Get all "total" stats into array as not all pdf_stats and html_stats add up to "total"
+      item.xpath("./ItemPerformance/Instance[MetricType = 'ft_total']").each do |month|
+        count_total = month.xpath("./Count").text
+        @usage_data << count_total
+      end
+
       #Reset pdf_iterator and html_iterator
       @pdf_iterator = 0
       @html_iterator = 0
@@ -195,7 +202,7 @@ module ApplicationHelper
     @monthly_total = month_stats.map(&:to_i)
     @total_pdf = @pdf_data.map(&:to_i).reduce(0, :+)
     @total_html = @html_data.map(&:to_i).reduce(0, :+)
-    @total_all = @total_html + @total_pdf
+    @total_usage = @usage_data.map(&:to_i).reduce(0, :+)
   end
 
   def csv_write
@@ -207,7 +214,7 @@ module ApplicationHelper
       row << ["Date run:"]
       row << ["#{Time.now.strftime("%d/%m/%Y")}"]
       row << ["Journal", "Publisher", "Platform", "Journal DOI", "Proprietary Identifier", "Print ISSN", "Online ISSN", "Reporting Period Total", "Reporting Period HTML", "Reporting Period PDF", @month_array].flatten!
-      row << ["Total for all Journals", "", @platform, "","","","", @total_all, @total_html, @total_pdf, @monthly_total].flatten!
+      row << ["Total for all Journals", "", @platform, "","","","", @total_usage, @total_html, @total_pdf, @monthly_total].flatten!
       #Iterates through array, printing each item to a row
       @report_data.each do |data|
         row << data
