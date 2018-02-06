@@ -205,8 +205,8 @@ module ApplicationHelper
     @total_usage = @usage_data.map(&:to_i).reduce(0, :+)
   end
 
-  def csv_write
-    CSV.generate do |row|
+  def data_write(separator)
+    CSV.generate(:col_sep => separator) do |row|
       row << ["#{@doc_version}", "Release: #{@doc_release}"]
       row << ["Requestor ID: #{@doc_requestor}", " Customer ID: #{@doc_customer_ref}"]
       row << ["Period covered by Report:"]

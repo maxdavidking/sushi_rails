@@ -51,7 +51,8 @@ class SushiController < ApplicationController
       helpers.get_total_data
       respond_to do |format|
         format.html
-        format.csv { send_data helpers.csv_write, filename: "#{@sushi.name}-#{Date.today}.csv" }
+        format.csv { send_data helpers.data_write("\,"), filename: "#{@sushi.name}-#{Date.today}.csv" }
+        format.tsv { send_data helpers.data_write("\t"), filename: "#{@sushi.name}-#{Date.today}.tsv" }
       end
     rescue
       redirect_to("/sushi")
