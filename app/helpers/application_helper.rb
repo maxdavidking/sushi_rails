@@ -51,7 +51,7 @@ module ApplicationHelper
           },
         },
       } )
-    rescue StandardError => error
+    rescue Savon::HTTPError => error
       @error = error
       @response = ""
     end
