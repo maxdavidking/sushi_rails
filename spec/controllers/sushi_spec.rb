@@ -20,7 +20,7 @@ RSpec.describe 'Sushi Controller' do
       sign_in
       Sushi.create!(name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id)
       visit('/sushi')
-      click_on('Get Counter Report')
+      click_on('Get CSV Counter Report')
       expect(page).to have_content('Requestor ID')
     end
 
@@ -28,7 +28,7 @@ RSpec.describe 'Sushi Controller' do
       sign_in
       Sushi.create!(name: "jstor", endpoint: "https://www.badurl.com", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id)
       visit('/sushi')
-      click_on('Get Counter Report')
+      click_on('Get CSV Counter Report')
       expect(page).to have_content('Failure')
       expect(page).to have_content('badurl')
     end
@@ -54,8 +54,7 @@ RSpec.describe 'Sushi Controller' do
       sign_in
       conn = Sushi.create!(name: "science direct", endpoint: "http://sushi4.scholarlyiq.com/SushiService.svc", cust_id: "X124552", req_id: "90633e00-fc53-4f70-9ae0-ac2c33d00014", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id)
 
-      visit('/sushi')
-      click_link("Create Sushi Connection")
+      click_link("New COUNTER Connection")
       fill_in "Name", with: conn.name
       fill_in "Endpoint", with: conn.endpoint
       fill_in "Requestor ID", with: conn.req_id
@@ -70,8 +69,7 @@ RSpec.describe 'Sushi Controller' do
 
     it "automatically populates the user id field with the user's session ID" do
       sign_in
-      visit('/sushi')
-      click_link("Create Sushi Connection")
+      click_link("New COUNTER Connection")
 
       page.has_selector?('input', :text => current_user.id)
     end
@@ -83,7 +81,7 @@ RSpec.describe 'Sushi Controller' do
       visit('/sushi')
       first(:link, 'Edit Connection').click
       fill_in 'Name', with: conn.name
-      click_on('Edit')
+      click_on('Update')
 
       expect(page).to have_content('science direct')
     end
