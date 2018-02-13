@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
       flash[:success] = "Welcome, #{@user.name}"
       redirect_to root_path
     rescue
-      flash[:danger] = "FetchCounter only works with gmail accounts"
+      flash[:danger] = "FetchCounter only works with non-instutional gmail accounts. Please use your personal gmail account."
       redirect_to root_path
     end
   end
