@@ -2,24 +2,18 @@
   <h1> User Profile </h1>
 </div>
 <div class="row">
-  <div class="col-lg-4">
+  <div class="col-lg-5">
     <h6>Name</h6>
   </div>
-  <div class="col-lg-4">
-    <h6>Organization</h6>
-  </div>
-  <div class="col-lg-4">
+  <div class="col-lg-5">
     <h6>Action</h6>
   </div>
 </div>
 <div class="row">
-  <div class="col-lg-4">
+  <div class="col-lg-5">
     <p><%= current_user.name %></p>
   </div>
-  <div class="col-lg-4">
-    <p><%= current_user.organization %></p>
-  </div>
-  <div class="col-lg-4">
+  <div class="col-lg-5">
     <p><%= link_to 'Edit Profile', edit_user_path(current_user.id), class: 'btn btn-primary' %></p>
   </div>
 </div>
