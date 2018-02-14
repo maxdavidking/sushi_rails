@@ -51,7 +51,7 @@
     <p><%= s.password %></p>
   </div>
   <div class="col-lg-2">
-    <%= link_to 'Import', sushi_path(s.id), method: :delete, class: 'btn btn-danger', data: {confirm: "Are you sure?"} %>
+    <%= link_to "Import", {:controller => :validsushi, :action => :import, :id => (s.id)}, class: 'btn btn-primary'%>
   </div>
 </div>
 <% end %>
