@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171211194623) do
+ActiveRecord::Schema.define(version: 20180214182355) do
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "password"
+  end
 
   create_table "sushis", force: :cascade do |t|
     t.string "name"
@@ -39,6 +46,18 @@ ActiveRecord::Schema.define(version: 20171211194623) do
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
     t.index ["provider"], name: "index_users_on_provider"
     t.index ["uid"], name: "index_users_on_uid"
+  end
+
+  create_table "validsushis", force: :cascade do |t|
+    t.string "name"
+    t.string "endpoint"
+    t.string "cust_id"
+    t.string "req_id"
+    t.string "report_start"
+    t.string "report_end"
+    t.string "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
