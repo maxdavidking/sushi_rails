@@ -10,8 +10,6 @@ Rails.application.routes.draw do
   resources :about
   root to: 'about#index'
   get '/validsushi', to: 'validsushi#index'
-  get '/validsushi/new', to: 'validsushi#new'
-  post '/validsushi', to: 'validsushi#create'
   get '/import', to: 'validsushi#import'
   get '/auth/:provider/callback', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
