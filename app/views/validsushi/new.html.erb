@@ -1,0 +1,34 @@
+<h1> Create New Valid COUNTER Connection </h1>
+  <%= form_for @validsushi, url: {action: "create"} do |f| %>
+  <div class='form-group'>
+    <%= f.label :name, "Name" %>
+    <%= f.text_field :name, class: "form-control", autofocus: true, required: true %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :endpoint, "Endpoint" %>
+    <%= f.text_field :endpoint, class: "form-control", required: true %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :cust_id, "Customer ID" %>
+    <%= f.text_field :cust_id, class: "form-control", required: true, value: "YOUR CUSTOMER ID" %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :req_id, "Requestor ID"%>
+    <%= f.text_field :req_id, class: "form-control", value: "YOUR REQUESTOR ID"%>
+  </div>
+  <div class='form-group'>
+    <%= f.label :report_start, "Report Start" %>
+    <%= f.text_field :report_start, class: "form-control", required: true, value: "2017-01-01" %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :report_end, "Report End" %>
+    <%= f.text_field :report_end, class: "form-control", required: true, value: "2017-12-31" %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :password, "Password" %>
+    <%= f.text_field :password, class: "form-control", value: "OPTIONAL"%>
+  </div>
+  <div class='form-group'>
+    <%= f.submit "Create", class: 'btn btn-primary' %>
+  </div>
+<% end %>
