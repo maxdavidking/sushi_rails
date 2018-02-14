@@ -9,7 +9,6 @@ class SushiController < ApplicationController
 
   def create
     @sushi = Sushi.new(sushi_params)
-    @sushi.save
     if @sushi.save
       redirect_to('/sushi')
     else
