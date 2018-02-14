@@ -1,0 +1,2 @@
+class Validsushi < ApplicationRecord
+end
