@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :user
   resources :about
   root to: 'about#index'
+  get '/validsushi', to: 'validsushi#index'
   get '/auth/:provider/callback', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get '/auth/failure', to: 'sessions#destroy'

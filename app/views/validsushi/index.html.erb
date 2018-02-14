@@ -1,0 +1,57 @@
+<div class="row">
+<h1>Valid COUNTER Connections</h1>
+</div>
+<div class="row">
+  <div class="col-lg-1">
+    <h6>Name</h6>
+  </div>
+  <div class="col-lg-2">
+    <h6>Endpoint</h6>
+  </div>
+  <div class="col-lg-2">
+    <h6>Customer ID</h6>
+  </div>
+  <div class="col-lg-2">
+    <h6>Requestor ID</h6>
+  </div>
+  <div class="col-lg-1">
+    <h6>Report Start</h6>
+  </div>
+  <div class="col-lg-1">
+    <h6>Report End</h6>
+  </div>
+  <div class="col-lg-1">
+    <h6>Password</h6>
+  </div>
+  <div class="col-lg-2">
+    <h6>Actions</h6>
+  </div>
+</div>
+<% @validsushi.each do |s| %>
+<div class="row">
+  <div class="col-lg-1">
+    <p><%= s.name %></p>
+  </div>
+  <div class="col-lg-2">
+    <p><%= s.endpoint %></p>
+  </div>
+  <div class="col-lg-2">
+    <p><%= s.cust_id %></p>
+  </div>
+  <div class="col-lg-2">
+    <p><%= s.req_id %></p>
+  </div>
+  <div class="col-lg-1">
+    <p><%= s.report_start %></p>
+  </div>
+  <div class="col-lg-1">
+    <p><%= s.report_end %></p>
+  </div>
+  <div class="col-lg-1">
+    <p><%= s.password %></p>
+  </div>
+  <div class="col-lg-2">
+    <%= link_to 'Import', sushi_path(s.id), method: :delete, class: 'btn btn-danger', data: {confirm: "Are you sure?"} %>
+  </div>
+</div>
+<% end %>
