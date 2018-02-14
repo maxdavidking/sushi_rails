@@ -1,0 +1,2 @@
+class ValidsushiController < ApplicationController
+end
