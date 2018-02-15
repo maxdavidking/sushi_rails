@@ -12,7 +12,7 @@ class SushiController < ApplicationController
     if @sushi.save
       redirect_to('/sushi')
     else
-      flash[:danger] = "Error: #{@sushi.errors.full_messages}"
+      flash[:danger] = "Error: #{@sushi.errors.full_message(@sushi.name, 'already exists')}"
       redirect_to ('/sushi/new')
     end
   end

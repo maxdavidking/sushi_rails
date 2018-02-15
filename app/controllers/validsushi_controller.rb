@@ -10,7 +10,7 @@ class ValidsushiController < ApplicationController
       flash[:success] = "Added #{@validsushi.name}"
       redirect_to("/validsushi")
     else
-      flash[:danger] = "Error: #{@sushi.errors.full_messages}"
+      flash[:danger] = "Error: #{@sushi.errors.full_message(@validsushi.name, 'already exists.')}"
       redirect_to("/validsushi")
     end
   end
