@@ -1,14 +1,10 @@
 <div class="row">
-<h1> Edit User Profiles </h1>
+<h3> Edit User Profiles </h3>
 </div>
 <%= form_for (@user) do |f| %>
 <div class='form-group'>
   <%= f.label :name, "Name" %>
   <%= f.text_field :name, class: "form-control", autofocus: true, required: true %>
-</div>
-<div class='form-group'>
-  <%= f.label :organization, "Organization" %>
-  <%= f.text_field :organization, class: "form-control"%>
 </div>
 <div class='form-group'>
   <%= f.submit "Update", class: 'btn btn-primary' %>

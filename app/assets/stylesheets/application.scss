@@ -25,9 +25,23 @@ $link-color: white;
 .btn {
   margin-bottom: 1px;
 }
+p.faq{
+  font-style: italic;
+}
+h3{
+  color: #325d72 !important;
+}
 footer{
   //Account for body content so there is no overlap
   margin-top: 60px;
+}
+.row.data{
+  padding-top: 5px;
+  border-top: 1px solid #ddd;
+}
+.nav-item.nav-link.active{
+  background-color: #325d72;
+  border-radius: 5px;
 }
 
 
