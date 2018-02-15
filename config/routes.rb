@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :user
   resources :about
   root to: 'about#index'
+  get '/contact', to: 'about#contact'
   get '/validsushi', to: 'validsushi#index'
   get '/import', to: 'validsushi#import'
   get '/auth/:provider/callback', to: 'sessions#create'
