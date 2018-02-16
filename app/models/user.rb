@@ -9,7 +9,6 @@ class << self
     user.name = auth_hash['info']['name']
     user.location = auth_hash['info']['location']
     user.image_url = auth_hash['info']['image']
-    user.url = auth_hash['info']['urls']['Twitter']
     user.save!
     user
   end
