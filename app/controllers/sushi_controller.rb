@@ -19,6 +19,11 @@ class SushiController < ApplicationController
 
   def edit
     @sushi = Sushi.find(params[:id])
+    unless session[:user_id] == @sushi.user_id
+      flash[:danger] = "That's not your sushi connection"
+      redirect_to root_path
+      return
+    end
   end
 
   def update
@@ -36,10 +41,20 @@ class SushiController < ApplicationController
     @sushi = Sushi.find(params[:id])
     @response = helpers.sushi_call
     @error = helpers.error
+    unless session[:user_id] == @sushi.user_id
+      flash[:danger] = "That's not your sushi connection"
+      redirect_to root_path
+      return
+    end
   end
 
   def call
     @sushi = Sushi.find(params[:id])
+    unless session[:user_id] == @sushi.user_id
+      flash[:danger] = "That's not your sushi connection"
+      redirect_to root_path
+      return
+    end
     begin
       helpers.sushi_call
       helpers.months_math(@sushi.report_start, @sushi.report_end)
@@ -61,6 +76,11 @@ class SushiController < ApplicationController
 
   def destroy
     @sushi = Sushi.find(params[:id])
+    unless session[:user_id] == @sushi.user_id
+      flash[:danger] = "That's not your sushi connection"
+      redirect_to root_path
+      return
+    end
     @sushi.destroy
     respond_to do |format|
       format.html { redirect_to('/sushi')}
