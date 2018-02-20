@@ -1,8 +1,3 @@
-before_fork do
-  require 'puma_worker_killer'
-
-  PumaWorkerKiller.start
-end
 # Puma can serve each request in a thread from an internal thread pool.
 # The `threads` method setting takes two numbers: a minimum and maximum.
 # Any libraries that use thread pools should be configured to match
@@ -41,9 +36,12 @@ workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 # recommended that you close any connections to the database before workers
 # are forked to prevent connection leakage.
 #
-# before_fork do
+before_fork do
 #   ActiveRecord::Base.connection_pool.disconnect! if defined?(ActiveRecord)
-# end
+  require 'puma_worker_killer'
+
+  PumaWorkerKiller.enable_rolling_restart
+end
 
 # The code in the `on_worker_boot` will be called if you are using
 # clustered mode by specifying a number of `workers`. After each worker
