@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180214182355) do
+ActiveRecord::Schema.define(version: 20180220214332) do
 
   create_table "organizations", force: :cascade do |t|
     t.string "name"
@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(version: 20180214182355) do
     t.string "uid"
     t.string "location"
     t.string "image_url"
-    t.string "url"
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
     t.index ["provider"], name: "index_users_on_provider"
     t.index ["uid"], name: "index_users_on_uid"
