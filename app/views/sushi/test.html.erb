@@ -54,7 +54,8 @@
       <p><%= @sushi.password %></p>
     </div>
     <div class="col-lg-2">
-      <%= link_to 'Get Counter Report', {:controller => :sushi, :action => :call, :id => (@sushi.id), :format => "csv"}, class: 'btn btn-primary'%>
+      <%= link_to 'Get CSV Counter Report', {:controller => :sushi, :action => :call, :id => (@sushi.id), :format => "csv"}, class: 'btn btn-primary', data: {confirm: "Please be patient. This can take up to a minute."}%>
+      <%= link_to 'Get TSV Counter Report', {:controller => :sushi, :action => :call, :id => (@sushi.id), :format => "tsv"}, class: 'btn btn-primary', data: {confirm: "Please be patient. This can take up to a minute."}%>
       <%= link_to 'Test Connection', {:controller => :sushi, :action => :test, :id => (@sushi.id)}, class: 'btn btn-primary'%>
       <%= link_to 'Edit Connection', edit_sushi_path(@sushi.id), class: 'btn btn-primary' %>
       <%= link_to 'Delete', sushi_path(@sushi.id), method: :delete, class: 'btn btn-danger', data: {confirm: "Are you sure?"} %>
