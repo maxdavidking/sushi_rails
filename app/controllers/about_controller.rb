@@ -4,8 +4,4 @@ class AboutController < ApplicationController
 
   def contact
   end
-
-  def error_404
-    render status: 404
-  end
 end

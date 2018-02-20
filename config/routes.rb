@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get '/auth/failure', to: 'sessions#destroy'
-  post '/', to: 'about#error_404'
+  post '/', to: 'error#not_found'
+  get '*path', to: 'error#not_found'
 end
