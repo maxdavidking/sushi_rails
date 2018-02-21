@@ -56,7 +56,8 @@ group :development, :test do
   gem 'warden-rspec-rails'
   gem 'selenium-webdriver'
   gem 'rack_session_access'
-  gem "launchy"
+  gem 'launchy'
+  gem 'oink'
 end
 
 group :development do
