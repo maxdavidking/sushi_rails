@@ -35,6 +35,8 @@ gem 'nprogress-rails'
 gem 'jbuilder', '~> 2.5'
 gem 'savon'
 gem 'puma_worker_killer'
+gem 'oink'
+gem 'memory_profiler'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
@@ -57,8 +59,6 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'rack_session_access'
   gem 'launchy'
-  gem 'oink'
-  gem 'memory_profiler'
 end
 
 group :development do
