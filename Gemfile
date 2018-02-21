@@ -58,6 +58,7 @@ group :development, :test do
   gem 'rack_session_access'
   gem 'launchy'
   gem 'oink'
+  gem 'memory_profiler'
 end
 
 group :development do

@@ -1,4 +1,6 @@
 class SushiController < ApplicationController
+  require 'memory_profiler'
+
   def index
     @sushi = Sushi.where(user_id: session[:user_id])
   end
