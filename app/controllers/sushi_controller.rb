@@ -51,7 +51,6 @@ class SushiController < ApplicationController
   end
 
   def call
-    report = MemoryProfiler.report do
     @sushi = Sushi.find(params[:id])
     unless session[:user_id] == @sushi.user_id
       flash[:danger] = "That's not your sushi connection"
@@ -75,8 +74,6 @@ class SushiController < ApplicationController
       redirect_to("/sushi")
       flash[:danger] = "Failure, try testing your connection"
     end
-  end
-    report.pretty_print(to_file: 'log/mem_profiler.log')
   end
 
   def destroy
