@@ -40,7 +40,7 @@ before_fork do
 #   ActiveRecord::Base.connection_pool.disconnect! if defined?(ActiveRecord)
   require 'puma_worker_killer'
 
-  PumaWorkerKiller.enable_rolling_restart
+  PumaWorkerKiller.enable_rolling_restart(0.1 * 3600)
 end
 
 # The code in the `on_worker_boot` will be called if you are using
