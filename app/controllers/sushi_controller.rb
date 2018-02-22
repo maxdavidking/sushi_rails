@@ -1,5 +1,4 @@
 class SushiController < ApplicationController
-  require 'memory_profiler'
 
   def index
     @sushi = Sushi.where(user_id: session[:user_id])
@@ -74,8 +73,6 @@ class SushiController < ApplicationController
       redirect_to("/sushi")
       flash[:danger] = "Failure, try testing your connection"
     end
-    @report_data = nil
-    @response = nil
   end
 
   def destroy
