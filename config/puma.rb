@@ -13,7 +13,7 @@ port        ENV.fetch("PORT") { 3000 }
 
 # Specifies the `environment` that Puma will run in.
 #
-environment ENV.fetch("RAILS_ENV") { "development" }
+environment ENV.fetch("RAILS_ENV") { "production" }
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together
@@ -30,7 +30,7 @@ workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 # you need to make sure to reconnect any threads in the `on_worker_boot`
 # block.
 #
-# preload_app!
+preload_app!
 
 # If you are preloading your application and using Active Record, it's
 # recommended that you close any connections to the database before workers
@@ -40,7 +40,9 @@ before_fork do
 #   ActiveRecord::Base.connection_pool.disconnect! if defined?(ActiveRecord)
   require 'puma_worker_killer'
 
-  PumaWorkerKiller.enable_rolling_restart(0.1 * 3600)
+  if Rails.env.production?
+      PumaWorkerKiller.enable_rolling_restart(0.01 * 3600) # 8 hours in seconds
+  end
 end
 
 # The code in the `on_worker_boot` will be called if you are using
