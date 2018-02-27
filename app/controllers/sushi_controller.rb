@@ -72,7 +72,7 @@ class SushiController < ApplicationController
     rescue
       redirect_to("/sushi")
       flash[:danger] = "Failure, try testing your connection"
-    end
+    end 
   end
 
   def destroy

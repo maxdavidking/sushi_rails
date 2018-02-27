@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>COUNTER App</title>
+  <title>FetchCounter</title>
   <%= csrf_meta_tags %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= favicon_link_tag 'favicon.png' %>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -22,7 +23,7 @@
         <div class="nav-item nav-link <%= 'active' if current_page?(user_index_path) %>"><%= link_to 'User Profile', user_index_path %></div>
         <div class="nav-item nav-link "><%= link_to 'Log Out', logout_path, method: :delete %></div>
         <% else %>
-        <div class="nav-item nav-link"><%= link_to 'Google', '/auth/google' %></div>
+        <div class="nav-item nav-link"><%= link_to 'Login', '/auth/google' %></div>
         <% end %>
       </div>
     </div>
