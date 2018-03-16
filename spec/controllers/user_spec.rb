@@ -5,7 +5,7 @@ RSpec.describe "User features" do
   let (:sign_in) do
     visit '/'
     mock_auth_hash
-    click_link "Google"
+    click_link "Login"
   end
 
   describe "User login actions", :type => :feature do
