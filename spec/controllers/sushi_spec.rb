@@ -4,7 +4,7 @@ RSpec.describe 'Sushi Controller' do
   let (:sign_in) do
     visit '/'
     mock_auth_hash
-    click_link "Google"
+    click_link "Login"
   end
 
   describe "Sushi CRUD for logged in user", :type => :feature do
@@ -52,19 +52,17 @@ RSpec.describe 'Sushi Controller' do
 
     it "creates a new sushi connection" do
       sign_in
-      conn = Sushi.create!(name: "science direct", endpoint: "http://sushi4.scholarlyiq.com/SushiService.svc", cust_id: "X124552", req_id: "90633e00-fc53-4f70-9ae0-ac2c33d00014", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id)
 
       click_link("New COUNTER Connection")
-      fill_in "Name", with: conn.name
-      fill_in "Endpoint", with: conn.endpoint
-      fill_in "Requestor ID", with: conn.req_id
-      fill_in "Customer ID", with: conn.cust_id
-      fill_in "Report Start", with: conn.report_start
-      fill_in "Report End", with: conn.report_end
-      fill_in "Password", with: conn.password
+      fill_in "Name", with: 'test'
+      fill_in "Endpoint", with: 'test'
+      fill_in "Requestor ID", with: 'test'
+      fill_in "Customer ID", with: 'test'
+      fill_in "Report Start", with: '2017-01-01'
+      fill_in "Report End", with: '2017-12-31'
+      fill_in "Password", with: 'test'
       click_button('Create')
-
-      expect(page).to have_content('science direct')
+      expect(page).to have_content('test')
     end
 
     it "automatically populates the user id field with the user's session ID" do
@@ -77,13 +75,11 @@ RSpec.describe 'Sushi Controller' do
     it "edits sushi connection information" do
       sign_in
       Sushi.create!(name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id)
-      conn = Sushi.create!(name: "science direct", endpoint: "http://sushi4.scholarlyiq.com/SushiService.svc", cust_id: "X124552", req_id: "90633e00-fc53-4f70-9ae0-ac2c33d00014", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id)
       visit('/sushi')
       first(:link, 'Edit Connection').click
-      fill_in 'Name', with: conn.name
+      fill_in 'Name', with: 'test'
       click_on('Update')
-
-      expect(page).to have_content('science direct')
+      expect(page).to have_content('test')
     end
 
     it "deletes sushi connection information" do
