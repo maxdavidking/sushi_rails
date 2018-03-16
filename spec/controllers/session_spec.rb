@@ -5,9 +5,9 @@ RSpec.describe 'OAuth logins' do
     include ApplicationHelper
     it "can sign in user with Google account" do
       visit '/'
-      expect(page).to have_content("Google")
+      expect(page).to have_content("Login")
       mock_auth_hash
-      click_link "Google"
+      click_link "Login"
       expect(page).to have_content("mockuser")  # user name
       expect(page).to have_content("Log Out")
     end
@@ -15,8 +15,8 @@ RSpec.describe 'OAuth logins' do
     it "can handle authentication error" do
       OmniAuth.config.mock_auth[:google] = :invalid_credentials
       visit '/'
-      expect(page).to have_content("Google")
-      click_link "Google"
+      expect(page).to have_content("Login")
+      click_link "Login"
       expect(page).to have_content('Logged out')
     end
   end
