@@ -26,15 +26,9 @@ RSpec.describe "Organization controller" do
       sign_in
       visit("/organizations")
       click_link "Join"
-<<<<<<< HEAD
       fill_in "organization_password", with: "test"
       click_button("Confirm")
       expect(page).to have_content("test123")
-=======
-      fill_in "organization_password_digest", with: "test"
-      click_button("Confirm")
-      expect(page).to have_content("test")
->>>>>>> Fix test to check if users can join an organization by entering correct password
     end
 
     it "updates the user table when a user creates an organization" do
@@ -50,7 +44,10 @@ RSpec.describe "Organization controller" do
       click_button("Create")
       expect(page).to have_content('test')
     end
+<<<<<<< HEAD
 
+=======
+>>>>>>> Remove duplicate test
     it "can not join an existing organization without the correct password" do
       sign_in
       visit("/organizations")
