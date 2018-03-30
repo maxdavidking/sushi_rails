@@ -44,10 +44,7 @@ RSpec.describe "Organization controller" do
       click_button("Create")
       expect(page).to have_content('test')
     end
-<<<<<<< HEAD
 
-=======
->>>>>>> Remove duplicate test
     it "can not join an existing organization without the correct password" do
       sign_in
       visit("/organizations")
