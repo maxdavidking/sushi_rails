@@ -5,7 +5,11 @@ RSpec.describe "Organization controller" do
     visit '/'
     mock_auth_hash
     click_link "Login"
+<<<<<<< HEAD
     Organization.create!(id: 99, name: "test123", password: "test", email: "test@example.com")
+=======
+    Organization.create!(id: 99, name: "test", password: "test", email: "test@example.com")
+>>>>>>> Update org feature tests to reflect new table structure
   end
 
   describe "Organization Features", :type => :feature do
@@ -16,7 +20,10 @@ RSpec.describe "Organization controller" do
       click_link "New Organization"
       fill_in "Name", with: "test"
       fill_in "Password", with: "test"
+<<<<<<< HEAD
       fill_in "Confirm Password", with: "test"
+=======
+>>>>>>> Update org feature tests to reflect new table structure
       fill_in "Email", with: "test@example.com"
       click_button('Create')
       expect(page).to have_content('test')
