@@ -64,7 +64,7 @@ class OrganizationsController < ApplicationController
       redirect_to('/user')
       flash[:danger] = "Error: You are already a member of an organization"
     elsif
-      organization_params[:password] != @organization.password
+      @organization.authenticate(organization_params[:password]) == false
       redirect_to('/user')
       flash[:danger] = "Wrong password"
     else
