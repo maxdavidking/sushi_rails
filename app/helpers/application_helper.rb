@@ -6,7 +6,7 @@ module ApplicationHelper
     begin
     #Set up client for connection
     client = Savon.client(
-    wsdl: "http://www.niso.org/schemas/sushi/counter_sushi4_0.wsdl",
+    wsdl: "https://www.niso.org/schemas/sushi/counter_sushi4_0.wsdl",
     endpoint: @sushi.endpoint,
     #Possible namespaces required by WSDL
     namespaces:{
