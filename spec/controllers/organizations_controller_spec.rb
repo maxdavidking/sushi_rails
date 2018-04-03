@@ -97,10 +97,7 @@ RSpec.describe "Organization controller" do
       click_link "New Organization"
       fill_in "Name", with: "test"
       fill_in "Password", with: "test"
-<<<<<<< HEAD
       fill_in "Confirm Password", with: "test"
-=======
->>>>>>> Add test to validate password_digest not being stored as plain text
       fill_in "Email", with: "test@example.com"
       click_button('Create')
       org = Organization.find(99)
