@@ -13,7 +13,6 @@ RSpec.describe "Data Controller" do
     Sushi.create!(id: 201, name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", organization_id: current_organization.id)
     Datum.create!(date: "2014-01-01", file: "/hello123/jstor-2018-04-04.csv", organization_id: 99, sushi_id: 201)
   end
-
   let (:join_org) do
     visit("/organizations")
     click_link "Join"
