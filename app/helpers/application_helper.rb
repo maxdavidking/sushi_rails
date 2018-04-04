@@ -214,7 +214,7 @@ module ApplicationHelper
   end
 
   def data_store(sushi, org)
-    datum = Datum.new(date: Date.today, file: "#{Rails.root}/public/#{org.name}/#{sushi.name}-#{Date.today}.#{@type}", organization_id: org.id, sushi_id: sushi.id)
+    datum = Datum.new(date: Date.today, file: "/public/#{org.name}/#{sushi.name}-#{Date.today}.#{@type}", organization_id: org.id, sushi_id: sushi.id)
     datum.save!
   end
 
