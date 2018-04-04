@@ -218,7 +218,17 @@ module ApplicationHelper
     datum.save!
   end
 
+  def org_folder?(org)
+    if Dir.exist?("#{Rails.root}/public/#{org}")
+    else
+      Dir.mkdir("#{Rails.root}/public/#{org}")
+    end
+  end
+
   def data_write(separator, sushi, org)
+    #ensure org folder exists
+    org_folder?(org)
+    #Write file to org folder
     CSV.open("#{Rails.root}/public/#{org}/#{sushi}-#{Date.today}.#{@type}", "wb", :col_sep => separator) do |row|
       row << ["#{@doc_version}", "Release: #{@doc_release}"]
       row << ["Requestor ID: #{@doc_requestor}", " Customer ID: #{@doc_customer_ref}"]
