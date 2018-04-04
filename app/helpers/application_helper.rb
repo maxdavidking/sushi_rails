@@ -207,8 +207,19 @@ module ApplicationHelper
     @total_usage = @usage_data.map(&:to_i).reduce(0, :+)
   end
 
-  def data_write(separator)
-    CSV.generate(:col_sep => separator) do |row|
+  def file_type(type)
+    @type = type
+    data_store(@sushi, @organization)
+    data_write("\,", @sushi.name, @organization.name)
+  end
+
+  def data_store(sushi, org)
+    datum = Datum.new(date: Date.today, file: "#{Rails.root}/public/#{org.name}/#{sushi.name}-#{Date.today}.#{@type}", organization_id: org.id, sushi_id: sushi.id)
+    datum.save!
+  end
+
+  def data_write(separator, sushi, org)
+    CSV.open("#{Rails.root}/public/#{org}/#{sushi}-#{Date.today}.#{@type}", "wb", :col_sep => separator) do |row|
       row << ["#{@doc_version}", "Release: #{@doc_release}"]
       row << ["Requestor ID: #{@doc_requestor}", " Customer ID: #{@doc_customer_ref}"]
       row << ["Period covered by Report:"]

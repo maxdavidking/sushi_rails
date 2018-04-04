@@ -51,6 +51,7 @@ class SushiController < ApplicationController
   end
 
   def call
+    @organization = current_organization
     @sushi = Sushi.find(params[:id])
     #Ensure user can only access their own connections
     unless session[:user_id] == @sushi.user_id
@@ -76,8 +77,8 @@ class SushiController < ApplicationController
       thread.join
         respond_to do |format|
           format.html
-          format.csv { send_data helpers.data_write("\,"), filename: "#{@sushi.name}-#{Date.today}.csv" }
-          format.tsv { send_data helpers.data_write("\t"), filename: "#{@sushi.name}-#{Date.today}.tsv" }
+          format.csv { render plain: helpers.file_type("csv"), content_type: 'text/plain' }
+          format.tsv { render plain: helpers.file_type("tsv"), content_type: 'text/plain' }
         end
     rescue
       redirect_to("/sushi")
