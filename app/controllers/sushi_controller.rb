@@ -2,7 +2,7 @@
 class SushiController < ApplicationController
 
   def index
-    @sushi = Sushi.where(user_id: session[:user_id])
+    @sushi =  Sushi.where(user_id: current_user.id) + Sushi.where(organization_id: current_organization.id)
   end
 
   def new
@@ -54,7 +54,7 @@ class SushiController < ApplicationController
     @organization = current_organization
     @sushi = Sushi.find(params[:id])
     #Ensure user can only access their own connections
-    unless session[:user_id] == @sushi.user_id
+    unless session[:user_id] == @sushi.user_id || current_organization.id == @sushi.organization_id
       flash[:danger] = "That's not your sushi connection"
       redirect_to root_path
       return
