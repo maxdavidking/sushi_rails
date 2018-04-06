@@ -64,7 +64,6 @@ RSpec.describe 'Sushi Controller' do
       fill_in "Report End", with: '2017-12-31'
       fill_in "Password", with: 'test'
       click_button('Create')
-      save_and_open_page
       expect(page).to have_content('test')
     end
 
