@@ -11,8 +11,14 @@ RSpec.describe "User features" do
   describe "User login actions", :type => :feature do
     it "lists logged in user's profile data" do
       sign_in
-      click_link "User Profile"
+      visit("/user")
       expect(page).to have_content('mockuser')
+    end
+
+    it "forces user to create an organization if they don't already have one" do
+      sign_in
+      expect(page).to have_content("New Organization")
+      expect(page).to_not have_content("COUNTER Connections")
     end
   end
 end
