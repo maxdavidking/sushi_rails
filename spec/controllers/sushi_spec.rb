@@ -8,7 +8,7 @@ RSpec.describe 'Sushi Controller' do
     Organization.create!(id: 99, name: "hello123", password: "test", email: "test@example.com")
     current_user.update(organization_id: 99)
   end
-  
+
   describe "Sushi CRUD for logged in user", :type => :feature do
     include ApplicationHelper
     it "lists all sushi connection information for logged in user" do
@@ -54,7 +54,7 @@ RSpec.describe 'Sushi Controller' do
 
     it "creates a new sushi connection" do
       sign_in
-      click_link("New COUNTER Connection")
+      visit("/sushi/new")
       fill_in "Name", with: 'test1234'
       fill_in "Endpoint", with: 'test'
       fill_in "Requestor ID", with: 'test'
@@ -68,7 +68,7 @@ RSpec.describe 'Sushi Controller' do
 
     it "automatically populates the user id field with the user's session ID" do
       sign_in
-      click_link("New COUNTER Connection")
+      visit("/sushi/new")
       page.has_selector?('input', :text => current_user.id)
     end
 
