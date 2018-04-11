@@ -21,7 +21,7 @@ class SushiController < ApplicationController
 
   def edit
     @sushi = Sushi.find(params[:id])
-    unless session[:user_id] == @sushi.user_id
+    unless session[:user_id] == @sushi.user_id || current_organization.id = @sushi.organization_id
       flash[:danger] = "That's not your sushi connection"
       redirect_to root_path
       return
@@ -43,7 +43,7 @@ class SushiController < ApplicationController
     @sushi = Sushi.find(params[:id])
     @response = helpers.sushi_call
     @error = helpers.error
-    unless session[:user_id] == @sushi.user_id
+    unless session[:user_id] == @sushi.user_id || current_organization.id = @sushi.organization_id
       flash[:danger] = "That's not your sushi connection"
       redirect_to root_path
       return
