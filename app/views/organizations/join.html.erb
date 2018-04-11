@@ -18,8 +18,8 @@
     <%= f.label :name, "Name" %>
     <%= f.text_field :name, class: "form-control"  %>
   </div>
-  <div class="col-lg-3">
-    <%= text_field_tag :password %>
+  <div class='form-group'>
+    <%= f.label :password, "Password" %>
     <%= f.text_field :password, value: nil, class: "form-control", autofocus: true, required: true %>
   </div>
   <div class="col-lg-3">
