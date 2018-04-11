@@ -5,39 +5,56 @@ class OrganizationsController < ApplicationController
   # GET /organizations.json
   def index
     @organization = Organization.all
+    render :layout => "organization_lock"
   end
 
   # GET /organizations/1
   # GET /organizations/1.json
   def show
+    @organization = Organization.find(params[:id])
+    @data = Datum.where(organization_id: current_organization.id)
+    @users = User.where(organization_id: current_organization.id)
+    unless current_organization.id == @organization.id
+      flash[:danger] = "That's not your organization"
+      redirect_to root_path
+      return
+    end
   end
 
   # GET /organizations/new
   def new
     @organization = Organization.new
+    render :layout => "organization_lock"
   end
 
   # GET /organizations/1/edit
   def edit
+    @organization = Organization.find(params[:id])
+    unless current_organization.id == @organization.id
+      flash[:danger] = "That's not your organization"
+      redirect_to root_path
+      return
+    end
   end
 
   def join
     @organization = Organization.find(params[:id])
+    render :layout => "organization_lock"
   end
 
-  def confirm
+  def add_org_to_user
     @organization = Organization.find(params[:id])
     if current_user.organization_id != nil
       redirect_to('/user')
       flash[:danger] = "Error: You are already a member of an organization"
     elsif
-      organization_params[:password] != @organization.password_digest
+      @organization.authenticate(organization_params[:password]) == false
       redirect_to('/user')
       flash[:danger] = "Wrong password"
     else
-      current_user.update(organization_id: @organization.id)
+      current_user.update_attributes(organization_id: @organization.id)
       redirect_to('/user')
-      flash[:danger] = "Okay!"
+      flash[:success] = "Okay!"
     end
   end
 
@@ -48,7 +65,11 @@ class OrganizationsController < ApplicationController
     if @organization.save
       user = current_user
       user.update(organization_id: @organization.id)
+      helpers.org_folder?(@organization.name)
       redirect_to('/organizations')
+    elsif organization_params[:password] != organization_params[:password_confirmation]
+      flash[:danger] = "Error: passwords must match"
+      redirect_to ('/organizations/new')
     else
       flash[:danger] = "Error: #{@organization.errors.full_message(@organization.name, 'already exists')}"
       redirect_to ('/organizations/new')
@@ -58,15 +79,8 @@ class OrganizationsController < ApplicationController
   # PATCH/PUT /organizations/1
   # PATCH/PUT /organizations/1.json
   def update
-    respond_to do |format|
-      if @organization.update(organization_params)
-        format.html { redirect_to @organization, notice: 'Organization was successfully updated.' }
-        format.json { render :show, status: :ok, location: @organization }
-      else
-        format.html { render :edit }
-        format.json { render json: @organization.errors, status: :unprocessable_entity }
-      end
-    end
+    @organization.update_attributes(organization_params)
+    redirect_to('/user')
   end
 
   # DELETE /organizations/1
@@ -87,6 +101,6 @@ class OrganizationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def organization_params
-      params.require(:organization).permit(:name, :email, :password_digest, :password)
+      params.require(:organization).permit(:name, :email, :password, :password_confirmation)
     end
 end
