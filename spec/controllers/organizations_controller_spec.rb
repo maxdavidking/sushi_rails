@@ -90,7 +90,7 @@ RSpec.describe "Organization controller" do
       expect(page).to have_content("Max")
       expect(page).to have_content("mockuser")
     end
-
+    
     it "can encrypt Organization password with bcrypt" do
       sign_in
       visit("/organizations")
