@@ -13,11 +13,14 @@
   </div>
 </div>
 <div class="row data">
-  <div class="col-lg-3">
-    <p><%= @organization.name %></p>
+  <%= form_for (@organization), :url => url_for(:controller => 'organizations', :action => 'add_org_to_user') do |f| %>
+  <div class='form-group'>
+    <%= f.label :name, "Name" %>
+    <%= f.text_field :name, class: "form-control"  %>
   </div>
   <div class="col-lg-3">
     <%= text_field_tag :password %>
+    <%= f.text_field :password, value: nil, class: "form-control", autofocus: true, required: true %>
   </div>
   <div class="col-lg-3">
     <p><%= link_to 'Confirm', {:controller => :organizations, :action => :confirm, :organization => @organization.attributes, :password => params[:password]}, class: 'btn btn-primary' %></p>

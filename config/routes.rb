@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :organizations do
     collection do
       get ':id/join', to: 'organizations#join'
-      get ':id/confirm', to: 'organizations#confirm'
+      patch ':id/add_org_to_user', to: 'organizations#add_org_to_user'
     end
   end
   resources :datum

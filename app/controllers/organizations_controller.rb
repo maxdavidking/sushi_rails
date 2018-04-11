@@ -58,6 +58,22 @@ class OrganizationsController < ApplicationController
     end
   end
 
+  def add_org_to_user
+    @organization = Organization.find(params[:id])
+    if current_user.organization_id != nil
+      redirect_to('/user')
+      flash[:danger] = "Error: You are already a member of an organization"
+    elsif
+      organization_params[:password_digest] != @organization.password_digest
+      redirect_to('/user')
+      flash[:danger] = "Wrong password"
+    else
+      current_user.update_attributes(organization_id: @organization.id)
+      redirect_to('/user')
+      flash[:success] = "Okay!"
+    end
+  end
+
   # POST /organizations
   # POST /organizations.json
   def create
