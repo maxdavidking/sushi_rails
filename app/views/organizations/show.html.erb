@@ -18,7 +18,7 @@
     <p><%= d.date %></p>
   </div>
   <div class="col-lg-5">
-    <p><%=link_to "Download #{d.file}", d.file, class: "text-secondary"%></p>
+    <p><%= link_to("Download", rails_blob_path(d.file, disposition: "attachment"), class: 'btn btn-primary') %></p>
   </div>
 </div>
 <% end %>
