@@ -29,7 +29,7 @@ class UserController < ApplicationController
 
   def update
     @user.update_attributes(user_params)
-    redirect_to('/user')
+    redirect_to('/organizations')
   end
 
   private
