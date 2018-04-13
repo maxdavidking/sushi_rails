@@ -209,7 +209,12 @@ module ApplicationHelper
 
   def file_type(type)
     @type = type
-    data_write("\,", @sushi.name, @organization.name)
+    if @type == "csv"
+      separator = "\,"
+    else
+      separator = "\t"
+    end
+    data_write(separator, @sushi.name, @organization.name)
     data_store(@sushi, @organization)
   end
 
@@ -243,6 +248,6 @@ module ApplicationHelper
   def data_store(sushi, org)
     datum = Datum.new(date: Date.today, organization_id: org.id, sushi_id: sushi.id)
     datum.save!
-    datum.file.attach(io: File.open("#{Rails.root}/storage/#{org.name}/#{sushi.name}-#{Date.today}.csv"), filename: "#{sushi.name}-#{Date.today}.csv", content_type: "text/csv")
+    datum.file.attach(io: File.open("#{Rails.root}/storage/#{org.name}/#{sushi.name}-#{Date.today}.#{@type}"), filename: "#{sushi.name}-#{Date.today}.#{@type}", content_type: "text/#{@type}")
   end
 end
