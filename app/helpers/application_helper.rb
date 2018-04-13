@@ -209,19 +209,14 @@ module ApplicationHelper
 
   def file_type(type)
     @type = type
-    data_store(@sushi, @organization)
     data_write("\,", @sushi.name, @organization.name)
-  end
-
-  def data_store(sushi, org)
-    datum = Datum.new(date: Date.today, file: "/#{org.name}/#{sushi.name}-#{Date.today}.#{@type}", organization_id: org.id, sushi_id: sushi.id)
-    datum.save!
+    data_store(@sushi, @organization)
   end
 
   def org_folder?(org)
-    if Dir.exist?("#{Rails.root}/public/#{org}")
+    if Dir.exist?("#{Rails.root}/storage/#{org}")
     else
-      Dir.mkdir("#{Rails.root}/public/#{org}")
+      Dir.mkdir("#{Rails.root}/storage/#{org}")
     end
   end
 
@@ -229,7 +224,7 @@ module ApplicationHelper
     #ensure org folder exists
     org_folder?(org)
     #Write file to org folder
-    CSV.open("#{Rails.root}/public/#{org}/#{sushi}-#{Date.today}.#{@type}", "wb", :col_sep => separator) do |row|
+    CSV.open("#{Rails.root}/storage/#{org}/#{sushi}-#{Date.today}.#{@type}", "wb", :col_sep => separator) do |row|
       row << ["#{@doc_version}", "Release: #{@doc_release}"]
       row << ["Requestor ID: #{@doc_requestor}", " Customer ID: #{@doc_customer_ref}"]
       row << ["Period covered by Report:"]
@@ -243,5 +238,11 @@ module ApplicationHelper
         row << data
       end
     end
+  end
+
+  def data_store(sushi, org)
+    datum = Datum.new(date: Date.today, organization_id: org.id, sushi_id: sushi.id)
+    datum.save!
+    datum.file.attach(io: File.open("#{Rails.root}/storage/#{org.name}/#{sushi.name}-#{Date.today}.csv"), filename: "#{sushi.name}-#{Date.today}.csv", content_type: "text/csv")
   end
 end
