@@ -5,6 +5,7 @@ class OrganizationsController < ApplicationController
   # GET /organizations.json
   def index
     @organization = Organization.all
+    #Force users to join an org if not already in one
     render :layout => "organization_lock"
   end
 
@@ -23,6 +24,7 @@ class OrganizationsController < ApplicationController
   # GET /organizations/new
   def new
     @organization = Organization.new
+    #Force users to join an org if not already in one
     render :layout => "organization_lock"
   end
 
@@ -38,6 +40,7 @@ class OrganizationsController < ApplicationController
 
   def join
     @organization = Organization.find(params[:id])
+    #Force users to join an org if not already in one
     render :layout => "organization_lock"
   end
 
@@ -53,7 +56,7 @@ class OrganizationsController < ApplicationController
     else
       current_user.update_attributes(organization_id: @organization.id)
       redirect_to('/user')
-      flash[:success] = "Okay!"
+      flash[:success] = "Welcome to #{@organization.name}"
     end
   end
 
