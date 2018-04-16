@@ -65,7 +65,7 @@ class OrganizationsController < ApplicationController
       user = current_user
       user.update(organization_id: @organization.id)
       helpers.org_folder?(@organization.name)
-      redirect_to('/organizations')
+      redirect_to('/user')
     elsif organization_params[:password] != organization_params[:password_confirmation]
       flash[:danger] = "Error: passwords must match"
       redirect_to ('/organizations/new')
