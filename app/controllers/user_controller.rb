@@ -30,7 +30,11 @@ class UserController < ApplicationController
 
   def update
     @user.update_attributes(user_params)
-    redirect_to('/organizations')
+    if current_organization == nil
+      redirect_to('/organizations')
+    else
+      redirect_to('/user')
+    end
   end
 
   private
