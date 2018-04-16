@@ -60,26 +60,16 @@ class SushiController < ApplicationController
       return
     end
     begin
-      #Call this process in a new thread, as it can take a while.
-      thread = Thread.new do
-        #Not possible to deadlock in this case, but still best practice to wrap new thread code
-        Rails.application.executor.wrap do
-          helpers.sushi_call
-          helpers.months_math(@sushi.report_start, @sushi.report_end)
-          helpers.count_months
-          helpers.xml_open
-          helpers.get_secondary_data
-          helpers.get_item_data
-          helpers.get_total_data
-        end
-      end
-      #Rejoin the completed thread to deliver content
-      thread.join
-        respond_to do |format|
-          format.html
-          format.csv { render plain: helpers.file_type("csv"), content_type: 'text/plain' }
-          format.tsv { render plain: helpers.file_type("tsv"), content_type: 'text/plain' }
-        end
+      helpers.sushi_call
+      helpers.months_math(@sushi.report_start, @sushi.report_end)
+      helpers.count_months
+      helpers.xml_open
+      helpers.get_secondary_data
+      helpers.get_item_data
+      helpers.get_total_data
+      helpers.file_type("csv")
+      redirect_to("/sushi")
+      flash[:success] = "Your report finished downloading and is in your user profile"
     rescue
       redirect_to("/sushi")
       flash[:danger] = "Failure, try testing your connection"

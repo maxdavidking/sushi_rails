@@ -208,13 +208,8 @@ module ApplicationHelper
   end
 
   def file_type(type)
-    @type = type
-    if @type == "csv"
-      separator = "\,"
-    else
-      separator = "\t"
-    end
-    data_write(separator, @sushi.name, @organization.name)
+    @type = "csv"
+    data_write(@sushi.name, @organization.name)
     data_store(@sushi, @organization)
   end
 
@@ -225,11 +220,11 @@ module ApplicationHelper
     end
   end
 
-  def data_write(separator, sushi, org)
+  def data_write(sushi, org)
     #ensure org folder exists
     org_folder?(org)
     #Write file to org folder
-    CSV.open("#{Rails.root}/storage/#{org}/#{sushi}-#{Date.today}.#{@type}", "wb", :col_sep => separator) do |row|
+    CSV.open("#{Rails.root}/storage/#{org}/#{sushi}-#{Date.today}.#{@type}", "wb", :col_sep => "\,") do |row|
       row << ["#{@doc_version}", "Release: #{@doc_release}"]
       row << ["Requestor ID: #{@doc_requestor}", " Customer ID: #{@doc_customer_ref}"]
       row << ["Period covered by Report:"]
