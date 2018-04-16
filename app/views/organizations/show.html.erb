@@ -1,24 +1,10 @@
 <div class="row">
   <h3> Organization Members </h3>
 </div>
-
-  <% @users.each do |u| %>
-  <div class="row data">
-    <div class="col-lg-5">
-      <p><%= u.name %></p>
-    </div>
-  </div>
-<% end %>
-<div class="row">
-  <h3> Downloads </h3>
-</div>
-<% @data.each do |d| %>
+<% @users.each do |u| %>
 <div class="row data">
   <div class="col-lg-5">
-    <p><%= d.date %></p>
-  </div>
-  <div class="col-lg-5">
-    <p><%= link_to("Download", rails_blob_path(d.file, disposition: "attachment"), class: 'btn btn-primary') %></p>
+    <p><%= u.name %></p>
   </div>
 </div>
 <% end %>

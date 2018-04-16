@@ -22,9 +22,22 @@
     <% end %>
   </div>
   <div class="col-lg-3">
-    <p><%= link_to 'Edit Profile', edit_user_path(current_user.id), class: 'btn btn-primary' %></p>
+    <%= link_to 'Edit Profile', edit_user_path(current_user.id), class: 'btn btn-primary' %>
     <% if current_organization %>
-      <p><%= link_to 'Edit Organization', edit_organization_path(current_organization.id), class: 'btn btn-primary' %></p>
+      <%= link_to 'Edit Organization', edit_organization_path(current_organization.id), class: 'btn btn-primary' %>
     <% end %>
   </div>
 </div>
+<div class="row">
+  <h3> Downloads </h3>
+</div>
+<% @data.each do |d| %>
+<div class="row data">
+  <div class="col-lg-5">
+    <p><%= d.date %></p>
+  </div>
+  <div class="col-lg-5">
+    <p><%= link_to("Download", rails_blob_path(d.file, disposition: "attachment"), class: 'btn btn-primary') %></p>
+  </div>
+</div>
+<% end %>
