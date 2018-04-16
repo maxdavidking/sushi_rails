@@ -34,7 +34,7 @@
 <% @data.each do |d| %>
 <div class="row data">
   <div class="col-lg-5">
-    <p><%= d.date %></p>
+    <p><%= "#{d.file.filename}" %></p>
   </div>
   <div class="col-lg-5">
     <p><%= link_to("Download", rails_blob_path(d.file, disposition: "attachment"), class: 'btn btn-primary') %></p>
