@@ -6,6 +6,8 @@ RSpec.describe "User features" do
     visit '/'
     mock_auth_hash
     click_link "Login"
+    Organization.create!(id: 100, name: "IIT", password: "test", email: "test@example.com")
+    current_user.update(organization_id: 100)
   end
 
   describe "User login actions", :type => :feature do
