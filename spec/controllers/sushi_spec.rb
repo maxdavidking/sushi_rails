@@ -23,7 +23,8 @@ RSpec.describe 'Sushi Controller' do
       Sushi.create!(name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id, organization_id: current_organization.id)
       visit('/sushi')
       first(:link, "Get CSV Counter Report").click
-      expect(page).to have_content('Ithaka')
+      visit("/user")
+      expect(page).to have_content('jstor')
     end
 
     it "fails gracefully on unsuccessful sushi report request" do
