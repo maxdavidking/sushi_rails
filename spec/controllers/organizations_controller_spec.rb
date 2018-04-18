@@ -4,8 +4,8 @@ RSpec.describe "Organization controller" do
   let (:sign_in) do
     visit '/'
     mock_auth_hash
-    click_link "Login"
     Organization.create!(id: 99, name: "test123", password: "test", email: "test@example.com")
+    click_link "Login"
   end
 
   describe "Organization Features", :type => :feature do
@@ -24,7 +24,7 @@ RSpec.describe "Organization controller" do
 
     it "updates the user table when a user joins an organization" do
       sign_in
-      visit("/organizations")
+      save_and_open_page
       click_link "Join"
       fill_in "organization_password", with: "test"
       click_button("Confirm")
@@ -33,9 +33,6 @@ RSpec.describe "Organization controller" do
 
     it "updates the user table when a user creates an organization" do
       sign_in
-      visit("/user")
-      expect(page).not_to have_content('test')
-      visit("/organizations")
       click_link "New Organization"
       fill_in "Name", with: "test"
       fill_in "Password", with: "test"
@@ -51,7 +48,6 @@ RSpec.describe "Organization controller" do
       click_link "Join"
       fill_in "organization_password", with: "hello"
       click_button("Confirm")
-      expect(page).to_not have_content("test")
       expect(page).to have_content("Wrong password")
     end
 
@@ -111,26 +107,25 @@ RSpec.describe "Organization controller" do
       click_link "Join"
       fill_in "organization_password", with: "test"
       click_button("Confirm")
-      click_link("Edit Profile")
       click_button("Leave Organization")
     end
 
-    it "creates a directory in /public/ for the organization if the org doesn't already have one" do
+    it "creates a directory in /storage/ for the organization if the org doesn't already have one" do
       sign_in
       visit("/organizations")
       click_link "Join"
       fill_in "organization_password", with: "test"
       click_button("Confirm")
-      expect(File).not_to exist("#{Rails.root}/public/test123")
+      expect(File).not_to exist("#{Rails.root}/storage/test123")
       Sushi.create!(name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id, organization_id: current_organization.id)
       visit('/sushi')
       first(:link, "Get CSV Counter Report").click
-      expect(File).to exist("#{Rails.root}/public/test123")
+      expect(File).to exist("#{Rails.root}/storage/test123")
     end
 
-    it "creates a directory in /public/ for the organization on org creation" do
+    it "creates a directory in /storage/ for the organization on org creation" do
       sign_in
-      expect(File).not_to exist("#{Rails.root}/public/test1")
+      expect(File).not_to exist("#{Rails.root}/storage/test1")
       visit("/organizations")
       click_link "New Organization"
       fill_in "Name", with: "test1"
@@ -138,7 +133,7 @@ RSpec.describe "Organization controller" do
       fill_in "Confirm Password", with: "test"
       fill_in "Email", with: "test@example.com"
       click_button('Create')
-      expect(File).to exist("#{Rails.root}/public/test1")
+      expect(File).to exist("#{Rails.root}/storage/test1")
     end
   end
 end
