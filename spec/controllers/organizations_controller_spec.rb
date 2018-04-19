@@ -24,7 +24,6 @@ RSpec.describe "Organization controller" do
 
     it "updates the user table when a user joins an organization" do
       sign_in
-      save_and_open_page
       click_link "Join"
       fill_in "organization_password", with: "test"
       click_button("Confirm")
