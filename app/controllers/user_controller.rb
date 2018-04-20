@@ -3,7 +3,7 @@ class UserController < ApplicationController
 
   def index
     @user = User.find_by(id: session[:user_id])
-    @data = Datum.where(organization_id: current_organization.id)
+    @data = Datum.order(created_at: :desc).where(organization_id: current_organization.id)
     unless session[:user_id] == @user.id
       flash[:danger] = "That's not your user page"
       redirect_to root_path
