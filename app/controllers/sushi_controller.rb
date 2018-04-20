@@ -2,7 +2,7 @@
 class SushiController < ApplicationController
 
   def index
-    @sushi =  Sushi.where(user_id: current_user.id) + Sushi.where(organization_id: current_organization.id)
+    @sushi = Sushi.where(user_id: current_user.id) + Sushi.where(organization_id: current_organization.id)
   end
 
   def new

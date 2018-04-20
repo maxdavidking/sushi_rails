@@ -15,7 +15,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <div class="navbar-nav">
-        <% if current_user %>
+        <% if signed_in? %>
         <div class="nav-item nav-link "><%= link_to 'Log Out', logout_path, method: :delete %></div>
         <% else %>
         <div class="nav-item nav-link"><%= link_to 'Login', '/auth/google' %></div>

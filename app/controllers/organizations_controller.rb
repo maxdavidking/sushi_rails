@@ -46,7 +46,7 @@ class OrganizationsController < ApplicationController
 
   def add_org_to_user
     @organization = Organization.find(params[:id])
-    if current_user.organization_id != nil
+    if member_of_org?
       redirect_to('/user')
       flash[:danger] = "Error: You are already a member of an organization"
     elsif
@@ -67,6 +67,7 @@ class OrganizationsController < ApplicationController
     if @organization.save
       user = current_user
       user.update(organization_id: @organization.id)
+      #create folder in /storage for new org
       helpers.org_folder?(@organization.name)
       redirect_to('/user')
     elsif organization_params[:password] != organization_params[:password_confirmation]

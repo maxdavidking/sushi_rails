@@ -17,13 +17,13 @@
     <p><%= @user.name %></p>
   </div>
   <div class="col-lg-3">
-    <% if current_organization %>
+    <% if member_of_org? %>
       <%= link_to "#{@user.organization.name}", organization_path(current_organization.id), class: 'btn btn-primary' %>
     <% end %>
   </div>
   <div class="col-lg-3">
     <%= link_to 'Edit Profile', edit_user_path(current_user.id), class: 'btn btn-primary' %>
-    <% if current_organization %>
+    <% if member_of_org? %>
       <%= link_to 'Edit Organization', edit_organization_path(current_organization.id), class: 'btn btn-primary' %>
       <%= form_for (@user) do |f| %>
         <%= f.hidden_field :organization_id, :value => nil %>
