@@ -2,7 +2,10 @@
 class SushiController < ApplicationController
 
   def index
-    @sushi = Sushi.where(user_id: current_user.id) + Sushi.where(organization_id: current_organization.id)
+    #Temporary hack to include user's existing sushi connections.
+    #Once all users have created orgs, move sushi connections to org and remove
+    #"Sushi.order(:name).where(user_id: current_user.id) +"
+    @sushi = Sushi.order(:name).where(user_id: current_user.id) + Sushi.order(:name).where(organization_id: current_organization.id)
   end
 
   def new

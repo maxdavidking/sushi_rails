@@ -1,6 +1,6 @@
 class ValidsushiController < ApplicationController
   def index
-    @validsushi = Validsushi.all
+    @validsushi = Validsushi.order(:name)
   end
 
   def import
