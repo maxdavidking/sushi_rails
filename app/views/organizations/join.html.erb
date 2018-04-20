@@ -4,12 +4,12 @@
 <div class="row data">
   <%= form_for (@organization), :url => url_for(:controller => 'organizations', :action => 'add_org_to_user') do |f| %>
   <div class='form-group'>
-    <%= f.label :name, "Name" %>
+    <%= f.label :name, "Name", class: "required" %>
     <%= f.text_field :name, class: "form-control"  %>
   </div>
   <div class='form-group'>
-    <%= f.label :password, "Password" %>
-    <%= f.text_field :password, value: nil, class: "form-control", autofocus: true, required: true %>
+    <%= f.label :password, "Password", class: "required" %>
+    <%= f.text_field :password, value: nil, class: "form-control", type: "password", autofocus: true, required: true %>
   </div>
   <div class='form-group'>
     <%= f.submit "Confirm", class: 'btn btn-primary' %>
