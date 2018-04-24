@@ -69,6 +69,9 @@ class OrganizationsController < ApplicationController
       user.update(organization_id: @organization.id)
       #create folder in /storage for new org
       helpers.org_folder?(@organization.name)
+      #update all the user's sushi connections to also have the correct org_id
+      sushi = Sushi.where(user_id: current_user)
+      sushi.update_all(organization_id: @organization.id)
       redirect_to('/user')
     elsif organization_params[:password] != organization_params[:password_confirmation]
       flash[:danger] = "Error: passwords must match"
