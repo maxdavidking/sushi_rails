@@ -2,10 +2,7 @@
 class SushiController < ApplicationController
 
   def index
-    #Temporary hack to include user's existing sushi connections.
-    #Once all users have created orgs, move sushi connections to org and remove
-    #"Sushi.order(:name).where(user_id: current_user.id) +"
-    @sushi = Sushi.order(:name).where(user_id: current_user.id) + Sushi.order(:name).where(organization_id: current_organization.id)
+    @sushi = Sushi.order(:name).where(organization_id: current_organization.id)
   end
 
   def new
@@ -35,10 +32,9 @@ class SushiController < ApplicationController
     @sushi = Sushi.find(params[:id])
     @sushi.update_attributes(sushi_params)
     if @sushi.save
-      redirect_to('/sushi')
+     flash[:success] = "#{@sushi.name} updated"
+     redirect_to('/sushi')
     else
-      flash[:danger] = "Error: #{@sushi.errors.full_messages}"
-      redirect_back(fallback_location: root_path)
     end
   end
 
