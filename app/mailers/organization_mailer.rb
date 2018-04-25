@@ -1,2 +1,0 @@
-class OrganizationMailer < ApplicationMailer
-end
