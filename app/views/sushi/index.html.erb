@@ -1,6 +1,7 @@
 <div class="row">
 <h3>COUNTER Connections</h3>
 </div>
+<div id="product-modal" class="modal fade"></div>
 <div class="row header">
   <div class="col-lg-1">
     <h6>Name</h6>
@@ -53,7 +54,7 @@
   <div class="col-lg-2">
     <%= link_to 'Get CSV Counter Report', {:controller => :sushi, :action => :call, :id => (s.id), :format => "csv"}, class: 'btn btn-primary', data: {confirm: "Please be patient. This can take up to a minute."}%>
     <%= link_to 'Test Connection', {:controller => :sushi, :action => :test, :id => (s.id)}, class: 'btn btn-primary'%>
-    <%= link_to 'Edit Connection', edit_sushi_path(s.id), class: 'btn btn-primary' %>
+    <%= link_to 'Edit Connection', edit_sushi_path(s), remote: true, class: 'btn btn-primary' %>
     <%= button_to 'Delete', sushi_path(s.id), method: :delete, class: 'btn btn-danger', data: {confirm: "Are you sure?"} %>
   </div>
 </div>
