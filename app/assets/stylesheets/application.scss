@@ -47,6 +47,9 @@ footer{
   background-color: #325d72;
   border-radius: 5px;
 }
+.modal-header{
+  background-color: #ffffff;
+}
 
 @media screen and (min-width: 0px) and (max-width: 975px) {
   .row.header { display: none; }   /* hide it elsewhere */
