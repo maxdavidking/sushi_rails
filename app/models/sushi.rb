@@ -1,5 +1,5 @@
 class Sushi < ApplicationRecord
-  belongs_to :organization
+  belongs_to :organization, optional: true
   validates_uniqueness_of :name, scope: :user_id
   validates :name, presence: true
   validates :endpoint, presence: true
