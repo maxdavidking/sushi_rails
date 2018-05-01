@@ -134,5 +134,19 @@ RSpec.describe "Organization controller" do
       click_button('Create')
       expect(File).to exist("#{Rails.root}/storage/test1")
     end
+
+    it "adds an organization_id to a sushi connection when a user creates an organization" do
+      sign_in
+      Sushi.create!(name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id)
+      visit("/organizations")
+      click_link "New Organization"
+      fill_in "Name", with: "test12"
+      fill_in "Password", with: "test"
+      fill_in "Confirm Password", with: "test"
+      fill_in "Email", with: "test@example.com"
+      click_button('Create')
+      visit("/sushi")
+      expect(page).to have_content("jstor")
+    end
   end
 end
