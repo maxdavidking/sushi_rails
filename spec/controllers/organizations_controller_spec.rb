@@ -115,6 +115,7 @@ RSpec.describe "Organization controller" do
       click_link "Join"
       fill_in "organization_password", with: "test"
       click_button("Confirm")
+      FileUtils.remove_dir "#{Rails.root}/storage/test123", true
       expect(File).not_to exist("#{Rails.root}/storage/test123")
       Sushi.create!(name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id, organization_id: current_organization.id)
       visit('/sushi')
@@ -124,6 +125,7 @@ RSpec.describe "Organization controller" do
 
     it "creates a directory in /storage/ for the organization on org creation" do
       sign_in
+      FileUtils.remove_dir "#{Rails.root}/storage/test1", true
       expect(File).not_to exist("#{Rails.root}/storage/test1")
       visit("/organizations")
       click_link "New Organization"
