@@ -5,26 +5,20 @@
   <div class="col-lg-1">
     <h6>Database Name</h6>
   </div>
-  <div class="col-lg-2">
-    <h6>Endpoint</h6>
-  </div>
-  <div class="col-lg-2">
-    <h6>Customer ID</h6>
-  </div>
-  <div class="col-lg-2">
-    <h6>Requestor ID</h6>
-  </div>
   <div class="col-lg-1">
     <h6>Report Start</h6>
   </div>
   <div class="col-lg-1">
     <h6>Report End</h6>
   </div>
-  <div class="col-lg-1">
-    <h6>Password</h6>
+  <div class="col-lg-2">
+    <h6>Reports</h6>
   </div>
   <div class="col-lg-2">
     <h6>Actions</h6>
+  </div>
+  <div class="col-lg-2">
+    <h6>Delete</h6>
   </div>
 </div>
 <% @sushi.each do |s| %>
@@ -32,30 +26,22 @@
   <div class="col-lg-1">
     <p><%= s.name %></p>
   </div>
-  <div class="col-lg-2">
-    <p><%= s.endpoint %></p>
-  </div>
-  <div class="col-lg-2">
-    <p><%= s.cust_id %></p>
-  </div>
-  <div class="col-lg-2">
-    <p><%= s.req_id %></p>
-  </div>
   <div class="col-lg-1">
     <p><%= s.report_start %></p>
   </div>
   <div class="col-lg-1">
     <p><%= s.report_end %></p>
   </div>
-  <div class="col-lg-1">
-    <p><%= s.password %></p>
+  <div class="col-lg-2">
+    <%= link_to 'Get CSV Report', {:controller => :sushi, :action => :call, :id => (s.id), :format => "csv"}, class: 'btn btn-primary btn-sm', data: {confirm: "Please be patient. This can take up to a minute."}%>
+    <%= link_to 'Get TSV Report', {:controller => :sushi, :action => :call, :id => (s.id), :format => "tsv"}, class: 'btn btn-primary btn-sm', data: {confirm: "Please be patient. This can take up to a minute."}%>
   </div>
   <div class="col-lg-2">
-    <%= link_to 'Get CSV Counter Report', {:controller => :sushi, :action => :call, :id => (s.id), :format => "csv"}, class: 'btn btn-primary btn-sm', data: {confirm: "Please be patient. This can take up to a minute."}%>
-    <%= link_to 'Get TSV Counter Report', {:controller => :sushi, :action => :call, :id => (s.id), :format => "tsv"}, class: 'btn btn-primary btn-sm', data: {confirm: "Please be patient. This can take up to a minute."}%>
     <%= link_to 'Test Connection', {:controller => :sushi, :action => :test, :id => (s.id)}, class: 'btn btn-primary btn-sm'%>
     <%= link_to 'Edit Connection', edit_sushi_path(s.id), class: 'btn btn-primary btn-sm' %>
-    <%= link_to 'Delete', sushi_path(s.id), method: :delete, class: 'btn btn-danger btn-sm', data: {confirm: "Are you sure?"} %>
+  </div>
+  <div class="col-lg-2">
+    <%= link_to 'Delete', sushi_path(s.id), method: :delete, class: 'btn btn-danger btn-sm', data: {confirm: "Are you sure?"}%>
   </div>
 </div>
 <% end %>
