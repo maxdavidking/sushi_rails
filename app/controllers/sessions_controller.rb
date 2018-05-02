@@ -4,7 +4,11 @@ class SessionsController < ApplicationController
       @user = User.from_omniauth(request.env['omniauth.auth'])
       session[:user_id] = @user.id
       flash[:success] = "Welcome, #{@user.name}"
-      redirect_to root_path
+      if current_organization == nil
+        redirect_to organizations_path
+      else
+        redirect_to root_path
+      end
     rescue
       flash[:danger] = "FetchCounter only works with non-instutional gmail accounts. Please use your personal gmail account."
       redirect_to root_path

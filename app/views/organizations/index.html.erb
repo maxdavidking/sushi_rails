@@ -1,0 +1,34 @@
+<div class="row">
+  <h3>Organizations</h3>
+</div>
+<% if signed_in? %>
+  <div class="row">
+    <div class="col-lg-1">
+      <%= link_to 'New Organization', new_organization_path, class: 'btn btn-primary'%>
+    </div>
+  </div>
+  <div class="row header">
+    <div class="col-lg-5">
+      <h6>Name</h6>
+    </div>
+    <div class="col-lg-5">
+      <h6>Action</h6>
+    </div>
+  </div>
+  <% @organization.each do |o| %>
+  <div class="row data">
+    <div class="col-lg-5">
+      <p><%= o.name %></p>
+    </div>
+    <div class="col-lg-5">
+      <p><%= link_to 'Join', {:controller => :organizations, :action => :join, :id => (o.id)}, class: 'btn btn-primary' %></p>
+    </div>
+  </div>
+  <% end %>
+<% else %>
+  <div class="jumbotron text-center">
+    <h3>FetchCounter</h3>
+    <p>Login with <%= link_to 'Google', '/auth/google', class: "text-secondary" %> to get started</p>
+    <p>Set up COUNTER connections with SUSHI to quickly download COUNTER reports.</p>
+  </div>
+<% end %>

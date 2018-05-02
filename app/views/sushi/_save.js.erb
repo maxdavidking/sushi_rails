@@ -1,0 +1,9 @@
+$(".error").html("")
+<% if @sushi.errors.any? %>
+  <% @sushi.errors.full_messages.each do |message| %>
+    $(".error").append($("<div class='alert alert-danger' />").html("<%= message.html_safe %>"))
+  <% end %>
+<% else %>
+  $(".product-index").html("<%= escape_javascript(render 'index') %>")
+  $("#product-modal").modal("hide")
+<% end %>

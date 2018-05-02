@@ -42,7 +42,7 @@ gem 'bootsnap'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -58,7 +58,6 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'warden'
   gem 'warden-rspec-rails'
-  gem 'selenium-webdriver'
   gem 'rack_session_access'
   gem 'launchy'
   gem 'peek'
