@@ -3,10 +3,12 @@
 </div>
 <% if signed_in? %>
   <div class="row">
+      <p> In order to use FetchCounter, you must create or join an organization. Organizations allow you to share connections and reports with colleagues. If you are trying to join an organization that a colleague has set up, you will need the organization name and password.</p>
     <div class="col-lg-1">
-      <%= link_to 'New Organization', new_organization_path, class: 'btn btn-primary'%>
+      <%= link_to 'New Organization', new_organization_path, class: 'btn btn-primary btn-sm' %>
     </div>
   </div>
+
   <div class="row header">
     <div class="col-lg-5">
       <h6>Name</h6>
