@@ -1,70 +1,42 @@
-<%# this is a comment %> 
+<%# this is a comment %>
 <% if current_user %>
 <div class="row">
   <h3>How to Create COUNTER Connections</h3>
 </div>
 <div class="row">
-  <p> <b>Step 1:</b> Click on 'New COUNTER Connection' in the header <b>or</b> Click on 'Import COUNTER Connections' </p>
+  <p> <b>Step 1:</b> Select <%= link_to 'New Connection', 'new_sushi_path', class: 'btn btn-outline-primary btn-sm' %> or <%= link_to 'Import Connection', 'validsushi_path', class: 'btn btn-outline-primary btn-sm' %></p>
 </div>
 <div class="row">
-  <p> <b>Step 2:</b> Fill in data (example below) </p>
+  <ul>
+  <li><b>New Connection</b> sets up a connection from scratch.</li>
+  <li><b>Import Connection</b> allows you to select from our library of common connections. Note: if you import a connection you will need to edit it to include unique identifiers such as Customer ID and Password. </li>
+</ul>
 </div>
 <div class="row">
-  <p> <b>Step 3:</b> Click 'Test Connection' </p>
+  <p> <b>Step 2:</b> Fill in data. For most connections you'll need: </p>
 </div>
 <div class="row">
-  <p> <b>Step 4:</b> If connection is successful, click 'Get COUNTER Report' </p>
+  <ul>
+    <li>Database Name</li>
+    <li>Endpoint</li>
+    <li>Customer ID</li>
+    <li>Requestor ID</li>
+    <li>Report Start and End Dates</li>
+    <li>Password (Optional)</li>
+  </ul>
 </div>
-<div class="row header">
-  <div class="col-lg-1">
-    <h6>Name</h6>
-  </div>
-  <div class="col-lg-2">
-    <h6>Endpoint</h6>
-  </div>
-  <div class="col-lg-2">
-    <h6>Customer ID</h6>
-  </div>
-  <div class="col-lg-2">
-    <h6>Requestor ID</h6>
-  </div>
-  <div class="col-lg-2">
-    <h6>Report Start</h6>
-  </div>
-  <div class="col-lg-2">
-    <h6>Report End</h6>
-  </div>
-  <div class="col-lg-1">
-    <h6>Password</h6>
-  </div>
+<div class="row">
+  <p> <b>Step 3:</b> The connections you have added can be found in <%= link_to 'Connections', 'sushi_index_path', class: 'btn btn-outline-primary btn-sm' %> From there you can edit, test, and delete connections, as well as access reports. Reports can be downloaded as CSV files. </p>
 </div>
-<div class="row data">
-  <div class="col-lg-1">
-    <p>JSTOR</p>
-  </div>
-  <div class="col-lg-2">
-    <p>https://www.jstor.org/sushi</p>
-  </div>
-  <div class="col-lg-2">
-    <p>YOUR_CUST_ID</p>
-  </div>
-  <div class="col-lg-2">
-    <p>YOUR_REQ_ID (optional)</p>
-  </div>
-  <div class="col-lg-2">
-    <p>YYYY-MM-DD</p>
-  </div>
-  <div class="col-lg-2">
-    <p>YYYY-MM-DD</p>
-  </div>
-  <div class="col-lg-1">
-    <p>YOUR_PASSWORD (optional)</p>
-  </div>
+<div class="row">
+  <p> <b>Step 4:</b> If connection is successful, you can access your reports by clicking <b>Get CSV Report</b>.</p>
+</div>
 </div>
 <% else %>
 <div class="jumbotron text-center">
   <h3>FetchCounter</h3>
-  <p>Login with Gmail to get started</p>
+  <p><%= link_to 'Login', '/auth/google', class: 'btn btn-primary btn-sm' %> with Gmail to get started</p>
+  <p>FetchCounter is a tool to that allows libraries to easily access e-resource usage data.</p>
   <p>Set up COUNTER connections with SUSHI to quickly download COUNTER reports.</p>
 </div>
 <% end %>
