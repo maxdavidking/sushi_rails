@@ -19,12 +19,3 @@ Release 5 will become mandatory in 2019. There will be many changes to both COUN
 
 Contact
 mking9[@]iit.edu
-
-To Do:
-- Clear 'test' page cache so it doesn't show false positives or negatives
-- Fix 'get' popup styling
-- Get Sidekiq background worker to run for 'get' requests
-- Store list of downloads for each user
-- Allow instance date updates to Active Record through dropdown
-- Connect user profiles through an organization model
-- Rework front end with React
