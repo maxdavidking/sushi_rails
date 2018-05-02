@@ -31,7 +31,7 @@
     <%= link_to 'Test Connection', {:controller => :sushi, :action => :test, :id => (s.id)}, class: 'btn btn-primary btn-sm'%>
   </div>
   <div class="col-lg-2">
-    <%= link_to 'Edit Connection', edit_sushi_path(s.id), class: 'btn btn-primary btn-sm' %>
+    <%= link_to 'Edit Connection', edit_sushi_path(s), remote: true, class: 'btn btn-primary btn-sm' %>
   </div>
   <div class="col-lg-2">
     <%= link_to 'Delete', sushi_path(s.id), method: :delete, class: 'btn btn-danger btn-sm', data: {confirm: "Are you sure?"}%>
