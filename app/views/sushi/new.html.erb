@@ -3,7 +3,11 @@
 </div>
   <%= form_for @sushi, url: {action: "create"} do |f| %>
   <div class='form-group'>
+<<<<<<< HEAD
+    <%= f.label :name, "Database Name" %>
+=======
     <%= f.label :name, "Name", class: "required" %>
+>>>>>>> fe728102f389e3c2e37386bf35fa001835f257c2
     <%= f.text_field :name, class: "form-control", autofocus: true, required: true %>
   </div>
   <div class='form-group'>
@@ -48,6 +52,6 @@
   </li>
   <li>
     For a list of Endpoints, see
-    <%= link_to "COUNTER Endpoints", validsushi_path, class: 'btn btn-primary' %>
+    <%= link_to "COUNTER Endpoints", validsushi_path, class: 'btn btn-primary btn-sm' %>
   </li>
 </ul>
