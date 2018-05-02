@@ -3,6 +3,7 @@ class UserController < ApplicationController
 
   def index
     @user = User.find_by(id: session[:user_id])
+    @data = Datum.order(created_at: :desc).where(organization_id: current_organization.id)
     unless session[:user_id] == @user.id
       flash[:danger] = "That's not your user page"
       redirect_to root_path
@@ -29,7 +30,11 @@ class UserController < ApplicationController
 
   def update
     @user.update_attributes(user_params)
-    redirect_to('/user')
+    if current_organization == nil
+      redirect_to('/organizations')
+    else
+      redirect_to('/user')
+    end
   end
 
   private
@@ -37,6 +42,6 @@ class UserController < ApplicationController
        @user = User.find(params[:id])
     end
     def user_params
-      params.require(:user).permit(:name, :organization)
+      params.require(:user).permit(:name, :organization_id)
     end
 end

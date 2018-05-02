@@ -3,15 +3,19 @@
 </div>
   <%= form_for @sushi, url: {action: "create"} do |f| %>
   <div class='form-group'>
+<<<<<<< HEAD
     <%= f.label :name, "Database Name" %>
+=======
+    <%= f.label :name, "Name", class: "required" %>
+>>>>>>> fe728102f389e3c2e37386bf35fa001835f257c2
     <%= f.text_field :name, class: "form-control", autofocus: true, required: true %>
   </div>
   <div class='form-group'>
-    <%= f.label :endpoint, "Endpoint" %>
+    <%= f.label :endpoint, "Endpoint", class: "required" %>
     <%= f.text_field :endpoint, class: "form-control", required: true %>
   </div>
   <div class='form-group'>
-    <%= f.label :cust_id, "Customer ID" %>
+    <%= f.label :cust_id, "Customer ID", class: "required" %>
     <%= f.text_field :cust_id, class: "form-control", required: true %>
   </div>
   <div class='form-group'>
@@ -19,11 +23,11 @@
     <%= f.text_field :req_id, class: "form-control"%>
   </div>
   <div class='form-group'>
-    <%= f.label :report_start, "Report Start" %>
+    <%= f.label :report_start, "Report Start", class: "required" %>
     <%= f.text_field :report_start, class: "form-control", required: true, value: "e.g. 2017-01-01" %>
   </div>
   <div class='form-group'>
-    <%= f.label :report_end, "Report End" %>
+    <%= f.label :report_end, "Report End", class: "required" %>
     <%= f.text_field :report_end, class: "form-control", required: true, value: "e.g. 2017-12-31" %>
   </div>
   <div class='form-group'>
@@ -31,7 +35,7 @@
     <%= f.text_field :password, class: "form-control"%>
   </div>
   <div class='form-group'>
-    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.hidden_field :organization_id, :value => current_organization.id %>
     <%= f.submit "Create", class: 'btn btn-primary' %>
   </div>
 <% end %>

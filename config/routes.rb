@@ -6,6 +6,12 @@ Rails.application.routes.draw do
       get ':id/call', to: 'sushi#call'
     end
   end
+  resources :organizations do
+    collection do
+      get ':id/join', to: 'organizations#join'
+      patch ':id/add_org_to_user', to: 'organizations#add_org_to_user'
+    end
+  end
   resources :user
   resources :about
   root to: 'about#index'
@@ -16,5 +22,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   get '/auth/failure', to: 'sessions#destroy'
   post '/', to: 'error#not_found'
-  get '*path', to: 'error#not_found'
+  get '*all', to: 'error#not_found', constraints: lambda { |req|
+    req.path.exclude? 'rails/active_storage'
+  }
 end

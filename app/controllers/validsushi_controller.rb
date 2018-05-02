@@ -1,11 +1,11 @@
 class ValidsushiController < ApplicationController
   def index
-    @validsushi = Validsushi.all
+    @validsushi = Validsushi.order(:name)
   end
 
   def import
     @validsushi = Validsushi.find(params[:id])
-    @sushi = Sushi.new(name: @validsushi.name, endpoint: @validsushi.endpoint, cust_id: @validsushi.cust_id, req_id: @validsushi.req_id, report_start: @validsushi.report_start, report_end: @validsushi.report_end, password: @validsushi.password, user_id: current_user.id )
+    @sushi = Sushi.new(name: @validsushi.name, endpoint: @validsushi.endpoint, cust_id: @validsushi.cust_id, req_id: @validsushi.req_id, report_start: @validsushi.report_start, report_end: @validsushi.report_end, password: @validsushi.password, organization_id: current_organization.id )
     if @sushi.save
       flash[:success] = "Added #{@validsushi.name}"
       redirect_to("/validsushi")

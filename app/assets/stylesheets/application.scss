@@ -10,6 +10,10 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  */
+label.required:after {
+  content: "*";
+  color: red;
+}
 $enable-flex: true;
 $link-color: white;
 .col-lg-2 {
@@ -42,6 +46,9 @@ footer{
 .nav-item.nav-link.active{
   background-color: #325d72;
   border-radius: 5px;
+}
+.modal-header{
+  background-color: #ffffff;
 }
 
 @media screen and (min-width: 0px) and (max-width: 975px) {

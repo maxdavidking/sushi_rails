@@ -15,7 +15,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <div class="navbar-nav">
-        <% if current_user %>
+        <% if signed_in? %>
         <div class="nav-item nav-link <%= 'active' if current_page?(sushi_index_path) %>"><%= link_to 'Connections', sushi_index_path %></div>
         <div class="nav-item nav-link <%= 'active' if current_page?(new_sushi_path) %>"><%= link_to 'New Connection', new_sushi_path %></div>
         <div class="nav-item nav-link <%= 'active' if current_page?(validsushi_path) %>"><%= link_to 'Import Connections', validsushi_path %></div>
