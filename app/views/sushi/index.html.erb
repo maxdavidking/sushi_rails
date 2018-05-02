@@ -2,31 +2,19 @@
 <h3>COUNTER Connections</h3>
 </div>
 <div class="row header">
-  <div class="col-lg-1">
+  <div class="col-lg-2">
     <h6>Database Name</h6>
   </div>
   <div class="col-lg-1">
-    <h6>Report Start</h6>
+    <h6>Start</h6>
   </div>
   <div class="col-lg-1">
-    <h6>Report End</h6>
-  </div>
-  <div class="col-lg-2">
-    <h6>Reports</h6>
-  </div>
-  <div class="col-lg-2">
-    <h6>Test</h6>
-  </div>
-  <div class="col-lg-2">
-    <h6>Edit</h6>
-  </div>
-  <div class="col-lg-2">
-    <h6>Delete</h6>
+    <h6>End</h6>
   </div>
 </div>
 <% @sushi.each do |s| %>
 <div class="row data">
-  <div class="col-lg-1">
+  <div class="col-lg-2">
     <p><%= s.name %></p>
   </div>
   <div class="col-lg-1">
@@ -37,7 +25,6 @@
   </div>
   <div class="col-lg-2">
     <%= link_to 'Get CSV Report', {:controller => :sushi, :action => :call, :id => (s.id), :format => "csv"}, class: 'btn btn-primary btn-sm', data: {confirm: "Please be patient. This can take up to a minute."}%>
-    <%= link_to 'Get TSV Report', {:controller => :sushi, :action => :call, :id => (s.id), :format => "tsv"}, class: 'btn btn-primary btn-sm', data: {confirm: "Please be patient. This can take up to a minute."}%>
   </div>
   <div class="col-lg-2">
     <%= link_to 'Test Connection', {:controller => :sushi, :action => :test, :id => (s.id)}, class: 'btn btn-primary btn-sm'%>
