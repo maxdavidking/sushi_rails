@@ -1,14 +1,17 @@
 <div class="row">
-  <h3>Organizations</h3>
+  <h3>Create an Organization</h3>
 </div>
 <% if signed_in? %>
   <div class="row">
-      <p> In order to use FetchCounter, you must create or join an organization. Organizations allow you to share connections and reports with colleagues. If you are trying to join an organization that a colleague has set up, you will need the organization name and password.</p>
-    <div class="col-lg-1">
-      <%= link_to 'New Organization', new_organization_path, class: 'btn btn-primary btn-sm' %>
-    </div>
+      <p> In order to use FetchCounter, you <b>must</b> create or join an organization. Organizations allow you to share connections and reports with colleagues.</p>
   </div>
-
+  <div class="row">
+  <%= link_to 'New Organization', new_organization_path, class: 'btn btn-primary btn-sm' %>
+</div>
+  <div class="row">
+    <h3>Join an Organization</h3>
+    <p>Select from the list below to join an organization that you are part of. If you are trying to join an organization that a colleague has set up, you will need the organization name and password.</p>
+  </div>
   <div class="row header">
     <div class="col-lg-5">
       <h6>Name</h6>
