@@ -5,7 +5,7 @@ RSpec.describe "Organization controller" do
     visit '/'
     mock_auth_hash
     Organization.create!(id: 99, name: "test123", password: "test", email: "test@example.com")
-    click_link "Login"
+    first(:link, "Login").click
   end
 
   describe "Organization Features", :type => :feature do
@@ -119,7 +119,7 @@ RSpec.describe "Organization controller" do
       expect(File).not_to exist("#{Rails.root}/storage/test123")
       Sushi.create!(name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id, organization_id: current_organization.id)
       visit('/sushi')
-      first(:link, "Get CSV Counter Report").click
+      first(:link, "Get CSV Report").click
       expect(File).to exist("#{Rails.root}/storage/test123")
     end
 
