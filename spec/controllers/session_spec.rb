@@ -7,7 +7,7 @@ RSpec.describe 'OAuth logins' do
       visit '/'
       expect(page).to have_content("Login")
       mock_auth_hash
-      click_link "Login"
+      first(:link, "Login").click
       expect(page).to have_content("mockuser")  # user name
       expect(page).to have_content("Log Out")
     end
@@ -16,7 +16,7 @@ RSpec.describe 'OAuth logins' do
       OmniAuth.config.mock_auth[:google] = :invalid_credentials
       visit '/'
       expect(page).to have_content("Login")
-      click_link "Login"
+      first(:link, "Login").click
       expect(page).to have_content('Logged out')
     end
   end

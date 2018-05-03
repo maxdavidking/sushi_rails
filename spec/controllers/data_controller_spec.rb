@@ -4,7 +4,7 @@ RSpec.describe "Data Controller" do
   let (:sign_in) do
     visit '/'
     mock_auth_hash
-    click_link "Login"
+    first(:link, "Login").click
     Organization.create!(id: 99, name: "hello123", password: "test", email: "test@example.com")
     current_user.update(organization_id: 99)
   end
@@ -19,7 +19,7 @@ RSpec.describe "Data Controller" do
   let (:mock_sushi) do
     Sushi.create!(id: 201, name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", organization_id: current_organization.id)
     visit("/sushi")
-    click_link("Get CSV Counter Report")
+    click_link("Get CSV Report")
   end
 
   describe "Data Features", :type => :feature do

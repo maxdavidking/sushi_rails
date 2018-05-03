@@ -77,7 +77,7 @@ class SushiController < ApplicationController
 
   def destroy
     @sushi = Sushi.find(params[:id])
-    unless session[:user_id] == @sushi.user_id
+    unless current_organization.id == @sushi.organization_id
       flash[:danger] = "That's not your sushi connection"
       redirect_to root_path
       return
