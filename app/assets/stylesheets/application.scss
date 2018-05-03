@@ -10,43 +10,91 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  */
+
+$enable-flex: true;
+$link-color: white;
+
+@import "bootstrap";
+@import "spinner.scss";
+@import url('https://fonts.googleapis.com/css?family=Oswald|Roboto');
+
+$btn-color: #323d72;
+
 label.required:after {
   content: "*";
   color: red;
 }
-$enable-flex: true;
-$link-color: white;
+
 .col-lg-2 {
   overflow-wrap: break-word;
  }
+
 .alert {
    width:100%;
 }
+
 .turbolinks-progress-bar {
   height: 10px;
   background-color: #2ecc71;
 }
+
 .btn {
   margin-bottom: 1px;
+  background-color: $btn-color;
+  border-color: $btn-color;
 }
+
+.btn:hover {
+  background-color: #2a3460;
+  border-color: #2a3460;
+}
+
+.btn-danger {
+  background-color: #8c0000;
+  border-color: #8c0000;
+}
+
+.btn-danger:hover {
+  background-color: #720000;
+  border-color: #720000;
+}
+
+.btn-outline-primary {
+  background-color: #ffff;
+  border-color: $btn-color;
+  color: $btn-color;
+}
+
 p.faq{
   font-style: italic;
 }
+
 h3{
-  color: #325d72 !important;
+  color: #325d72;
+  font-family: 'Oswald', sans-serif;
+  padding-bottom: 15px;
+  padding-top: 15px;
 }
+
+body, nav{
+  font-family: 'Roboto', sans-serif;
+}
+
 footer{
   //Account for body content so there is no overlap
   margin-top: 60px;
 }
+
 .row.data{
   padding-top: 5px;
   border-top: 1px solid #ddd;
 }
+
 .nav-item.nav-link.active{
   background-color: #325d72;
   border-radius: 5px;
 }
+
 .modal-header{
   background-color: #ffffff;
 }
@@ -54,8 +102,3 @@ footer{
 @media screen and (min-width: 0px) and (max-width: 975px) {
   .row.header { display: none; }   /* hide it elsewhere */
 }
-
-
-
- @import "bootstrap";
- @import "spinner.scss";
