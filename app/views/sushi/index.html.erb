@@ -6,10 +6,10 @@
   <div class="col-md-2">
     <h6>Database Name</h6>
   </div>
-  <div class="col-md-1">
+  <div class="col-md-2">
     <h6>Start Date</h6>
   </div>
-  <div class="col-md-1">
+  <div class="col-md-2">
     <h6>End Date</h6>
   </div>
 </div>
@@ -18,24 +18,19 @@
   <div class="col-md-2">
     <p><%= s.name %></p>
   </div>
-  <div class="col-md-1">
+  <div class="col-md-2">
     <p><%= s.report_start %></p>
   </div>
-  <div class="col-md-1">
+  <div class="col-md-2">
     <p><%= s.report_end %></p>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-6">
+    <div class="row">
     <%= link_to 'Get CSV Report', {:controller => :sushi, :action => :call, :id => (s.id), :format => "csv"}, class: 'btn btn-primary btn-sm', data: {confirm: "Please be patient. This can take up to a minute."}%>
-  </div>
-  <div class="col-md-2">
     <%= link_to 'Test Connection', {:controller => :sushi, :action => :test, :id => (s.id)}, class: 'btn btn-primary btn-sm'%>
+    <%= link_to 'Edit', edit_sushi_path(s), remote: true, class: 'btn btn-primary btn-sm' %>
+    <%= button_to 'Delete', sushi_path(s.id), method: :delete, class: 'btn btn-danger btn-sm', data: {confirm: "Are you sure?"} %>
   </div>
-  <div class="col-md-2">
-    <%= link_to 'Edit Connection', edit_sushi_path(s), remote: true, class: 'btn btn-primary btn-sm' %>
-  </div>
-  <div class="col-md-2">
-    <%= button_to 'Delete', sushi_path(s.id), method: :delete, class: 'btn btn-danger', data: {confirm: "Are you sure?"} %>
-
-  </div>
+</div>
 </div>
 <% end %>
