@@ -16,6 +16,7 @@ $link-color: white;
 
 @import "bootstrap";
 @import "spinner.scss";
+@import url('https://fonts.googleapis.com/css?family=Oswald|Roboto');
 
 $btn-color: #323d72;
 
@@ -58,14 +59,25 @@ label.required:after {
   border-color: #720000;
 }
 
+.btn-outline-primary {
+  background-color: #ffff;
+  border-color: $btn-color;
+  color: $btn-color;
+}
+
 p.faq{
   font-style: italic;
 }
 
 h3{
   color: #325d72;
+  font-family: 'Oswald', sans-serif;
   padding-bottom: 15px;
   padding-top: 15px;
+}
+
+body, nav{
+  font-family: 'Roboto', sans-serif;
 }
 
 footer{
