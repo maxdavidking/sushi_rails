@@ -17,6 +17,14 @@ class ApplicationController < ActionController::Base
     !!current_organization
   end
 
+  def sushi_update(organization)
+    user = current_user
+    user.update(organization_id: organization.id)
+    sushi = Sushi.where(user_id: current_user)
+    sushi.update_all(organization_id: organization.id)
+  end
+
+  helper_method :sushi_update
   helper_method :current_organization
   helper_method :current_user
   helper_method :signed_in?

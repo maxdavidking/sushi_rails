@@ -40,6 +40,8 @@ class OrganizationsController < ApplicationController
 
   def join
     @organization = Organization.find(params[:id])
+    #update all the user's sushi connections to also have the correct org_id
+    sushi_update(@organization)
     #Force users to join an org if not already in one
     render :layout => "organization_lock"
   end
@@ -65,13 +67,10 @@ class OrganizationsController < ApplicationController
   def create
     @organization = Organization.new(organization_params)
     if @organization.save
-      user = current_user
-      user.update(organization_id: @organization.id)
       #create folder in /storage for new org
       helpers.org_folder?(@organization.name)
       #update all the user's sushi connections to also have the correct org_id
-      sushi = Sushi.where(user_id: current_user)
-      sushi.update_all(organization_id: @organization.id)
+      sushi_update(@organization)
       redirect_to('/user')
     elsif organization_params[:password] != organization_params[:password_confirmation]
       flash[:danger] = "Error: passwords must match"
