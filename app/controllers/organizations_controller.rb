@@ -40,8 +40,6 @@ class OrganizationsController < ApplicationController
 
   def join
     @organization = Organization.find(params[:id])
-    #update all the user's sushi connections to also have the correct org_id
-    sushi_update(@organization)
     #Force users to join an org if not already in one
     render :layout => "organization_lock"
   end
@@ -58,6 +56,8 @@ class OrganizationsController < ApplicationController
     else
       current_user.update_attributes(organization_id: @organization.id)
       redirect_to('/user')
+      #update all the user's sushi connections to also have the correct org_id
+      sushi_update(@organization)
       flash[:success] = "Welcome to #{@organization.name}"
     end
   end
