@@ -1,4 +1,5 @@
 class Validsushi < ApplicationRecord
+  has_many :sushis
   validates :name, presence: true
   validates :endpoint, presence: true
   validates :cust_id, presence: true
