@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 class SushiController < ApplicationController
-
   def index
     @sushi = Sushi.order(:name).where(organization_id: current_organization.id)
   end
 
   def new
+    @validsushi = Validsushi.order(:name)
     @sushi = Sushi.new
   end
 
