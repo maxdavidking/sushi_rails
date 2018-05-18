@@ -1,0 +1,20 @@
+<div class="validsushi_new">
+  <div class="row">
+    <p>The connections listed below are set up with known endpoints and default date ranges.</p>
+  </div>
+  <div class="row header">
+    <div class="col-lg-1">
+      <h6>Database Name</h6>
+    </div>
+  </div>
+  <% @validsushi.each do |s| %>
+  <div class="row data">
+    <div class="col-lg-1">
+      <p><%= s.name %></p>
+    </div>
+    <div class="col-lg-2">
+      <%= link_to "Import", {:controller => :validsushi, :action => :new, :id => (s.id)}, class: 'btn btn-primary'%>
+    </div>
+  </div>
+  <% end %>
+</div>
