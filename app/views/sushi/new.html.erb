@@ -1,6 +1,9 @@
 <div class="row">
 <h3> Create New COUNTER Connection </h3>
 </div>
+<button class="sushi_button">Sushi</button>
+<button class="validsushi_button">Validsushi</button>
+<div class="sushi_new">
   <%= form_for @sushi, url: {action: "create"} do |f| %>
   <div class='form-group'>
     <%= f.label :name, "Database Name", class: "required" %>
@@ -35,7 +38,6 @@
     <%= f.submit "Create", class: 'btn btn-primary' %>
   </div>
 <% end %>
-
 <ul>
   <li>
     Dates must be formatted YYYY-MM-DD
@@ -51,3 +53,27 @@
     <%= link_to "COUNTER Endpoints", validsushi_path, class: 'btn btn-primary btn-sm' %>
   </li>
 </ul>
+</div>
+<div class="validsushi_new">
+  <div class="row">
+  <h3>Import COUNTER Connections</h>
+  </div>
+  <div class="row">
+  <p>The connections listed below are set up with known endpoints and default date ranges. Once you click import, go to <%= link_to 'Connections', 'sushi_index_path', class: 'btn btn-primary btn-sm' %> to add your custom details and finish set up. </p>
+  </div>
+  <div class="row header">
+    <div class="col-lg-1">
+      <h6>Database Name</h6>
+    </div>
+  </div>
+  <% @validsushi.each do |s| %>
+  <div class="row data">
+    <div class="col-lg-1">
+      <p><%= s.name %></p>
+    </div>
+    <div class="col-lg-2">
+      <%= link_to "Import", {:controller => :validsushi, :action => :new, :id => (s.id)}, class: 'btn btn-primary'%>
+    </div>
+  </div>
+  <% end %>
+</div>
