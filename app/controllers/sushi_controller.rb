@@ -68,7 +68,7 @@ class SushiController < ApplicationController
       helpers.get_total_data
       helpers.file_type("csv")
       redirect_to("/sushi")
-      flash[:success] = "Your report finished downloading and is in your user profile"
+      flash[:success] = "Your report finished downloading and is in the settings tab"
     rescue
       redirect_to("/sushi")
       flash[:danger] = "Failure, try testing your connection"
