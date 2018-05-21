@@ -55,10 +55,8 @@ class DataController < ApplicationController
   # DELETE /data/1.json
   def destroy
     @datum.destroy
-    respond_to do |format|
-      format.html { redirect_to data_url, notice: 'Datum was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to user_index_path
+    flash[:success] = "File was successfully deleted."
   end
 
   private
