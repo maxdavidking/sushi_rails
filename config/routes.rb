@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get '/import', to: 'validsushi#import'
   get '/auth/:provider/callback', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+  resources :data
   get '/auth/failure', to: 'sessions#destroy'
   post '/', to: 'error#not_found'
   get '*all', to: 'error#not_found', constraints: lambda { |req|
