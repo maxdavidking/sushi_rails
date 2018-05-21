@@ -18,7 +18,7 @@
   </div>
   <div class="col-lg-3">
     <% if member_of_org? %>
-      <%= link_to "#{@user.organization.name}", organization_path(current_organization.id), class: 'btn btn-primary' %>
+      <%= link_to "#{@user.organization.name}", organization_path(current_organization.id), class: 'btn btn-primary btn-sm' %>
     <% end %>
   </div>
   <div class="col-lg-3">
@@ -41,8 +41,8 @@
     <p><%= "#{d.file.filename}" %></p>
   </div>
   <div class="col-lg-5">
-    <p><%= link_to("Download", rails_blob_path(d.file, disposition: "attachment"), class: 'btn btn-primary') %></p>
-    <p><%= link_to 'Delete', datum_path(d.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></p>
+    <%= link_to("Download", rails_blob_path(d.file, disposition: "attachment"), class: 'btn btn-primary btn-sm') %>
+    <%= link_to 'Delete', datum_path(d.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
   </div>
 </div>
 <% end %>
