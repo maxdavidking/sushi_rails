@@ -42,6 +42,7 @@
   </div>
   <div class="col-lg-5">
     <p><%= link_to("Download", rails_blob_path(d.file, disposition: "attachment"), class: 'btn btn-primary') %></p>
+    <p><%= link_to 'Delete', datum_path(d.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></p>
   </div>
 </div>
 <% end %>
