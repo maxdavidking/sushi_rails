@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Organization controller" do
-  let (:sign_in) do
+  let(:sign_in) do
     visit "/"
     mock_auth_hash
     Organization.create!(id: 99, name: "test123", password: "test", email: "test@example.com")
@@ -117,7 +117,17 @@ RSpec.describe "Organization controller" do
       click_button("Confirm")
       FileUtils.remove_dir "#{Rails.root}/storage/test123", true
       expect(File).not_to exist("#{Rails.root}/storage/test123")
-      Sushi.create!(name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id, organization_id: current_organization.id)
+      Sushi.create!(
+        name: "jstor",
+        endpoint: "https://www.jstor.org/sushi",
+        cust_id: "iit.edu",
+        req_id: "galvinlib",
+        report_start: "2016-01-01",
+        report_end: "2016-12-31",
+        password: "",
+        user_id: current_user.id,
+        organization_id: current_organization.id
+      )
       visit("/sushi")
       first(:link, "Get CSV Report").click
       expect(File).to exist("#{Rails.root}/storage/test123")
@@ -139,7 +149,16 @@ RSpec.describe "Organization controller" do
 
     it "adds an organization_id to a sushi connection when a user creates an organization" do
       sign_in
-      Sushi.create!(name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id)
+      Sushi.create!(
+        name: "jstor",
+        endpoint: "https://www.jstor.org/sushi",
+        cust_id: "iit.edu",
+        req_id: "galvinlib",
+        report_start: "2016-01-01",
+        report_end: "2016-12-31",
+        password: "",
+        user_id: current_user.id
+      )
       visit("/organizations")
       click_link "New Organization"
       fill_in "Name", with: "test12"

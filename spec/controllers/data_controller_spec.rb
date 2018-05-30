@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Data Controller" do
-  let (:sign_in) do
+  let(:sign_in) do
     visit "/"
     mock_auth_hash
     first(:link, "Login").click
@@ -9,15 +9,25 @@ RSpec.describe "Data Controller" do
     current_user.update(organization_id: 99)
   end
 
-  let (:join_org) do
+  let(:join_org) do
     visit("/organizations")
     click_link "Join"
     fill_in "organization_password", with: "test"
     click_button("Confirm")
   end
 
-  let (:mock_sushi) do
-    Sushi.create!(id: 201, name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", organization_id: current_organization.id)
+  let(:mock_sushi) do
+    Sushi.create!(
+      id: 201,
+      name: "jstor",
+      endpoint: "https://www.jstor.org/sushi",
+      cust_id: "iit.edu",
+      req_id: "galvinlib",
+      report_start: "2016-01-01",
+      report_end: "2016-12-31",
+      password: "",
+      organization_id: current_organization.id
+    )
     visit("/sushi")
     click_link("Get CSV Report")
   end

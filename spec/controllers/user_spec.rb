@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "User features" do
   include ApplicationHelper
-  let (:sign_in) do
+  let(:sign_in) do
     visit "/"
     mock_auth_hash
     first(:link, "Login").click

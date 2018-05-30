@@ -1,11 +1,14 @@
 require "rails_helper"
 
 RSpec.describe "Sushi Controller" do
-  let (:sign_in) do
+  let(:sign_in) do
     visit "/"
     mock_auth_hash
     first(:link, "Login").click
-    Organization.create!(id: 99, name: "hello123", password: "test", email: "test@example.com")
+    Organization.create!(id: 99,
+      name: "hello123",
+      password: "test",
+      email: "test@example.com")
     current_user.update(organization_id: 99)
   end
 
@@ -13,14 +16,29 @@ RSpec.describe "Sushi Controller" do
     include ApplicationHelper
     it "lists all sushi connection information for logged in user" do
       sign_in
-      Sushi.create!(name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id, organization_id: current_organization.id)
+      Sushi.create!(name: "jstor",
+        endpoint: "https://www.jstor.org/sushi",
+        cust_id: "iit.edu", req_id: "galvinlib",
+        report_start: "2016-01-01",
+        report_end: "2016-12-31",
+        password: "",
+        user_id: current_user.id,
+        organization_id: current_organization.id)
       visit("/sushi")
       expect(page).to have_content("jstor")
     end
 
     it "requests sushi reports successfully" do
       sign_in
-      Sushi.create!(name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id, organization_id: current_organization.id)
+      Sushi.create!(name: "jstor",
+        endpoint: "https://www.jstor.org/sushi",
+        cust_id: "iit.edu",
+        req_id: "galvinlib",
+        report_start: "2016-01-01",
+        report_end: "2016-12-31",
+        password: "",
+        user_id: current_user.id,
+        organization_id: current_organization.id)
       visit("/sushi")
       first(:link, "Get CSV Report").click
       visit("/user")
@@ -29,7 +47,17 @@ RSpec.describe "Sushi Controller" do
 
     it "fails gracefully on unsuccessful sushi report request" do
       sign_in
-      Sushi.create!(name: "badurl", endpoint: "https://www.badurl.com", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id, organization_id: current_organization.id)
+      Sushi.create!(
+        name: "badurl",
+        endpoint: "https://www.badurl.com",
+        cust_id: "iit.edu",
+        req_id: "galvinlib",
+        report_start: "2016-01-01",
+        report_end: "2016-12-31",
+        password: "",
+        user_id: current_user.id,
+        organization_id: current_organization.id
+      )
       visit("/sushi")
       first(:link, "Get CSV Report").click
       expect(page).to have_content("Failure")
@@ -38,7 +66,15 @@ RSpec.describe "Sushi Controller" do
 
     it "can test the sushi connection successfully" do
       sign_in
-      Sushi.create!(name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id, organization_id: current_organization.id)
+      Sushi.create!(name: "jstor",
+        endpoint: "https://www.jstor.org/sushi",
+        cust_id: "iit.edu",
+        req_id: "galvinlib",
+        report_start: "2016-01-01",
+        report_end: "2016-12-31",
+        password: "",
+        user_id: current_user.id,
+        organization_id: current_organization.id)
       visit("/sushi")
       first(:link, "Test Connection").click
       expect(page).to have_content("Success")
@@ -46,7 +82,15 @@ RSpec.describe "Sushi Controller" do
 
     it "can test the sushi connection and provide failure message on fail" do
       sign_in
-      Sushi.create!(name: "jstor", endpoint: "https://www.badurl.com", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id, organization_id: current_organization.id)
+      Sushi.create!(name: "jstor",
+        endpoint: "https://www.badurl.com",
+        cust_id: "iit.edu",
+        req_id: "galvinlib",
+        report_start: "2016-01-01",
+        report_end: "2016-12-31",
+        password: "",
+        user_id: current_user.id,
+        organization_id: current_organization.id)
       visit("/sushi")
       first(:link, "Test Connection").click
       expect(page).to have_content("badurl")
@@ -75,7 +119,15 @@ RSpec.describe "Sushi Controller" do
 
     it "edits sushi connection information", js: true do
       sign_in
-      Sushi.create!(name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id, organization_id: current_organization.id)
+      Sushi.create!(name: "jstor",
+        endpoint: "https://www.jstor.org/sushi",
+        cust_id: "iit.edu",
+        req_id: "galvinlib",
+        report_start: "2016-01-01",
+        report_end: "2016-12-31",
+        password: "",
+        user_id: current_user.id,
+        organization_id: current_organization.id)
       visit("/sushi")
       first(:link, "Edit").click
       using_wait_time 10 do
@@ -87,7 +139,15 @@ RSpec.describe "Sushi Controller" do
 
     it "deletes sushi connection information" do
       sign_in
-      Sushi.create!(name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id, organization_id: current_organization.id)
+      Sushi.create!(name: "jstor",
+        endpoint: "https://www.jstor.org/sushi",
+        cust_id: "iit.edu",
+        req_id: "galvinlib",
+        report_start: "2016-01-01",
+        report_end: "2016-12-31",
+        password: "",
+        user_id: current_user.id,
+        organization_id: current_organization.id)
       visit("/sushi")
       expect(page).to have_content("jstor")
       click_button("Delete")
@@ -96,10 +156,28 @@ RSpec.describe "Sushi Controller" do
 
     it "only lists the sushi connections for a logged in user" do
       sign_in
-      User.create!(id: 100, name: "Max", organization_id: 99, uid: 1_000_000, provider: "google")
-      Sushi.create!(name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id, organization_id: current_organization.id)
-      Organization.create!(id: 17, name: "sample", password: "test", email: "test@example.com")
-      Sushi.create!(name: "acm", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: 100, organization_id: 17)
+      User.create!(id: 100,
+        name: "Max", organization_id: 99, uid: 1_000_000, provider: "google")
+      Sushi.create!(name: "jstor",
+        endpoint: "https://www.jstor.org/sushi",
+        cust_id: "iit.edu",
+        req_id: "galvinlib",
+        report_start: "2016-01-01",
+        report_end: "2016-12-31",
+        password: "",
+        user_id: current_user.id,
+        organization_id: current_organization.id)
+      Organization.create!(id: 17,
+        name: "sample", password: "test", email: "test@example.com")
+      Sushi.create!(name: "acm",
+        endpoint: "https://www.jstor.org/sushi",
+        cust_id: "iit.edu",
+        req_id: "galvinlib",
+        report_start: "2016-01-01",
+        report_end: "2016-12-31",
+        password: "",
+        user_id: 100,
+        organization_id: 17)
       visit("/sushi")
       expect(page).to have_content("jstor")
       expect(page).to_not have_content("acm")
