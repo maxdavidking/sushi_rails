@@ -7,6 +7,6 @@ class AddColumnsToUser < ActiveRecord::Migration[5.1]
     add_column :users, :url, :string
     add_index :users, :provider
     add_index :users, :uid
-    add_index :users, [:provider, :uid], unique: true
+    add_index :users, %i[provider uid], unique: true
   end
 end

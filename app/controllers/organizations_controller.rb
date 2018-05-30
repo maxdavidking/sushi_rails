@@ -1,12 +1,12 @@
 class OrganizationsController < ApplicationController
-  before_action :set_organization, only: [:show, :edit, :update, :destroy]
+  before_action :set_organization, only: %i[show edit update destroy]
 
   # GET /organizations
   # GET /organizations.json
   def index
     @organization = Organization.all
-    #Force users to join an org if not already in one
-    render :layout => "organization_lock"
+    # Force users to join an org if not already in one
+    render layout: "organization_lock"
   end
 
   # GET /organizations/1
@@ -24,8 +24,8 @@ class OrganizationsController < ApplicationController
   # GET /organizations/new
   def new
     @organization = Organization.new
-    #Force users to join an org if not already in one
-    render :layout => "organization_lock"
+    # Force users to join an org if not already in one
+    render layout: "organization_lock"
   end
 
   # GET /organizations/1/edit
@@ -40,23 +40,23 @@ class OrganizationsController < ApplicationController
 
   def join
     @organization = Organization.find(params[:id])
-    #Force users to join an org if not already in one
-    render :layout => "organization_lock"
+    # Force users to join an org if not already in one
+    render layout: "organization_lock"
   end
 
   def add_org_to_user
     @organization = Organization.find(params[:id])
     if member_of_org?
-      redirect_to('/user')
+      redirect_to("/user")
       flash[:danger] = "Error: You are already a member of an organization"
     elsif
       @organization.authenticate(organization_params[:password]) == false
-      redirect_to('/organizations')
+      redirect_to("/organizations")
       flash[:danger] = "Wrong password"
     else
-      current_user.update_attributes(organization_id: @organization.id)
-      redirect_to('/user')
-      #update all the user's sushi connections to also have the correct org_id
+      current_user.update(organization_id: @organization.id)
+      redirect_to("/user")
+      # update all the user's sushi connections to also have the correct org_id
       sushi_update(@organization)
       flash[:success] = "Welcome to #{@organization.name}"
     end
@@ -67,25 +67,25 @@ class OrganizationsController < ApplicationController
   def create
     @organization = Organization.new(organization_params)
     if @organization.save
-      #create folder in /storage for new org
+      # create folder in /storage for new org
       helpers.org_folder?(@organization.name)
-      #update all the user's sushi connections to also have the correct org_id
+      # update all the user's sushi connections to also have the correct org_id
       sushi_update(@organization)
-      redirect_to('/user')
+      redirect_to("/user")
     elsif organization_params[:password] != organization_params[:password_confirmation]
       flash[:danger] = "Error: passwords must match"
-      redirect_to ('/organizations/new')
+      redirect_to "/organizations/new"
     else
       flash[:danger] = "Error: #{@organization.errors.full_message(@organization.name, 'already exists')}"
-      redirect_to ('/organizations/new')
+      redirect_to "/organizations/new"
     end
   end
 
   # PATCH/PUT /organizations/1
   # PATCH/PUT /organizations/1.json
   def update
-    @organization.update_attributes(organization_params)
-    redirect_to('/user')
+    @organization.update(organization_params)
+    redirect_to("/user")
   end
 
   # DELETE /organizations/1
@@ -93,19 +93,20 @@ class OrganizationsController < ApplicationController
   def destroy
     @organization.destroy
     respond_to do |format|
-      format.html { redirect_to organizations_url, notice: 'Organization was successfully destroyed.' }
+      format.html { redirect_to organizations_url, notice: "Organization was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_organization
-      @organization = Organization.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def organization_params
-      params.require(:organization).permit(:name, :email, :password, :password_confirmation)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_organization
+    @organization = Organization.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def organization_params
+    params.require(:organization).permit(:name, :email, :password, :password_confirmation)
+  end
 end

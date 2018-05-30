@@ -1,7 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Sushi, type: :model do
-
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:endpoint) }
   it { should validate_presence_of(:cust_id) }

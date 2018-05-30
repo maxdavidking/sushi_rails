@@ -1,8 +1,8 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "Data Controller" do
   let (:sign_in) do
-    visit '/'
+    visit "/"
     mock_auth_hash
     first(:link, "Login").click
     Organization.create!(id: 99, name: "hello123", password: "test", email: "test@example.com")
@@ -22,7 +22,7 @@ RSpec.describe "Data Controller" do
     click_link("Get CSV Report")
   end
 
-  describe "Data Features", :type => :feature do
+  describe "Data Features", type: :feature do
     include ApplicationHelper
     it "saves CSV to the data model through active storage" do
       sign_in
@@ -38,7 +38,7 @@ RSpec.describe "Data Controller" do
       mock_sushi
       visit("/user")
       click_link("Download")
-      expect(response_headers['Content-Type']).to eq "text/csv"
+      expect(response_headers["Content-Type"]).to eq "text/csv"
     end
   end
 end

@@ -1,7 +1,5 @@
 class AboutController < ApplicationController
-  def index
-  end
+  def index; end
 
-  def contact
-  end
+  def contact; end
 end

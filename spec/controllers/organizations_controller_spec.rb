@@ -1,14 +1,14 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "Organization controller" do
   let (:sign_in) do
-    visit '/'
+    visit "/"
     mock_auth_hash
     Organization.create!(id: 99, name: "test123", password: "test", email: "test@example.com")
     first(:link, "Login").click
   end
 
-  describe "Organization Features", :type => :feature do
+  describe "Organization Features", type: :feature do
     include ApplicationHelper
     it "can create a new organization after logging in with OAuth" do
       sign_in
@@ -18,8 +18,8 @@ RSpec.describe "Organization controller" do
       fill_in "Password", with: "test"
       fill_in "Confirm Password", with: "test"
       fill_in "Email", with: "test@example.com"
-      click_button('Create')
-      expect(page).to have_content('test')
+      click_button("Create")
+      expect(page).to have_content("test")
     end
 
     it "updates the user table when a user joins an organization" do
@@ -38,7 +38,7 @@ RSpec.describe "Organization controller" do
       fill_in "Confirm Password", with: "test"
       fill_in "Email", with: "test@example.com"
       click_button("Create")
-      expect(page).to have_content('test')
+      expect(page).to have_content("test")
     end
 
     it "can not join an existing organization without the correct password" do
@@ -68,7 +68,7 @@ RSpec.describe "Organization controller" do
       Organization.create!(id: 101, name: "max", password: "test", email: "test@example.com")
       current_user.update(organization_id: 101)
       visit("/user")
-      expect(page).to_not have_content('IIT')
+      expect(page).to_not have_content("IIT")
       visit("/organizations/100/edit")
       expect(page).to have_content("That's not your organization")
     end
@@ -94,7 +94,7 @@ RSpec.describe "Organization controller" do
       fill_in "Password", with: "test"
       fill_in "Confirm Password", with: "test"
       fill_in "Email", with: "test@example.com"
-      click_button('Create')
+      click_button("Create")
       org = Organization.find(99)
       org_pw = org.password_digest
       expect(org_pw).not_to eq("test")
@@ -118,7 +118,7 @@ RSpec.describe "Organization controller" do
       FileUtils.remove_dir "#{Rails.root}/storage/test123", true
       expect(File).not_to exist("#{Rails.root}/storage/test123")
       Sushi.create!(name: "jstor", endpoint: "https://www.jstor.org/sushi", cust_id: "iit.edu", req_id: "galvinlib", report_start: "2016-01-01", report_end: "2016-12-31", password: "", user_id: current_user.id, organization_id: current_organization.id)
-      visit('/sushi')
+      visit("/sushi")
       first(:link, "Get CSV Report").click
       expect(File).to exist("#{Rails.root}/storage/test123")
     end
@@ -133,7 +133,7 @@ RSpec.describe "Organization controller" do
       fill_in "Password", with: "test"
       fill_in "Confirm Password", with: "test"
       fill_in "Email", with: "test@example.com"
-      click_button('Create')
+      click_button("Create")
       expect(File).to exist("#{Rails.root}/storage/test1")
     end
 
@@ -146,7 +146,7 @@ RSpec.describe "Organization controller" do
       fill_in "Password", with: "test"
       fill_in "Confirm Password", with: "test"
       fill_in "Email", with: "test@example.com"
-      click_button('Create')
+      click_button("Create")
       visit("/sushi")
       expect(page).to have_content("jstor")
     end

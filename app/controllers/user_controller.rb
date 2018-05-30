@@ -1,5 +1,5 @@
 class UserController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: %i[show edit update destroy]
   before_action :set_cache_headers
 
   def index
@@ -11,7 +11,7 @@ class UserController < ApplicationController
         redirect_to root_path
       end
     else
-      redirect_to ("/organizations")
+      redirect_to "/organizations"
     end
   end
 
@@ -30,30 +30,31 @@ class UserController < ApplicationController
   def create
     user = User.new(user_params)
     user.save
-    redirect_to('/user')
+    redirect_to("/user")
   end
 
   def update
-    @user.update_attributes(user_params)
-    if current_organization == nil
-      redirect_to('/organizations')
+    @user.update(user_params)
+    if current_organization.nil?
+      redirect_to("/organizations")
     else
-      redirect_to('/user')
+      redirect_to("/user")
     end
   end
 
   private
-    def set_user
-       @user = User.find(params[:id])
-    end
 
-    def user_params
-      params.require(:user).permit(:name, :organization_id)
-    end
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    def set_cache_headers
-      response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
-      response.headers["Pragma"] = "no-cache"
-      response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
-    end
+  def user_params
+    params.require(:user).permit(:name, :organization_id)
+  end
+
+  def set_cache_headers
+    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+  end
 end

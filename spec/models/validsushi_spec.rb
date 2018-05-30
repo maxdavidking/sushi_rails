@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Validsushi, type: :model do
   it { should validate_presence_of(:name) }

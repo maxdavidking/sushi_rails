@@ -36,11 +36,11 @@ preload_app!
 # recommended that you close any connections to the database before workers
 # are forked to prevent connection leakage.
 #
-#before_fork do
+# before_fork do
 #   ActiveRecord::Base.connection_pool.disconnect! if defined?(ActiveRecord)
 #  require 'puma_worker_killer'
 #      PumaWorkerKiller.enable_rolling_restart(0.01 * 3600) # 8 hours in seconds
-#end
+# end
 
 # The code in the `on_worker_boot` will be called if you are using
 # clustered mode by specifying a number of `workers`. After each worker

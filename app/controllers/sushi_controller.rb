@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class SushiController < ApplicationController
   def index
     @sushi = Sushi.order(:name).where(organization_id: current_organization.id)
@@ -12,10 +13,10 @@ class SushiController < ApplicationController
   def create
     @sushi = Sushi.new(sushi_params)
     if @sushi.save
-      redirect_to('/sushi')
+      redirect_to("/sushi")
     else
       flash[:danger] = "Error: #{@sushi.errors.full_message(@sushi.name, 'already exists')}"
-      redirect_to ('/sushi/new')
+      redirect_to "/sushi/new"
     end
   end
 
@@ -30,11 +31,10 @@ class SushiController < ApplicationController
 
   def update
     @sushi = Sushi.find(params[:id])
-    @sushi.update_attributes(sushi_params)
+    @sushi.update(sushi_params)
     if @sushi.save
-     flash[:success] = "#{@sushi.name} updated"
-     redirect_to('/sushi')
-    else
+      flash[:success] = "#{@sushi.name} updated"
+      redirect_to("/sushi")
     end
   end
 
@@ -52,7 +52,7 @@ class SushiController < ApplicationController
   def call
     @organization = current_organization
     @sushi = Sushi.find(params[:id])
-    #Ensure user can only access their own connections
+    # Ensure user can only access their own connections
     unless session[:user_id] == @sushi.user_id || current_organization.id == @sushi.organization_id
       flash[:danger] = "That's not your sushi connection"
       redirect_to root_path
@@ -69,7 +69,7 @@ class SushiController < ApplicationController
       helpers.file_type("csv")
       redirect_to("/sushi")
       flash[:success] = "Your report finished downloading and is in the settings tab"
-    rescue
+    rescue StandardError
       redirect_to("/sushi")
       flash[:danger] = "Failure, try testing your connection"
     end
@@ -84,7 +84,7 @@ class SushiController < ApplicationController
     end
     @sushi.destroy
     respond_to do |format|
-      format.html { redirect_to('/sushi')}
+      format.html { redirect_to("/sushi") }
       format.json { head :no_content }
     end
   end

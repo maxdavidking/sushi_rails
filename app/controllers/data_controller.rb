@@ -1,5 +1,5 @@
 class DataController < ApplicationController
-  before_action :set_datum, only: [:show, :edit, :update, :destroy]
+  before_action :set_datum, only: %i[show edit update destroy]
 
   # GET /data
   # GET /data.json
@@ -9,8 +9,7 @@ class DataController < ApplicationController
 
   # GET /data/1
   # GET /data/1.json
-  def show
-  end
+  def show; end
 
   # GET /data/new
   def new
@@ -18,8 +17,7 @@ class DataController < ApplicationController
   end
 
   # GET /data/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /data
   # POST /data.json
@@ -28,7 +26,7 @@ class DataController < ApplicationController
 
     respond_to do |format|
       if @datum.save
-        format.html { redirect_to @datum, notice: 'Datum was successfully created.' }
+        format.html { redirect_to @datum, notice: "Datum was successfully created." }
         format.json { render :show, status: :created, location: @datum }
       else
         format.html { render :new }
@@ -42,7 +40,7 @@ class DataController < ApplicationController
   def update
     respond_to do |format|
       if @datum.update(datum_params)
-        format.html { redirect_to @datum, notice: 'Datum was successfully updated.' }
+        format.html { redirect_to @datum, notice: "Datum was successfully updated." }
         format.json { render :show, status: :ok, location: @datum }
       else
         format.html { render :edit }
@@ -60,13 +58,14 @@ class DataController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_datum
-      @datum = Datum.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def datum_params
-      params.require(:datum).permit(:date, :organization_id, :sushi_id, :file)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_datum
+    @datum = Datum.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def datum_params
+    params.require(:datum).permit(:date, :organization_id, :sushi_id, :file)
+  end
 end
