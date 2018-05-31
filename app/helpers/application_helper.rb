@@ -4,11 +4,11 @@ require "csv"
 module ApplicationHelper
   attr_reader :error
 
-  def sushi_call
+  def sushi_call(sushi)
     # Set up client for connection
     client = Savon.client(
       wsdl:                    "https://www.niso.org/schemas/sushi/counter_sushi4_0.wsdl",
-      endpoint:                @sushi.endpoint,
+      endpoint:                sushi.endpoint,
       # Possible namespaces required by WSDL
       namespaces:              {
         "xmlns:tns"     => "SushiService",
@@ -31,18 +31,18 @@ module ApplicationHelper
     # Send out call for data, passing all parameters for login/data
     @response = client.call(:get_report, message: {
                               "sus:Requestor"         => {
-                                "sus:ID"    => @sushi.req_id,
+                                "sus:ID"    => sushi.req_id,
                                 "sus:Name"  => "Blank",
-                                "sus:Email" => @sushi.password
+                                "sus:Email" => sushi.password
                               },
                               "sus:CustomerReference" => {
-                                "sus:ID" => @sushi.cust_id
+                                "sus:ID" => sushi.cust_id
                               },
                               "sus:ReportDefinition"  => {
                                 "sus:Filters" => {
                                   "sus:UsageDateRange" => {
-                                    "sus:Begin" => @sushi.report_start,
-                                    "sus:End"   => @sushi.report_end
+                                    "sus:Begin" => sushi.report_start,
+                                    "sus:End"   => sushi.report_end
                                   }
                                 }
                               },
@@ -205,10 +205,10 @@ module ApplicationHelper
     @total_usage = @usage_data.map(&:to_i).reduce(0, :+)
   end
 
-  def file_type(_type)
+  def file_type(sushi, organization)
     @type = "csv"
-    data_write(@sushi.name, @organization.name)
-    data_store(@sushi, @organization)
+    data_write(sushi, organization)
+    data_store(sushi, organization)
   end
 
   def org_folder?(org)
@@ -220,13 +220,13 @@ module ApplicationHelper
 
   def data_write(sushi, org)
     # ensure org folder exists
-    org_folder?(org)
+    org_folder?(org.name)
     # Write file to org folder
-    CSV.open("#{Rails.root}/storage/#{org}/#{sushi}-#{Date.today}.#{@type}", "wb", col_sep: "\,") do |row|
+    CSV.open("#{Rails.root}/storage/#{org.name}/#{sushi.name}-#{Date.today}.#{@type}", "wb", col_sep: "\,") do |row|
       row << [@doc_version.to_s, "Release: #{@doc_release}"]
       row << ["Requestor ID: #{@doc_requestor}", " Customer ID: #{@doc_customer_ref}"]
       row << ["Period covered by Report:"]
-      row << ["#{@sushi.report_start} to #{@sushi.report_end}"]
+      row << ["#{sushi.report_start} to #{sushi.report_end}"]
       row << ["Date run:"]
       row << [Time.now.strftime("%d/%m/%Y").to_s]
       row << ["Journal", "Publisher", "Platform", "Journal DOI", "Proprietary Identifier", "Print ISSN", "Online ISSN", "Reporting Period Total", "Reporting Period HTML", "Reporting Period PDF", @month_array].flatten!
