@@ -59,16 +59,10 @@ class SushiController < ApplicationController
       return
     end
     begin
-      helpers.sushi_call
-      helpers.months_math(@sushi.report_start, @sushi.report_end)
-      helpers.count_months
-      helpers.xml_open
-      helpers.get_secondary_data
-      helpers.get_item_data
-      helpers.get_total_data
-      helpers.file_type("csv")
+      CounterWorker.perform_async(@sushi.id, @organization.id)
       redirect_to("/sushi")
-      flash[:success] = "Your report finished downloading and is in the settings tab"
+      flash[:success] = "Please be patient, this can take a few minutes.
+        When finished, your report will go to the Settings tab"
     rescue StandardError
       redirect_to("/sushi")
       flash[:danger] = "Failure, try testing your connection"
