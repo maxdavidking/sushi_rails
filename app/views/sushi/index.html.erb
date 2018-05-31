@@ -26,7 +26,7 @@
   </div>
   <div class="col-md-6">
     <div class="row">
-    <%= link_to 'Get CSV Report', {:controller => :sushi, :action => :call, :id => (s.id), :format => "csv"}, class: 'btn btn-primary btn-sm', data: {confirm: "Please be patient. This can take up to a minute."}%>
+    <%= link_to 'Get CSV Report', {:controller => :sushi, :action => :call, :id => (s.id), :format => "csv"}, class: 'btn btn-primary btn-sm'%>
     <%= link_to 'Test Connection', {:controller => :sushi, :action => :test, :id => (s.id)}, class: 'btn btn-primary btn-sm'%>
     <%= link_to 'Edit', edit_sushi_path(s), remote: true, class: 'btn btn-primary btn-sm' %>
     <%= button_to 'Delete', sushi_path(s.id), method: :delete, class: 'btn btn-danger btn-sm', data: {confirm: "Are you sure?"} %>
