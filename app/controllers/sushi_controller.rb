@@ -40,7 +40,7 @@ class SushiController < ApplicationController
 
   def test
     @sushi = Sushi.find(params[:id])
-    @response = helpers.sushi_call
+    @response = helpers.sushi_call(@sushi)
     @error = helpers.error
     unless session[:user_id] == @sushi.user_id || current_organization.id = @sushi.organization_id
       flash[:danger] = "That's not your sushi connection"
