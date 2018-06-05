@@ -1,7 +1,7 @@
 class CounterWorker
   include Sidekiq::Worker
   include ApplicationHelper
-  sidekiq_options :retry => false
+  sidekiq_options :retry => 5
 
 
   def perform(sushi_id, organization_id)
