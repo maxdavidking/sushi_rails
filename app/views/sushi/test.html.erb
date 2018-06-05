@@ -1,4 +1,5 @@
 <% if @response.blank? %>
+<div id="product-modal" class="modal fade"></div>
   <div class="row">
     <div class="alert alert-danger">
       <h2> Failure, check your connection info:</h2>
@@ -54,11 +55,10 @@
       <p><%= @sushi.password %></p>
     </div>
     <div class="col-lg-2">
-      <%= link_to 'Get CSV Counter Report', {:controller => :sushi, :action => :call, :id => (@sushi.id), :format => "csv"}, class: 'btn btn-primary', data: {confirm: "Please be patient. This can take up to a minute."}%>
-      <%= link_to 'Get TSV Counter Report', {:controller => :sushi, :action => :call, :id => (@sushi.id), :format => "tsv"}, class: 'btn btn-primary', data: {confirm: "Please be patient. This can take up to a minute."}%>
-      <%= link_to 'Test Connection', {:controller => :sushi, :action => :test, :id => (@sushi.id)}, class: 'btn btn-primary'%>
-      <%= link_to 'Edit Connection', edit_sushi_path(@sushi.id), class: 'btn btn-primary' %>
-      <%= button_to 'Delete', sushi_path(@sushi.id), method: :delete, class: 'btn btn-danger', data: {confirm: "Are you sure?"} %>
+      <%= link_to 'Get CSV Report', {:controller => :sushi, :action => :call, :id => (@sushi.id), :format => "csv"}, class: 'btn btn-primary btn-sm'%>
+      <%= link_to 'Test Connection', {:controller => :sushi, :action => :test, :id => (@sushi.id)}, class: 'btn btn-primary btn-sm'%>
+      <%= link_to 'Edit', edit_sushi_path(@sushi), remote: true, class: 'btn btn-primary btn-sm' %>
+      <%= button_to 'Delete', sushi_path(@sushi.id), method: :delete, class: 'btn btn-danger btn-sm', data: {confirm: "Are you sure?"} %>
     </div>
   </div>
   <% else %>
@@ -68,9 +68,9 @@
     </div>
   </div>
   <div class="row">
-    <%= link_to 'Get Counter Report', {:controller => :sushi, :action => :call, :id => (@sushi.id), :format => "csv"}, class: 'btn btn-primary'%>
+    <%= link_to 'Get Counter Report', {:controller => :sushi, :action => :call, :id => (@sushi.id), :format => "csv"}, class: 'btn btn-primary btn-sm'%>
   </div>
   <% end %>
   <div class="row">
-  <%= link_to "Back", sushi_index_path, class: 'btn btn-danger' %>
+  <%= link_to "Back", sushi_index_path, class: 'btn btn-danger btn-sm' %>
 </div>
