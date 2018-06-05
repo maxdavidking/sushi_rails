@@ -62,7 +62,8 @@ class SushiController < ApplicationController
       CounterWorker.perform_async(@sushi.id, @organization.id)
       redirect_to("/sushi")
       flash[:success] = "Please be patient, this can take a few minutes.
-        When finished, your report will go to the Settings tab"
+        When finished, your report will go to the Settings tab. If it does not
+        appear in the Settings tab try testing your Counter connection."
     rescue StandardError
       redirect_to("/sushi")
       flash[:danger] = "Failure, try testing your connection"
