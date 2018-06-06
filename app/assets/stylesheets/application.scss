@@ -66,6 +66,11 @@ label.required:after {
   color: $btn-color;
 }
 
+.alert-info a{
+  color: #212529;
+  text-decoration: underline;
+}
+
 p.faq{
   font-style: italic;
 }
