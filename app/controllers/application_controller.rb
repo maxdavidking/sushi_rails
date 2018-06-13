@@ -24,9 +24,12 @@ class ApplicationController < ActionController::Base
     sushi.update_all(organization_id: organization.id)
   end
 
-  def delete_org?(organization)
-    if organization.users.empty?
-      organization.destroy
+  def delete_orgs
+    organizations = Organization.all
+    organizations.each do |o|
+      if o.users.empty?
+        o.destroy
+      end
     end
   end
 
