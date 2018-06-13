@@ -24,6 +24,18 @@ class ApplicationController < ActionController::Base
     sushi.update_all(organization_id: organization.id)
   end
 
+  def delete_org?(organization)
+    if organization.users.empty?
+      organization.destroy
+    end
+  end
+
+  def delete_data
+    Datum.where("created_at < ?", 1.month.ago).destroy_all
+  end
+
+  helper_method :delete_data
+  helper_method :delete_org?
   helper_method :sushi_update
   helper_method :current_organization
   helper_method :current_user
