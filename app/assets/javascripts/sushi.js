@@ -3,12 +3,12 @@ $(document).on("turbolinks:load",function(){
   $(".validsushi_new").hide();
 
   $(".sushi_button").click( function (){
-    $(".sushi_new").show();
+    $(".sushi_new").fadeIn(1000);
     $(".validsushi_new").hide();
   });
 
   $(".validsushi_button").click( function (){
-    $(".validsushi_new").show();
+    $(".validsushi_new").fadeIn(1000);
     $(".sushi_new").hide();
   });
 });
