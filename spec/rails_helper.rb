@@ -23,6 +23,8 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f }
 require "rspec/rails"
 require "capybara/rspec"
+require "sidekiq/testing"
+Sidekiq::Testing.inline!
 OmniAuth.config.test_mode = true
 
 Shoulda::Matchers.configure do |config|
