@@ -14,11 +14,7 @@ class OrganizationsController < ApplicationController
   def show
     @organization = Organization.find(params[:id])
     @users = User.where(organization_id: current_organization.id)
-    unless current_organization.id == @organization.id
-      flash[:danger] = "That's not your organization"
-      redirect_to root_path
-      return
-    end
+    org_access_rights?(@organization)
   end
 
   # GET /organizations/new
@@ -31,11 +27,7 @@ class OrganizationsController < ApplicationController
   # GET /organizations/1/edit
   def edit
     @organization = Organization.find(params[:id])
-    unless current_organization.id == @organization.id
-      flash[:danger] = "That's not your organization"
-      redirect_to root_path
-      return
-    end
+    org_access_rights?(@organization)
   end
 
   def join

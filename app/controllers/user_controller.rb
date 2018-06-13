@@ -6,10 +6,7 @@ class UserController < ApplicationController
     if member_of_org?
       @user = User.find_by(id: session[:user_id])
       @data = Datum.order(created_at: :desc).where(organization_id: current_organization.id)
-      unless session[:user_id] == @user.id
-        flash[:danger] = "That's not your user page"
-        redirect_to root_path
-      end
+      user_access_rights?(@user)
     else
       redirect_to "/organizations"
     end
@@ -17,10 +14,7 @@ class UserController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-    unless session[:user_id] == @user.id
-      flash[:danger] = "That's not your user page"
-      redirect_to root_path
-    end
+    user_access_rights?(@user)
   end
 
   def new

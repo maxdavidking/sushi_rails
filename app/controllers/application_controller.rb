@@ -37,6 +37,24 @@ class ApplicationController < ActionController::Base
     Datum.where("created_at < ?", 1.month.ago).destroy_all
   end
 
+  def org_access_rights?(organization)
+    unless current_organization.id == organization.id
+      flash[:danger] = "That's not your organization"
+      redirect_to root_path
+      return
+    end
+  end
+
+  def user_access_rights?(user)
+    unless session[:user_id] == user.id
+      flash[:danger] = "That's not your user page"
+      redirect_to root_path
+      return
+    end
+  end
+
+  helper_method :user_access_rights?
+  helper_method :org_access_rights?
   helper_method :delete_data
   helper_method :delete_org?
   helper_method :sushi_update
