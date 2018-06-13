@@ -57,11 +57,14 @@ group :development, :test do
   gem "peek"
   gem "rack_session_access"
   gem "rspec-rails", "3.6.1"
-  gem 'rspec-sidekiq'
   gem "selenium-webdriver"
   gem "shoulda-matchers", "~> 3.1"
   gem "warden"
   gem "warden-rspec-rails"
+end
+
+group :test do
+  gem 'rspec-sidekiq'
 end
 
 group :development do
