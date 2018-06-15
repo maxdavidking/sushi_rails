@@ -54,7 +54,7 @@ class DataController < ApplicationController
   def destroy
     @datum.destroy
     redirect_to user_index_path
-    flash[:success] = "#{@datum.file.filename} was successfully deleted."
+    flash[:success] = "File was successfully deleted."
   end
 
   private

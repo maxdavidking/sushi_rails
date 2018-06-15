@@ -36,16 +36,24 @@
   <h3> Downloads </h3>
 </div>
 <% @data.each do |d| %>
-<% if d.file.filename.exists? %>
-<div class="row data">
-  <div class="col-lg-5">
-    <p><%= "#{d.file.filename}" %></p>
+<% if d.file.attached? %>
+  <div class="row data">
+    <div class="col-lg-5">
+      <p><%= "#{d.file.filename}" %></p>
+    </div>
+    <div class="col-lg-5">
+      <%= link_to("Download", rails_blob_path(d.file, disposition: "attachment"), class: 'btn btn-primary btn-sm') %>
+      <%= link_to 'Delete', datum_path(d.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+    </div>
   </div>
-  <div class="col-lg-5">
-    <%= link_to("Download", rails_blob_path(d.file, disposition: "attachment"), class: 'btn btn-primary btn-sm') %>
-    <%= link_to 'Delete', datum_path(d.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+  <% else %>
+  <div class="row data">
+    <div class="col-lg-5">
+      <p> Download failed </p>
+    </div>
+    <div class="col-lg-5">
+      <%= link_to 'Delete', datum_path(d.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+    </div>
   </div>
-</div>
-<% else %>
-<% end %>
+  <% end %>
 <% end %>
