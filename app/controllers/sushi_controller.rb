@@ -2,12 +2,20 @@
 
 class SushiController < ApplicationController
   def index
-    @sushi = Sushi.order(:name).where(organization_id: current_organization.id)
+    if member_of_org?
+      @sushi = Sushi.order(:name).where(organization_id: current_organization.id)
+    else
+      redirect_to "/organizations"
+    end
   end
 
   def new
-    @validsushi = Validsushi.order(:name)
-    @sushi = Sushi.new
+    if member_of_org?
+      @validsushi = Validsushi.order(:name)
+      @sushi = Sushi.new
+    else
+      redirect_to "/organizations"
+    end
   end
 
   def create
