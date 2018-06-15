@@ -18,9 +18,7 @@ class ApplicationController < ActionController::Base
   end
 
   def sushi_update(organization)
-    user = current_user
-    user.update(organization_id: organization.id)
-    sushi = Sushi.where(user_id: current_user)
+    sushi = Sushi.where(user_id: current_user.id)
     sushi.update_all(organization_id: organization.id)
   end
 
