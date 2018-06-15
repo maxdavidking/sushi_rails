@@ -43,6 +43,8 @@ gem "sidekiq"
 # Use ActiveModel has_secure_password
 gem "bcrypt", "~> 3.1.7"
 gem "rubocop", "~> 0.56.0", require: false
+# Use for REST requests
+gem "httparty"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
