@@ -21,9 +21,9 @@ module ApplicationHelper
       },
       convert_request_keys_to: :none,
       # Log default is false, unless specified by user
-      logger:                  Logger.new("log/savon.log", 10, 1_024_000),
-      log:                     false,
-      log_level:               :debug,
+      #logger:                  Logger.new("log/savon.log", 10, 1_024_000),
+      #log:                     false,
+      #log_level:               :debug,
       # Pretty Print is dependent on logging being on
       pretty_print_xml:        true,
       env_namespace:           :soapenv
