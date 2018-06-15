@@ -1,3 +1,15 @@
+# VERSION 2.0 UPDATES
+* Organizations are now required - you will be prompted to created one on login
+* Multiple people can join the same organization and see the same reports
+* Organization passwords are encrypted
+* Downloads are processed as a background job (faster and doesn't tie up your browser)
+* All of your organizations' downloads are delivered to the Settings page
+* Overhaul of look and feel (UI) of site (thanks Katie!)
+* Better login instructions
+* Connections page layout simplified
+* New connections page now merged with import connections page
+
+---
 This project is licensed under the terms of the GNU public license
 
 FetchCounter is a website that lets you store your SUSHI connection information and quickly fetch COUNTER reports.
