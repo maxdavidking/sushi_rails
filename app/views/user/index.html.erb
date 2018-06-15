@@ -36,6 +36,7 @@
   <h3> Downloads </h3>
 </div>
 <% @data.each do |d| %>
+<% if d.file.filename.exists? %>
 <div class="row data">
   <div class="col-lg-5">
     <p><%= "#{d.file.filename}" %></p>
@@ -45,4 +46,6 @@
     <%= link_to 'Delete', datum_path(d.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
   </div>
 </div>
+<% else %>
+<% end %>
 <% end %>
