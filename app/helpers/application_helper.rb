@@ -240,7 +240,10 @@ module ApplicationHelper
 
   def data_store(sushi, org)
     datum = Datum.new(date: Date.today, organization_id: org.id, sushi_id: sushi.id)
-    datum.save!
-    datum.file.attach(io: File.open("#{Rails.root}/storage/#{org.name}/#{sushi.name}-#{DateTime.now.to_s(:db)}.#{@type}"), filename: "#{sushi.name}-#{DateTime.now.to_s(:db)}.#{@type}", content_type: "text/#{@type}")
+    if datum.save
+      datum.file.attach(io: File.open("#{Rails.root}/storage/#{org.name}/#{sushi.name}-#{DateTime.now.to_s(:db)}.#{@type}"), filename: "#{sushi.name}-#{DateTime.now.to_s(:db)}.#{@type}", content_type: "text/#{@type}")
+      ActionCable.server.broadcast 'sushi',
+        sushi: "test"
+    end
   end
 end
