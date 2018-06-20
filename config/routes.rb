@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  mount ActionCable.server => "/cable"
   resources :sushi do
     collection do
       get ":id/test", to: "sushi#test"
