@@ -242,8 +242,12 @@ module ApplicationHelper
     datum = Datum.new(date: Date.today, organization_id: org.id, sushi_id: sushi.id)
     if datum.save
       datum.file.attach(io: File.open("#{Rails.root}/storage/#{org.name}/#{sushi.name}-#{DateTime.now.to_s(:db)}.#{@type}"), filename: "#{sushi.name}-#{DateTime.now.to_s(:db)}.#{@type}", content_type: "text/#{@type}")
-      ActionCable.server.broadcast 'sushi',
-        sushi: "test"
+      broadcast(datum)
     end
+  end
+
+  def broadcast(datum)
+    ActionCable.server.broadcast 'sushi',
+      sushi: datum.file.filename
   end
 end
