@@ -242,12 +242,19 @@ module ApplicationHelper
     datum = Datum.new(date: Date.today, organization_id: org.id, sushi_id: sushi.id)
     if datum.save
       datum.file.attach(io: File.open("#{Rails.root}/storage/#{org.name}/#{sushi.name}-#{DateTime.now.to_s(:db)}.#{@type}"), filename: "#{sushi.name}-#{DateTime.now.to_s(:db)}.#{@type}", content_type: "text/#{@type}")
-      broadcast(datum)
+      broadcast(datum, sushi.id)
     end
   end
 
-  def broadcast(datum)
-    ActionCable.server.broadcast 'sushi',
-      sushi: datum.file.filename
+  def broadcast(datum, sushi_id)
+    if datum.file.attached?
+      ActionCable.server.broadcast 'sushi',
+        filename: datum.file.filename,
+        filepath: Rails.application.routes.url_helpers.rails_blob_path(datum.file, only_path: true)
+    else
+      ActionCable.server.broadcast 'sushi',
+        filename: "Download failed",
+        sushipath: sushi_id
+    end
   end
 end
