@@ -1,7 +1,7 @@
 class SushiWorker
   include Sidekiq::Worker
   include ApplicationHelper
-  sidekiq_options :retry => 5
+  sidekiq_options :retry => false
 
   # Clean up organization and data tables
   def perform
