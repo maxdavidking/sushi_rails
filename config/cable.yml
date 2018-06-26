@@ -2,6 +2,9 @@ redis: &default
   adapter: redis
   url: redis://localhost:6379/1
 
-production: *default
+production:
+  adapter: redis
+  url: <%= ENV['REDIS_URL'] %>
+  channel_prefix: <%= ENV['CABLE_CHANNEL_PREFIX'] %>
 development: *default
 test: *default
