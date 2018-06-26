@@ -58,7 +58,6 @@ RSpec.describe "Data Controller" do
       visit("/user")
       data = Datum.last
       timestamp = data.created_at.strftime("%Y-%m-%d %H:%M")
-      save_and_open_page
       expect(page).to have_content(timestamp)
     end
   end
