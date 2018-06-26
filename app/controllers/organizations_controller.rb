@@ -59,6 +59,7 @@ class OrganizationsController < ApplicationController
   def create
     @organization = Organization.new(organization_params)
     if @organization.save
+      current_user.update(organization_id: @organization.id)
       # create folder in /storage for new org
       helpers.org_folder?(@organization.name)
       # update all the user's sushi connections to also have the correct org_id
