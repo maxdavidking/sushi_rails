@@ -50,5 +50,16 @@ RSpec.describe "Data Controller" do
       click_link("Download")
       expect(response_headers["Content-Type"]).to eq "text/csv"
     end
+
+    it "displays the download's timestamp on completion" do
+      sign_in
+      join_org
+      mock_sushi
+      visit("/user")
+      data = Datum.last
+      timestamp = data.created_at.strftime("%Y-%m-%d %H:%M")
+      save_and_open_page
+      expect(page).to have_content(timestamp)
+    end
   end
 end
