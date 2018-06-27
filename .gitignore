@@ -7,7 +7,7 @@
 # Ignore contents of storage folder
 storage/*
 # exception to the rule
-!storage/.gitkeep 
+!storage/.gitkeep
 
 # Ignore bundler config.
 /.bundle
@@ -33,3 +33,6 @@ storage/*
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# EB extensions with passwords
+.ebextensions/db-instance-options.config
