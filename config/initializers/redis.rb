@@ -1,1 +1,1 @@
-$redis = Redis.new(:host => 'localhost', :port => 6379)
+$redis = Redis.new(:host => 'counter-dev.us-east-1.elasticbeanstalk.com', :port => 6379)
