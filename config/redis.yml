@@ -1,5 +1,5 @@
 development:
-  host: 'localhost'
+  host: 'sushirailsredis-001.qhabqe.0001.use1.cache.amazonaws.comxx'
   port: '6379'
 test:
   host: 'localhost'
