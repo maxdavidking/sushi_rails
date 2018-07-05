@@ -39,7 +39,7 @@ gem "puma_worker_killer"
 gem "savon"
 gem "sidekiq"
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
+gem 'redis', '~> 4.0.1'
 # Use ActiveModel has_secure_password
 gem "bcrypt", "~> 3.1.7"
 gem "rubocop", "~> 0.56.0", require: false

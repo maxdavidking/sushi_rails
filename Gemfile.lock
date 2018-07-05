@@ -365,6 +365,7 @@ DEPENDENCIES
   rack_session_access
   rails (~> 5.2.0)
   react-rails (~> 1.0)
+  redis (~> 4.0.1)
   rspec-rails (= 3.6.1)
   rspec-sidekiq
   rubocop (~> 0.56.0)
