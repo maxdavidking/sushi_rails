@@ -87,7 +87,7 @@ module ApplicationHelper
   end
 
   def get_item_data
-    count_hash = Hash[@month_array.map {|x| [x.to_sym] }]
+    count_hash = Hash[@month_array.map {|x| [x] }]
     @report_data = []
     @total_stats = []
     @html_data = []
@@ -112,7 +112,7 @@ module ApplicationHelper
                    "0"
                  else counts
                  end
-        count_hash[month.to_sym] = counts
+        count_hash[month] = counts
       end
 
       # Match months supplied by user to months in month_holder array
@@ -121,7 +121,7 @@ module ApplicationHelper
       @months_var.times do
         if @month_holder.include? @month_array[n]
           month_key = @month_array[n]
-          count = count_hash[month_key.to_sym]
+          count = count_hash[month_key]
           @total_stats << count
           if n < @count_var
             n += 1
