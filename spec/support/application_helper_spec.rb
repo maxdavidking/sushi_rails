@@ -1,12 +1,4 @@
 module ApplicationHelper
-  def current_user
-    @current_user ||= User.find_by(session[:user_id])
-  end
-
-  def current_organization
-    @current_organization = current_user.organization
-  end
-
   def mock_auth_hash
     # The mock_auth configuration allows you to set per-provider (or default)
     # authentication hashes to return during integration testing.
@@ -24,5 +16,19 @@ module ApplicationHelper
         "secret" => "mock_secret"
       }
     }
+  end
+
+  def sign_in
+    visit "/"
+    mock_auth_hash
+    first(:link, "Login").click
+  end
+
+  def join_org
+    Organization.create!(id: 99, name: "hello123", password: "test", email: "test@example.com")
+    visit("/organizations")
+    click_link "Join"
+    fill_in "organization_password", with: "test"
+    click_button("Confirm")
   end
 end
