@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Sushi Controller" do
+RSpec.describe SushiController do
   describe "Sushi Controller Tests" do
     # To get access to session variables with current_user and current_org
     include ControllerHelper

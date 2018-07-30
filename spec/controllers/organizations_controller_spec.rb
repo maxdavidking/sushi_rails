@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Organization Controller" do
+RSpec.describe OrganizationController do
   describe "Organization controller tests" do
     # To get access to session variables with current_user and current_org
     include ControllerHelper

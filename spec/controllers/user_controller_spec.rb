@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "User Controller" do
+RSpec.describe UserController do
   describe "User Controller Tests" do
     # To get access to session variables with current_user and current_org
     include ControllerHelper
