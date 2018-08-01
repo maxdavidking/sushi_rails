@@ -1,8 +1,17 @@
 FactoryBot.define do
+  sequence :name do |n|
+    "name#{n}"
+  end
+  sequence :uid do |n|
+    "uid#{n}"
+  end
+  sequence :provider do |n|
+    "provider#{n}"
+  end
   factory :user do
-    name "test"
-    uid "test_uid"
-    provider "test_provider"
+    name { generate(:name) }
+    uid { generate(:uid) }
+    provider { generate(:provider) }
     organization
   end
 end
