@@ -2,17 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Data Features" do
   let(:mock_sushi) do
-    Sushi.create!(
-      id: 201,
-      name: "jstor",
-      endpoint: "https://www.jstor.org/sushi",
-      cust_id: "iit.edu",
-      req_id: "galvinlib",
-      report_start: "2016-01-01",
-      report_end: "2016-12-31",
-      password: "",
-      organization_id: 99
-    )
+    create(:sushi, id: 201, organization_id: 99)
     visit("/sushi")
     click_link("Get CSV Report")
   end

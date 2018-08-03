@@ -25,7 +25,7 @@ module ApplicationHelper
   end
 
   def join_org
-    Organization.create!(id: 99, name: "hello123", password: "test", email: "test@example.com")
+    create(:organization, id: 99)
     visit("/organizations")
     click_link "Join"
     fill_in "organization_password", with: "test"

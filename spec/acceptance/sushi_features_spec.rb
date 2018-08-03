@@ -8,15 +8,7 @@ RSpec.describe "Sushi Controller" do
 
   describe "Sushi CRUD for logged in user", type: :feature do
     it "lists all sushi connection information for logged in user" do
-      Sushi.create!(
-        name: "jstor",
-        endpoint: "https://www.jstor.org/sushi",
-        cust_id: "iit.edu", req_id: "galvinlib",
-        report_start: "2016-01-01",
-        report_end: "2016-12-31",
-        password: "",
-        organization_id: 99
-      )
+      create(:sushi, organization_id: 99)
       visit("/sushi")
       expect(page).to have_content("jstor")
     end
@@ -25,16 +17,7 @@ RSpec.describe "Sushi Controller" do
       # Sanity check
       visit("/user")
       expect(page).to_not have_content("jstor")
-      Sushi.create!(
-        name: "jstor",
-        endpoint: "https://www.jstor.org/sushi",
-        cust_id: "iit.edu",
-        req_id: "galvinlib",
-        report_start: "2016-01-01",
-        report_end: "2016-12-31",
-        password: "",
-        organization_id: 99
-      )
+      create(:sushi, organization_id: 99)
       visit("/sushi")
       first(:link, "Get CSV Report").click
       visit("/user")
@@ -42,52 +25,24 @@ RSpec.describe "Sushi Controller" do
     end
 
     it "fails gracefully on unsuccessful sushi report request" do
-      Sushi.create!(
-        name: "badurl",
-        endpoint: "https://www.badurl.com",
-        cust_id: "iit.edu",
-        req_id: "galvinlib",
-        report_start: "2016-01-01",
-        report_end: "2016-12-31",
-        password: "",
-        organization_id: 99
-      )
+      # Create connection with a bad url
+      create(:sushi, organization_id: 99, endpoint: "www.badurl.com")
       visit("/sushi")
       first(:link, "Get CSV Report").click
       expect(page).to have_content("Failure")
-      expect(page).to have_content("badurl")
     end
 
     it "can test the sushi connection successfully" do
-      Sushi.create!(
-        name: "jstor",
-        endpoint: "https://www.jstor.org/sushi",
-        cust_id: "iit.edu",
-        req_id: "galvinlib",
-        report_start: "2016-01-01",
-        report_end: "2016-12-31",
-        password: "",
-        organization_id: 99
-      )
+      create(:sushi, organization_id: 99)
       visit("/sushi")
       first(:link, "Test Connection").click
       expect(page).to have_content("Success")
     end
 
     it "can test the sushi connection and provide failure message on fail" do
-      Sushi.create!(
-        name: "jstor",
-        endpoint: "https://www.badurl.com",
-        cust_id: "iit.edu",
-        req_id: "galvinlib",
-        report_start: "2016-01-01",
-        report_end: "2016-12-31",
-        password: "",
-        organization_id: 99
-      )
+      create(:sushi, organization_id: 99, endpoint: "www.badurl.com")
       visit("/sushi")
       first(:link, "Test Connection").click
-      expect(page).to have_content("badurl")
       expect(page).to have_content("Failure")
     end
 
@@ -107,23 +62,8 @@ RSpec.describe "Sushi Controller" do
       expect(page).to have_content("test")
     end
 
-    # Still necessary? Need to double check that user_id is needed in sushi
-    #it "automatically populates the user id field with the user's session ID" do
-    #  visit("/sushi/new")
-    #  page.has_selector?("input", text: current_user.id)
-    #end
-
     it "edits sushi connection information", js: true do
-      Sushi.create!(
-        name: "jstor",
-        endpoint: "https://www.jstor.org/sushi",
-        cust_id: "iit.edu",
-        req_id: "galvinlib",
-        report_start: "2016-01-01",
-        report_end: "2016-12-31",
-        password: "",
-        organization_id: 99
-      )
+      create(:sushi, organization_id: 99)
       visit("/sushi")
       first(:link, "Edit").click
       using_wait_time 10 do
@@ -134,16 +74,7 @@ RSpec.describe "Sushi Controller" do
     end
 
     it "deletes sushi connection information" do
-      Sushi.create!(
-        name: "jstor",
-        endpoint: "https://www.jstor.org/sushi",
-        cust_id: "iit.edu",
-        req_id: "galvinlib",
-        report_start: "2016-01-01",
-        report_end: "2016-12-31",
-        password: "",
-        organization_id: 99
-      )
+      create(:sushi, organization_id: 99)
       visit("/sushi")
       expect(page).to have_content("jstor")
       click_button("Delete")
@@ -154,53 +85,20 @@ RSpec.describe "Sushi Controller" do
       # Sanity check
       visit("/sushi")
       expect(page).to_not have_content("jstor")
-      Sushi.create!(
-        name: "jstor",
-        endpoint: "https://www.jstor.org/sushi",
-        cust_id: "iit.edu",
-        req_id: "galvinlib",
-        report_start: "2016-01-01",
-        report_end: "2016-12-31",
-        password: "",
-        organization_id: 99
-      )
-      Organization.create!(
-        id: 17,
-        name: "sample",
-        password: "test",
-        email: "test@example.com"
-      )
-      Sushi.create!(
-        name: "acm",
-        endpoint: "https://www.jstor.org/sushi",
-        cust_id: "iit.edu",
-        req_id: "galvinlib",
-        report_start: "2016-01-01",
-        report_end: "2016-12-31",
-        password: "",
-        organization_id: 17
-      )
+      create(:sushi, organization_id: 99)
+      create(:organization, id: 17)
+      create(:sushi, organization_id: 17)
       visit("/sushi")
       expect(page).to have_content("jstor")
       expect(page).to_not have_content("acm")
     end
 
     it "updated sushi status without page refreshing", js: true do
-      Sushi.create!(
-        name: "jstor",
-        endpoint: "https://www.jstor.org/sushi",
-        cust_id: "iit.edu",
-        req_id: "galvinlib",
-        report_start: "2016-01-01",
-        report_end: "2016-12-31",
-        password: "",
-        organization_id: 99
-      )
+      create(:sushi, organization_id: 99)
       visit("/sushi")
 
-      value = "successfully"
       # Sanity check
-      expect(page).not_to have_content(value)
+      expect(page).not_to have_content("successfully")
 
       # Submit form in new window
       new_window = open_new_window
@@ -211,7 +109,7 @@ RSpec.describe "Sushi Controller" do
 
       # Check for new value in previous window without page refreshing
       switch_to_window(windows.first)
-      expect(page).to have_text(value)
+      expect(page).to have_text("successfully")
     end
   end
 end
