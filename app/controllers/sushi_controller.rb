@@ -2,6 +2,7 @@
 
 class SushiController < ApplicationController
   def index
+    # Check user has correct org permissions
     if member_of_org?
       @sushi = Sushi.order(:name).where(organization_id: current_organization.id)
     else
@@ -10,6 +11,7 @@ class SushiController < ApplicationController
   end
 
   def new
+    # Check user has correct org permissions
     if member_of_org?
       @validsushi = Validsushi.order(:name)
       @sushi = Sushi.new
