@@ -10,7 +10,7 @@ RSpec.describe OrganizationsController do
   end
   let(:org_attributes) do
     @user = create(:user, organization_id: nil)
-    @attrs = attributes_for(:organization)
+    @org_attributes = attributes_for(:organization)
     session[:user_id] = @user.id
   end
   let(:create_user) do
@@ -52,7 +52,7 @@ RSpec.describe OrganizationsController do
           org_attributes
           expect{
             post :create,
-            params: {organization: @attrs}
+            params: {organization: @org_attributes}
           }.to change{Organization.count}.by(1)
         end
         it "updates the current_user's organization_id" do
@@ -60,13 +60,13 @@ RSpec.describe OrganizationsController do
           # Sanity check
           expect(current_user.organization_id).to eq(nil)
 
-          post :create, params: {organization: @attrs}
+          post :create, params: {organization: @org_attributes}
           pending "Passing irregularly"
           expect(current_user.organization_id).to be_truthy
         end
         it "creates a folder in the /storage directory with the org name" do
           org_attributes
-          post :create, params: {organization: @attrs}
+          post :create, params: {organization: @org_attributes}
           expect(File).to exist("#{Rails.root}/storage/IIT")
         end
         it "adds the org_id to all Sushi records associated with the user" do
@@ -74,14 +74,14 @@ RSpec.describe OrganizationsController do
           sushi = create(:sushi, user_id: @user.id)
           # Sanity check
           expect(sushi.organization_id).to eq(nil)
-          post :create, params: {organization: @attrs}
+          post :create, params: {organization: @org_attributes}
           pending "Passing irregularly"
           expect(sushi.organization_id).to be_truthy
         end
         it "redirects to the /user page" do
           create_user_org_pair
           org_attributes
-          post :create, params: {organization: @attrs}
+          post :create, params: {organization: @org_attributes}
           expect(response).to have_http_status(302)
         end
       end
@@ -89,7 +89,7 @@ RSpec.describe OrganizationsController do
         it "redirects to the org/new page" do
           create_user_org_pair
           org_attributes
-          post :create, params: {organization: @attrs}
+          post :create, params: {organization: @org_attributes}
           expect(response).to have_http_status(302)
         end
       end
