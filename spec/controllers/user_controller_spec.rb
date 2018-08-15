@@ -56,8 +56,7 @@ RSpec.describe UserController do
 
           put :update, params: {id: user.id, user: params}
           user.reload
-          pending "User should NOT be able to update without an organization"
-          expect(user.name).to eq("test")
+          expect(user.name).to_not eq("test")
         end
       end
       context "the user updates and is in an organization" do
