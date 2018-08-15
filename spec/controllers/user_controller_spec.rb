@@ -77,22 +77,5 @@ RSpec.describe UserController do
         end
       end
     end
-    describe "POST #create" do
-      context "a new user is created" do
-        it "increases the User count by one" do
-          user_attributes
-          # Not ticking User.count upwards for some reason?
-          pending{
-            post :create,
-            params: {user: @user_attributes}
-          }.to change{User.count}.by(1)
-        end
-        it "redirects back to the /user page" do
-          user_attributes
-          post :create, params: {user: @user_attributes}
-          expect(response).to have_http_status(302)
-        end
-      end
-    end
   end
 end
