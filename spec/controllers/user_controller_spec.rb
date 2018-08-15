@@ -1,19 +1,4 @@
 require "rails_helper"
-def index
-  # Check user has correct org permissions
-  if member_of_org?
-    @user = User.find_by(id: session[:user_id])
-    @data = Datum.order(created_at: :desc).where(organization_id: current_organization.id)
-    user_access_rights?(@user)
-  else
-    redirect_to "/organizations"
-  end
-end
-
-def edit
-  @user = User.find(params[:id])
-  user_access_rights?(@user)
-end
 
 RSpec.describe UserController do
   describe "User Controller Tests" do
@@ -27,17 +12,24 @@ RSpec.describe UserController do
     end
     # To get access to session variables with current_user and current_org
     include ControllerHelper
-    describe "PATCH/PUT :id/#edit" do
-      context "user tries to edit their profile with access rights" do
+    describe "GET #index" do
+      context "user is a member of an organization" do
         it "shows the user the profile info" do
-          pending "incorporate user_access_rights method"
-          pending "User should be able to see profile"
+          create_user_org_pair
+
+          get :index
+
+          expect(response).to render_template("index")
         end
       end
-      context "user tries to edit their profile without access rights" do
-        it "does not show the user the profile info" do
-          pending "incorporate user_access_rights method"
-          pending "User should not be able to see profile"
+      context "user is not a member of an organization" do
+        it "redirects to /organizations" do
+          user = create(:user, organization_id: nil)
+          session[:user_id] = user.id
+
+          get :index
+
+          expect(response).to have_http_status(302)
         end
       end
     end
