@@ -29,10 +29,10 @@ class UserController < ApplicationController
   end
 
   def update
-    @user.update(user_params)
     if current_organization.nil?
       redirect_to("/organizations")
     else
+      @user.update(user_params)
       redirect_to("/user")
     end
   end
