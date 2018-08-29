@@ -3,6 +3,7 @@ class UserController < ApplicationController
   before_action :set_cache_headers
 
   def index
+    # Check user has correct org permissions
     if member_of_org?
       @user = User.find_by(id: session[:user_id])
       @data = Datum.order(created_at: :desc).where(organization_id: current_organization.id)
@@ -28,10 +29,10 @@ class UserController < ApplicationController
   end
 
   def update
-    @user.update(user_params)
     if current_organization.nil?
       redirect_to("/organizations")
     else
+      @user.update(user_params)
       redirect_to("/user")
     end
   end

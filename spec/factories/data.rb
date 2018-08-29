@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :datum do
-    date "MyString"
-    file "MyString"
+    sushi
+    organization
+    date "2017-01-01"
   end
 end

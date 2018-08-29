@@ -2,6 +2,7 @@
 
 class SushiController < ApplicationController
   def index
+    # Check user has correct org permissions
     if member_of_org?
       @sushi = Sushi.order(:name).where(organization_id: current_organization.id)
     else
@@ -10,6 +11,7 @@ class SushiController < ApplicationController
   end
 
   def new
+    # Check user has correct org permissions
     if member_of_org?
       @validsushi = Validsushi.order(:name)
       @sushi = Sushi.new
@@ -32,8 +34,7 @@ class SushiController < ApplicationController
     @sushi = Sushi.find(params[:id])
     unless session[:user_id] == @sushi.user_id || current_organization.id = @sushi.organization_id
       flash[:danger] = "That's not your sushi connection"
-      redirect_to root_path
-      return
+      redirect_to root_path and return
     end
   end
 
@@ -52,8 +53,7 @@ class SushiController < ApplicationController
     @error = helpers.error
     unless session[:user_id] == @sushi.user_id || current_organization.id = @sushi.organization_id
       flash[:danger] = "That's not your sushi connection"
-      redirect_to root_path
-      return
+      redirect_to root_path and return
     end
   end
 
@@ -63,8 +63,7 @@ class SushiController < ApplicationController
     # Ensure user can only access their own connections
     unless session[:user_id] == @sushi.user_id || current_organization.id == @sushi.organization_id
       flash[:danger] = "That's not your sushi connection"
-      redirect_to root_path
-      return
+      redirect_to root_path and return
     end
     begin
       CounterWorker.perform_async(@sushi.id, @organization.id)
@@ -82,8 +81,7 @@ class SushiController < ApplicationController
     @sushi = Sushi.find(params[:id])
     unless current_organization.id == @sushi.organization_id
       flash[:danger] = "That's not your sushi connection"
-      redirect_to root_path
-      return
+      redirect_to root_path and return
     end
     @sushi.destroy
     respond_to do |format|

@@ -1,54 +1,39 @@
 require "rails_helper"
 
-RSpec.describe "Data Controller" do
-  let(:sign_in) do
-    visit "/"
-    mock_auth_hash
-    first(:link, "Login").click
-    Organization.create!(id: 99, name: "hello123", password: "test", email: "test@example.com")
-    current_user.update(organization_id: 99)
+RSpec.describe DataController do
+  let(:create_datum) do
+    @file = create(:datum)
   end
-
-  let(:join_org) do
-    visit("/organizations")
-    click_link "Join"
-    fill_in "organization_password", with: "test"
-    click_button("Confirm")
-  end
-
-  let(:mock_sushi) do
-    Sushi.create!(
-      id: 201,
-      name: "jstor",
-      endpoint: "https://www.jstor.org/sushi",
-      cust_id: "iit.edu",
-      req_id: "galvinlib",
-      report_start: "2016-01-01",
-      report_end: "2016-12-31",
-      password: "",
-      organization_id: current_organization.id
-    )
-    visit("/sushi")
-    click_link("Get CSV Report")
-  end
-
-  describe "Data Features", type: :feature do
-    include ApplicationHelper
-    it "saves CSV to the data model through active storage" do
-      sign_in
-      join_org
-      mock_sushi
-      visit("/user")
-      expect(page).to have_content("jstor")
+  # To get access to session variables with current_user and current_org
+  include ControllerHelper
+  describe "DELETE #destroy" do
+    # If the file deletes successfully
+    context "when a file is deleted" do
+      it "no longer exists" do
+        create_datum
+        delete :destroy, params: { id: @file.id }
+        expect(Datum.where(id: @file.id).count).to eq(0)
+      end
+      it "flashes a success message" do
+        create_datum
+        delete :destroy, params: { id: @file.id }
+        expect(flash[:success]).to eq("File was successfully deleted.")
+      end
     end
-
-    it "allows users to download reports to their browser from the org page" do
-      sign_in
-      join_org
-      mock_sushi
-      visit("/user")
-      click_link("Download")
-      expect(response_headers["Content-Type"]).to eq "text/csv"
+    # If the file fails to delete in ActiveStorage
+    context "when a file fails to delete" do
+      it "does not delete the file" do
+        create_datum
+        # Need to find a way to purposefully get ActiveStorage to fail
+        pending "Failure of ActiveStorage delete"
+        expect(Datum.where(id: @file.id).count).to eq(1)
+      end
+      it "flashes a warning message" do
+        create_datum
+        # Need to find a way to purposefully get ActiveStorage to fail
+        pending "Failure of ActiveStorage delete"
+        expect(flash[:warning]).to eq("Something went wrong - #{@file} was not deleted.")
+      end
     end
   end
 end

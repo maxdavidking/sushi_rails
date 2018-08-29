@@ -1,5 +1,8 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  mount ActionCable.server => "/cable"
   resources :sushi do
     collection do
       get ":id/test", to: "sushi#test"
@@ -24,6 +27,7 @@ Rails.application.routes.draw do
   resources :data
   get "/auth/failure", to: "sessions#destroy"
   post "/", to: "error#not_found"
+  mount Sidekiq::Web => '/sidekiq'
   get "*all", to: "error#not_found", constraints: lambda {|req|
     req.path.exclude? "rails/active_storage"
   }

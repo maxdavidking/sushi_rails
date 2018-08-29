@@ -38,6 +38,7 @@ class OrganizationsController < ApplicationController
 
   def add_org_to_user
     @organization = Organization.find(params[:id])
+    # Check user has correct org permissions
     if member_of_org?
       redirect_to("/user")
       flash[:danger] = "Error: You are already a member of an organization"

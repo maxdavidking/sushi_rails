@@ -222,7 +222,7 @@ module ApplicationHelper
     # ensure org folder exists
     org_folder?(org.name)
     # Write file to org folder
-    CSV.open("#{Rails.root}/storage/#{org.name}/#{sushi.name}-#{DateTime.now.to_s(:db)}.#{@type}", "wb", col_sep: "\,") do |row|
+    CSV.open("#{Rails.root}/storage/#{org.name}/#{sushi.name}.#{@type}", "wb", col_sep: "\,") do |row|
       row << [@doc_version.to_s, "Release: #{@doc_release}"]
       row << ["Requestor ID: #{@doc_requestor}", " Customer ID: #{@doc_customer_ref}"]
       row << ["Period covered by Report:"]
@@ -240,7 +240,21 @@ module ApplicationHelper
 
   def data_store(sushi, org)
     datum = Datum.new(date: Date.today, organization_id: org.id, sushi_id: sushi.id)
-    datum.save!
-    datum.file.attach(io: File.open("#{Rails.root}/storage/#{org.name}/#{sushi.name}-#{DateTime.now.to_s(:db)}.#{@type}"), filename: "#{sushi.name}-#{DateTime.now.to_s(:db)}.#{@type}", content_type: "text/#{@type}")
+    if datum.save
+      datum.file.attach(io: File.open("#{Rails.root}/storage/#{org.name}/#{sushi.name}.#{@type}"), filename: "#{sushi.name}.#{@type}", content_type: "text/#{@type}")
+      broadcast(datum, sushi.id)
+    end
+  end
+
+  def broadcast(datum, sushi_id)
+    if datum.file.attached?
+      ActionCable.server.broadcast 'sushi',
+        filename: datum.file.filename,
+        filepath: Rails.application.routes.url_helpers.rails_blob_path(datum.file, only_path: true)
+    else
+      ActionCable.server.broadcast 'sushi',
+        filename: "Download failed",
+        sushipath: sushi_id
+    end
   end
 end

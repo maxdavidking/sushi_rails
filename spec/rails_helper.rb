@@ -23,9 +23,16 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f }
 require "rspec/rails"
 require "capybara/rspec"
+
+# Lines below to allow Sidekiq to run in test environment
 require "sidekiq/testing"
 Sidekiq::Testing.inline!
+
 OmniAuth.config.test_mode = true
+
+# ActionCable will not work without a multi-threaded web server, so line
+# below is needed
+Capybara.server = :puma
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
@@ -63,6 +70,10 @@ RSpec.configure do |config|
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
+
+  # Add factory_bot methods
+  config.include FactoryBot::Syntax::Methods
+
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
